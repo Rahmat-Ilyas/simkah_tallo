@@ -12,8 +12,8 @@ require('layout/header.php');
 					DIREKTORAT JENDERAL BIMBINGAN MASYARAKAT ISLAM
 					KEMENTERIAN AGAMA REPUBLIK INDONESIA
 				</p>
-				<a class="primary_btn mr-20" href="#">Survei</a>
-				<a class="primary_btn yellow_btn text-white" href="daftar.php">Daftar</a>
+				<!-- <a class="primary_btn mr-20" href="#">Survei</a> -->
+				<a class="primary_btn yellow_btn text-white" href="daftar.php">Pendaftaran Nikah</a>
 			</div>
 		</div>
 	</div>

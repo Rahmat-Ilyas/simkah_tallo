@@ -80,42 +80,78 @@
           <li class="nav-item">
             <a href="index.php" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
-              <p>Home</p>
+              <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="daftar-nikah-oleh-admin.php" class="nav-link">
               <i class="nav-icon fas fa-newspaper"></i>
               <p>Daftar Nikah Oleh Admin</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Pendaftar & Penghulu
-                <i class="right fas fa-angle-left"></i>
+                Input & Data Pendaftar
+                <i class="right fas fa-angle-right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item pl-3">
                 <a href="data-pendaftar.php" class="nav-link">
-                  <i class="fas fa-newspaper nav-icon"></i>
                   <p>Data Pendaftar</p>
                 </a>
               </li>
               <li class="nav-item pl-3">
                 <a href="data-penghulu.php" class="nav-link">
-                  <i class="fas fa-newspaper nav-icon"></i>
-                  <p>Data Penghulu</p>
+                  <p>Pendaftar Disetujui</p>
+                </a>
+              </li>
+              <li class="nav-item pl-3">
+                <a href="data-penghulu.php" class="nav-link">
+                  <p>Tambah Daftar Nikah</p>
                 </a>
               </li>
             </ul>
           </li>
           <li class="nav-item">
             <a href="akta-nikah.php" class="nav-link">
-              <i class="nav-icon fas fa-newspaper"></i>
+              <i class="nav-icon fas fa-file"></i>
               <p>Akta Nikah</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="akta-nikah.php" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>Duplikat Buku Nikah</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-database"></i>
+              <p>
+                Master Data
+                <i class="right fas fa-angle-right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item pl-3">
+                <a href="data-pendaftar.php" class="nav-link">
+                  <p>Data Penghulu</p>
+                </a>
+              </li>
+              <li class="nav-item pl-3">
+                <a href="data-penghulu.php" class="nav-link">
+                  <p>Kelurahan/Desa</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="akta-nikah.php" class="nav-link">
+              <i class="nav-icon fas fa-file-pdf"></i>
+              <p>Laporan</p>
             </a>
           </li>
           <li class="nav-header">MANAGE ACCOUNT</li>

@@ -21,15 +21,15 @@
 	<div class="navbar navbar-inverse navbar-fixed-top" data-spy="affix" data-offset-top="50">
 		<div class="container">
 			<div class="navbar-header">
-				<a href="index.php" class="navbar-brand">SIMKAH</a>
+				<a href="index.php" class="navbar-brand" style="color: #FFF"><b>SIMKAH TALLO</b></a>
 				<a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<i class="fa fa-bars"></i>
 				</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
+					<li><a href="index.php">Beranda</a></li>
 					<li><a href="#">Info Pendaftaran Nikah</a></li>
-					<li><a href="#">Link</a></li>
 				</ul>
 				<ul class="nav pull-right navbar-nav">
 					<li>

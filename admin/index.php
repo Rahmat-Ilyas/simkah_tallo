@@ -8,12 +8,12 @@ require('template/header.php');
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Home</h1>
+          <h1 class="m-0">Dashboard</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Admin</a></li>
-            <li class="breadcrumb-item active">Home</li>
+            <li class="breadcrumb-item active">Dashboard</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -32,7 +32,7 @@ require('template/header.php');
             <div class="inner">
               <h3>150</h3>
 
-              <p>Daftar Nikah Oleh Admin</p>
+              <p>Pendaftaran Masuk</p>
             </div>
             <a href="daftar-nikah-oleh-admin.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
@@ -44,7 +44,7 @@ require('template/header.php');
             <div class="inner">
               <h3>53</h3>
 
-              <p>Data Pendaftar</p>
+              <p>Pendaftaran Disetujui</p>
             </div>
             <a href="data-pendaftar.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
@@ -68,7 +68,7 @@ require('template/header.php');
             <div class="inner">
               <h3>65</h3>
 
-              <p>Akta Nikah</p>
+              <p>Desa/Kelurahan</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>

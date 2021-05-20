@@ -1,3 +1,6 @@
+<?php 
+require('config.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +32,7 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="index.php">Beranda</a></li>
-					<li><a href="#">Info Pendaftaran Nikah</a></li>
+					<li id="info_daftar"><a href="#info_pendaftaran">Info Pendaftaran Nikah</a></li>
 				</ul>
 				<ul class="nav pull-right navbar-nav">
 					<li>

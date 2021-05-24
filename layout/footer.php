@@ -20,7 +20,12 @@
             if (validasi1()) $('[href="#'+nextId+'"]').tab('show');
             else warning_validasi();
         } else if (nextId == 'step3') {
-            $('[href="#'+nextId+'"]').tab('show');
+            if (validasi2()) {
+                // process input to database
+                
+                $('[href="#'+nextId+'"]').tab('show');
+            }
+            else warning_validasi();
         }
         return false;
     })
@@ -34,11 +39,64 @@
         else return true;
     }
 
+    function validasi2() {
+        // data suami
+        var warga_negara_sm = $('#warga_negara_sm').val();
+        var nik_suami = $('#nik_suami').val();
+        var nama_suami = $('#nama_suami').val();
+        var tempat_lahir_sm = $('#tempat_lahir_sm').val();
+        var tggl_lahir_sm = $('#tggl_lahir_sm').val();
+        var umur_suami = $('#umur_suami').val();
+        var alamat_suami = $('#alamat_suami').val();
+        var status_suami = $('#status_suami').val();
+        var agama_suami = $('#agama_suami').val();
+        var no_telepon_sm = $('#no_telepon_sm').val();
+        var email_suami = $('#email_suami').val();
+        var pekerjaan_suami = $('#pekerjaan_suami').val();
+        var pas_foto_sm = $('#pas_foto_sm').prop('files')[0];
+
+        // data istri
+        var warga_negara_is = $('#warga_negara_is').val();
+        var nik_istri = $('#nik_istri').val();
+        var nama_istri = $('#nama_istri').val();
+        var tempat_lahir_is = $('#tempat_lahir_is').val();
+        var tggl_lahir_is = $('#tggl_lahir_is').val();
+        var umur_istri = $('#umur_istri').val();
+        var alamat_istri = $('#alamat_istri').val();
+        var status_istri = $('#status_istri').val();
+        var agama_istri = $('#agama_istri').val();
+        var no_telepon_is = $('#no_telepon_is').val();
+        var email_istri = $('#email_istri').val();
+        var pekerjaan_istri = $('#pekerjaan_istri').val();
+        var pas_foto_is = $('#pas_foto_is').prop('files')[0];
+
+        // data wali
+        var nik_wali = $('#nik_wali').val();
+        var no_kk = $('#no_kk').val();
+        var nama_wali = $('#nama_wali').val();
+        var status_wali = $('#status_wali').val();
+        var agama_wali = $('#agama_wali').val();
+        var hubungan_wali = $('#hubungan_wali').val();
+        var tempat_lahir_wl = $('#tempat_lahir_wl').val();
+        var tggl_lahir_wl = $('#tggl_lahir_wl').val();
+        var umur_wali = $('#umur_wali').val();
+        var alamat_wali = $('#alamat_wali').val();
+        var pekerjaan_wali = $('#pekerjaan_wali').val();
+        var no_telepon_wl = $('#no_telepon_wl').val();
+        var bin = $('#bin').val();
+
+        if (warga_negara_sm == '', nik_suami == '', nama_suami == '', tempat_lahir_sm == '', umur_suami == '', alamat_suami == '', tggl_lahir_sm == '', status_suami == '', agama_suami == '', no_telepon_sm == '', email_suami == '', pekerjaan_suami == '', pas_foto_sm == undefined) return false;
+        else if (warga_negara_is == '', nik_istri == '', nama_istri == '', tempat_lahir_is == '', tggl_lahir_is == '', umur_istri == '', alamat_istri == '', status_istri == '', agama_istri == '', no_telepon_is == '', email_istri == '', pekerjaan_istri == '', pas_foto_is == undefined) return false;
+        else if (nik_wali == '', no_kk == '', nama_wali == '', status_wali == '', agama_wali == '', hubungan_wali == '', tempat_lahir_wl == '', tggl_lahir_wl == '', umur_wali == '', alamat_wali == '', pekerjaan_wali == '', no_telepon_wl == '', bin == '') return false;
+        else if ($('#cek-dokumen').is(':checked') == false) return false;
+        else return true;
+    }
+
     function warning_validasi() {
         Swal.fire({
             icon: 'warning',
             title: 'Lengkapi Data',
-            text: 'Pastikan anda telanh melengkapi semua data inputan',
+            text: 'Pastikan anda telanh melengkapi semua data inputan dan menyetujui persyaratan dokumen',
         })
     }
 

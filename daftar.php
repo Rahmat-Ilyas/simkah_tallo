@@ -57,12 +57,12 @@ require('layout/header.php');
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
                                     <label>Kelurahan/Desa</label>
-                                    <select name="#" class="form-control  input-lg validate-select required-entry" id="desa_id" name="desa_id">
+                                    <select class="form-control  input-lg validate-select required-entry" id="desa_id" name="desa_id">
                                         <option value="">--Pilih Desa/Kelurahan--</option>
                                         <?php 
                                         $desa = mysqli_query($conn, "SELECT * FROM tb_desa");
                                         foreach ($desa as $dsa) { ?>
-                                            <option value="<?= $dsa['nama_desa'] ?>"><?= $dsa['nama_desa'] ?></option>
+                                            <option value="<?= $dsa['id'] ?>"><?= $dsa['nama_desa'] ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -72,7 +72,7 @@ require('layout/header.php');
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
                                     <label>Nikah di</label>
-                                    <select name="#" class="form-control  input-lg validate-select required-entry" id="tempat_nikah" name="tempat_nikah">
+                                    <select class="form-control  input-lg validate-select required-entry" id="tempat_nikah" name="tempat_nikah">
                                         <option value="Di KUA">Di KUA</option>
                                         <option value="Di KUA">Di Luar KUA</option>
                                     </select>
@@ -93,6 +93,23 @@ require('layout/header.php');
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-13">
+                                <div class="form-group">
+                                    <label>Alamat Lokasi Akad Nikah</label>
+                                    <textarea class="form-control" rows="3" placeholder="Alamat Lokasi Akad Nikah" name="lokasi_nikah" id="lokasi_nikah"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-xs-12 col-md-13">
+                                <div class="form-group">
+                                    <label>Email Pendaftaran</label>
+                                    <input class="form-control input-lg" type="email" placeholder="Email Pendaftaran" id="email_pendaftar" name="email_pendaftar">
+                                </div>
+                            </div>
+                        </div> -->
+
                         <div class="row">
                             <div class="col-xs-12">
                                 <button class="btn btn-primary btn-lg btn-block next" type="submit">Selanjutnya&nbsp;<i class="fa fa-arrow-right"></i></button>
@@ -158,14 +175,14 @@ require('layout/header.php');
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xs-12 col-md-13">
+                                        <div class="col-xs-12 col-md-13 find-umur">
                                             <div class="form-group">
                                                 <label>Tanggal Lahir</label>
                                                 <input class="form-control input-lg umur" type="date" name="tggl_lahir_sm" id="tggl_lahir_sm">
                                             </div>
                                             <div class="form-group">
                                                 <label>Umur</label>
-                                                <input type="text" id="umur_suami" class="text-primary form-control input-lg result" placeholder="Umur" name="umur_suami" id=" umur_suami">
+                                                <input type="text" id="umur_suami" class="text-primary form-control input-lg result" placeholder="Umur" name="umur_suami" id="umur_suami">
                                             </div>
                                         </div>
                                     </div>
@@ -181,7 +198,7 @@ require('layout/header.php');
                                         <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>Status</label>
-                                                <select name="#" class="form-control  input-lg validate-select required-entry" defaultvalue="" name="status_suami" id="status_suami">
+                                                <select class="form-control  input-lg validate-select required-entry" defaultvalue="" name="status_suami" id="status_suami">
                                                     <option value="" style="display: none;">Pilih Status</option>
                                                     <option value="Beristri">Beristri</option>
                                                     <option value="Jejaka">Jejaka</option>
@@ -196,22 +213,6 @@ require('layout/header.php');
                                             <div class="form-group">
                                                 <label>Agama</label>
                                                 <input class="form-control input-lg" id="agama_suami" type="text" placeholder="Agama" value="Islam" readonly="" name="agama_suami">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-13">
-                                            <div class="form-group">
-                                                <label>Nomor Hp</label>
-                                                <input class="form-control input-lg" id="" type="number" placeholder="Nomor Hp" id="no_telepon_sm" name="no_telepon_sm">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-13">
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input class="form-control input-lg" type="email" placeholder="Email" id="email_suami" name="email_suami">
                                             </div>
                                         </div>
                                     </div>
@@ -274,7 +275,7 @@ require('layout/header.php');
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xs-12 col-md-13">
+                                        <div class="col-xs-12 col-md-13 find-umur">
                                             <div class="form-group">
                                                 <label>Tanggal Lahir</label>
                                                 <input class="form-control input-lg umur" type="date" name="tggl_lahir_is" id="tggl_lahir_is">
@@ -299,10 +300,9 @@ require('layout/header.php');
                                         <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
                                                 <label>Status</label>
-                                                <select name="#" class="form-control  input-lg validate-select required-entry" defaultvalue="" name="status_istri" id="status_istri">
+                                                <select class="form-control  input-lg validate-select required-entry" defaultvalue="" name="status_istri" id="status_istri">
                                                     <option value="" style="display: none;">Pilih Status</option>
-                                                    <option value="Bersuami">Bersuami</option>
-                                                    <option value="Jejaka">Jejaka</option>
+                                                    <option value="Perawan">Perawan</option>
                                                     <option value="Cerai Mati">Cerai Mati</option>
                                                     <option value="Cerai Hidup">Cerai Hidup</option>
                                                 </select>
@@ -314,22 +314,6 @@ require('layout/header.php');
                                             <div class="form-group">
                                                 <label>Agama</label>
                                                 <input class="form-control input-lg" id="agama_istri" type="text" placeholder="Agama" value="Islam" readonly="" name="agama_istri">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-13">
-                                            <div class="form-group">
-                                                <label>Nomor Hp</label>
-                                                <input class="form-control input-lg" id="" type="number" placeholder="Nomor Hp" id="no_telepon_is" name="no_telepon_is">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-13">
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input class="form-control input-lg" type="email" placeholder="Email" id="email_istri" name="email_istri">
                                             </div>
                                         </div>
                                     </div>
@@ -395,7 +379,7 @@ require('layout/header.php');
                                         <div class="col-xs-12 col-md-13">
                                             <div class="form-group">
                                                 <label>Agama</label>
-                                                <input class="form-control input-lg" id="agama_wali" type="text" placeholder="Agama" name="agama_wali" readonly="">
+                                                <input class="form-control input-lg" id="agama_wali" type="text" placeholder="Agama" name="agama_wali" readonly="" value="Islam">
                                             </div>
                                         </div>
                                     </div>
@@ -416,7 +400,7 @@ require('layout/header.php');
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xs-12 col-md-13">
+                                        <div class="col-xs-12 col-md-13 find-umur">
                                             <div class="form-group">
                                                 <label>Tanggal Lahir</label>
                                                 <input class="form-control input-lg umur" type="date" name="tggl_lahir_wl" id="tggl_lahir_wl">
@@ -438,18 +422,18 @@ require('layout/header.php');
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xs-12 col-md-12">
+                                        <div class="col-xs-12 col-md-13">
                                             <div class="form-group">
-                                                <label>Pekerjaan</label>
-                                                <input type="text" id="pekerjaan_wali" class="form-control input-lg" name="pekerjaan_wali" placeholder="Pekerjaan">
+                                                <label>Nomor Telepon</label>
+                                                <input class="form-control input-lg" type="number" placeholder="Nomor Telepon" id="no_telepon" name="no_telepon">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xs-12 col-md-13">
+                                        <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
-                                                <label>Nomor Hp</label>
-                                                <input class="form-control input-lg" id="" type="number" placeholder="Nomor Hp" id="no_telepon_wl" name="no_telepon_wl">
+                                                <label>Pekerjaan</label>
+                                                <input type="text" id="pekerjaan_wali" class="form-control input-lg" name="pekerjaan_wali" placeholder="Pekerjaan">
                                             </div>
                                         </div>
                                     </div>
@@ -481,7 +465,7 @@ require('layout/header.php');
                                                         <p>Surat Keterangan Untuk Nikah (Didapat dari Kelurahan)</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -489,7 +473,7 @@ require('layout/header.php');
                                                         <p>Surat Izin Orang Tua (Jika calon pengantin umumnya dibawah 21 tahun)</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -497,7 +481,7 @@ require('layout/header.php');
                                                         <p>Surat Dispensasi Pengadilan Agama Bagi Catin Berusia dibawah 19 tahun</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -505,7 +489,7 @@ require('layout/header.php');
                                                         <p>Surat Akta Cerai (Jika calon pengantin sudah cerai)</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -513,7 +497,7 @@ require('layout/header.php');
                                                         <p>Surat Izin Komandan (Jika calon pengantin TNI atau POLRI)</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -521,7 +505,7 @@ require('layout/header.php');
                                                         <p>Surat Akta Kematian (Jika calon pengantin duda/janda ditinggal mati)</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -529,7 +513,7 @@ require('layout/header.php');
                                                         <p>Surat Izin Kedutaan Bagi WNA</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div><br>
                                                 <!-- dokumen istri -->
@@ -543,7 +527,7 @@ require('layout/header.php');
                                                         <p>Surat Keterangan Untuk Nikah (Didapat dari Kelurahan)</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -551,7 +535,7 @@ require('layout/header.php');
                                                         <p>Surat Izin Orang Tua (Jika calon pengantin umumnya dibawah 21 tahun)</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -559,7 +543,7 @@ require('layout/header.php');
                                                         <p>Surat Dispensasi Pengadilan Agama Bagi Catin Berusia dibawah 19 tahun</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -567,7 +551,7 @@ require('layout/header.php');
                                                         <p>Surat Akta Cerai (Jika calon pengantin sudah cerai)</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -575,7 +559,7 @@ require('layout/header.php');
                                                         <p>Surat Izin Komandan (Jika calon pengantin TNI atau POLRI)</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -583,7 +567,7 @@ require('layout/header.php');
                                                         <p>Surat Akta Kematian (Jika calon pengantin duda/janda ditinggal mati)</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div>
                                                 <div class="row col-xs-11 col-md-12">
@@ -591,7 +575,7 @@ require('layout/header.php');
                                                         <p>Surat Izin Kedutaan Bagi WNA</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" disabled checked name="" id="" class="pull-right" value="ya" onclick="">
+                                                        <input type="checkbox" disabled checked name="" class="pull-right" value="ya" onclick="">
                                                     </div>
                                                 </div><br>
                                                 <div class="row col-xs-11 col-md-12">
@@ -613,6 +597,7 @@ require('layout/header.php');
                                     <button class="btn btn-default back" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Kembali</span></button>
                                 </div>
                                 <div class="btn-group btn-group-lg" role="group" aria-label="">
+                                    <input type="hidden"name="submit_daftar" value="true">
                                     <button class="btn btn-success btn-lg btn-block next" type="submit">Mendaftar&nbsp;<i class="fa fa-save"></i></button>
                                 </div>
                             </div>
@@ -656,9 +641,19 @@ require('layout/header.php');
 
 <div id="push"></div>
 
+<div id="loading" hidden="">
+    <span class="loader" hidden=""></span>
+    <div class="textLoader">
+        <center>
+            <b>Sedang Diprose... </b>
+        </center>
+    </div>
+</div>
 
-<?php      
+<?php
 require('layout/footer.php');
+
+// var_dump(unserialize($_COOKIE['data_old']));
 ?> 
 <script>
     $(document).ready(function() {
@@ -713,7 +708,6 @@ require('layout/footer.php');
             var winscroll = $(this).scrollTop();
             if (winscroll >= 420) $('.show-on-scroll').addClass('well style-on-scroll');
             else $('.show-on-scroll').removeClass('well style-on-scroll');
-            console.log(winscroll);
         });
 
         $('.show-on-scroll').find('li').click(function(event) {

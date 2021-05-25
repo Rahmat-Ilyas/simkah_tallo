@@ -22,8 +22,28 @@
         } else if (nextId == 'step3') {
             if (validasi2()) {
                 // process input to database
-                
-                $('[href="#'+nextId+'"]').tab('show');
+                var data = new FormData($('#formDaftar')[0]);
+                $.ajax({
+                    url     : 'controller.php',
+                    method  : "POST",
+                    data    : data,
+                    xhr     : function() {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener('progress', function(evt) {
+                            if (evt.lengthComputable) {
+                                $("#loading, .loader").removeAttr('hidden');
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    contentType : false,
+                    processData: false,
+                    success : function(data) {
+                        $("#loading, .loader").attr('hidden', '');
+                        console.log(data);
+                        // $('[href="#'+nextId+'"]').tab('show');
+                    }
+                });
             }
             else warning_validasi();
         }
@@ -34,8 +54,10 @@
         var desa_id = $('#desa_id').val();
         var tggl_akad = $('#tggl_akad').val();
         var waktu_akad = $('#waktu_akad').val();
+        var lokasi_nikah = $('#lokasi_nikah').val();
+        // var email_pendaftar = $('#email_pendaftar').val();
 
-        if (desa_id == '' || tggl_akad == '' || waktu_akad == '') return false;
+        if (desa_id == '' || tggl_akad == '' || waktu_akad == '' || lokasi_nikah == '') return false;
         else return true;
     }
 
@@ -50,8 +72,6 @@
         var alamat_suami = $('#alamat_suami').val();
         var status_suami = $('#status_suami').val();
         var agama_suami = $('#agama_suami').val();
-        var no_telepon_sm = $('#no_telepon_sm').val();
-        var email_suami = $('#email_suami').val();
         var pekerjaan_suami = $('#pekerjaan_suami').val();
         var pas_foto_sm = $('#pas_foto_sm').prop('files')[0];
 
@@ -65,8 +85,6 @@
         var alamat_istri = $('#alamat_istri').val();
         var status_istri = $('#status_istri').val();
         var agama_istri = $('#agama_istri').val();
-        var no_telepon_is = $('#no_telepon_is').val();
-        var email_istri = $('#email_istri').val();
         var pekerjaan_istri = $('#pekerjaan_istri').val();
         var pas_foto_is = $('#pas_foto_is').prop('files')[0];
 
@@ -81,13 +99,13 @@
         var tggl_lahir_wl = $('#tggl_lahir_wl').val();
         var umur_wali = $('#umur_wali').val();
         var alamat_wali = $('#alamat_wali').val();
+        var no_telepon = $('#no_telepon').val();
         var pekerjaan_wali = $('#pekerjaan_wali').val();
-        var no_telepon_wl = $('#no_telepon_wl').val();
         var bin = $('#bin').val();
 
-        if (warga_negara_sm == '', nik_suami == '', nama_suami == '', tempat_lahir_sm == '', umur_suami == '', alamat_suami == '', tggl_lahir_sm == '', status_suami == '', agama_suami == '', no_telepon_sm == '', email_suami == '', pekerjaan_suami == '', pas_foto_sm == undefined) return false;
-        else if (warga_negara_is == '', nik_istri == '', nama_istri == '', tempat_lahir_is == '', tggl_lahir_is == '', umur_istri == '', alamat_istri == '', status_istri == '', agama_istri == '', no_telepon_is == '', email_istri == '', pekerjaan_istri == '', pas_foto_is == undefined) return false;
-        else if (nik_wali == '', no_kk == '', nama_wali == '', status_wali == '', agama_wali == '', hubungan_wali == '', tempat_lahir_wl == '', tggl_lahir_wl == '', umur_wali == '', alamat_wali == '', pekerjaan_wali == '', no_telepon_wl == '', bin == '') return false;
+        if (warga_negara_sm == '' || nik_suami == '' || nama_suami == '' || tempat_lahir_sm == '' || umur_suami == '' || alamat_suami == '' || tggl_lahir_sm == '' || status_suami == '' || agama_suami == '' || pekerjaan_suami == '' || pas_foto_sm == undefined) return false;
+        else if (warga_negara_is == '' || nik_istri == '' || nama_istri == '' || tempat_lahir_is == '' || tggl_lahir_is == '' || umur_istri == '' || alamat_istri == '' || status_istri == '' || agama_istri == '' || pekerjaan_istri == '' || pas_foto_is == undefined) return false;
+        else if (nik_wali == '' || no_kk == '' || nama_wali == '' || status_wali == '' || agama_wali == '' || hubungan_wali == '' || tempat_lahir_wl == '' || tggl_lahir_wl == '' || umur_wali == '' || alamat_wali == '' || no_telepon == '' || pekerjaan_wali == '' || bin == '') return false;
         else if ($('#cek-dokumen').is(':checked') == false) return false;
         else return true;
     }
@@ -136,7 +154,8 @@
             var dob = new Date(this.value);
             var today = new Date();
             var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-            $('.result').val(age);
+            // $('.result').val(age);
+            $(this).parents('.find-umur').find('.result').val(age);
         });
     }
 

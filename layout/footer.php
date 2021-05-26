@@ -40,6 +40,14 @@
                     processData: false,
                     success : function(data) {
                         $("#loading, .loader").attr('hidden', '');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Pendaftaran Berhasil',
+                            text: 'Selamat Pendaftaran Nikah anda telah berhasil. Selanjutnya silahkan cetak bukti pendaftaran untuk di tunjukkan di kantor KUA Tallo',
+                            preConfirm: () => {
+                                location.href = 'daftar.php';
+                            }
+                        })
                         console.log(data);
                         // $('[href="#'+nextId+'"]').tab('show');
                     }
@@ -141,13 +149,7 @@
     $('#myTabs a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
-    })
-
-    // hitung umur
-
-    // $(function() {
-    //     $( ".umur" ).datepicker();
-    // });
+    });
 
     window.onload=function(){
         $('.umur').on('change', function() {
@@ -159,27 +161,22 @@
         });
     }
 
-    
-
     $(window).scroll(function(){
         handleTopNavAnimation();
     });
 
-    // $(window).load(function(){
-    //     handleTopNavAnimation();
-    // });
-
     function handleTopNavAnimation() {
         var top=$(window).scrollTop();
-
-        if(top>10){
+        if(top>10) {
             $('#site-nav').addClass('navbar-solid'); 
-        }
-        else{
+        } else{
             $('#site-nav').removeClass('navbar-solid'); 
         }
     }
 
+    <?php if (isset($_COOKIE['data_pendaftar'])) { ?>
+        $('[href="#step3"]').tab('show');
+    <?php } ?>
 </script>
 </body>
 </html>

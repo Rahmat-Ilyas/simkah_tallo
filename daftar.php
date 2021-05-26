@@ -597,7 +597,8 @@ require('layout/header.php');
                                     <button class="btn btn-default back" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Kembali</span></button>
                                 </div>
                                 <div class="btn-group btn-group-lg" role="group" aria-label="">
-                                    <input type="hidden"name="submit_daftar" value="true">
+                                    <input type="hidden" name="submit_daftar" value="true">
+                                    <input type="hidden" name="front_input" value="true">
                                     <button class="btn btn-success btn-lg btn-block next" type="submit">Mendaftar&nbsp;<i class="fa fa-save"></i></button>
                                 </div>
                             </div>
@@ -653,7 +654,7 @@ require('layout/header.php');
 <?php
 require('layout/footer.php');
 
-// var_dump(unserialize($_COOKIE['data_old']));
+// var_dump(unserialize($_COOKIE['data_pendaftar']));
 ?> 
 <script>
     $(document).ready(function() {

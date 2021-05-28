@@ -1,7 +1,10 @@
 <?php  
 require('layout/header.php');
+if (isset($_GET['clear_session']) && isset($_COOKIE['data_pendaftar'])) {
+    setcookie('data_pendaftar', null, -1);
+    header('location: index.php');
+}
 ?>  
-
 
 <div style="padding-top: 70px">
     <div class="container panel" id="myWizard" style="">
@@ -609,17 +612,62 @@ require('layout/header.php');
 
                 <!-- step 3 -->
                 <div class="tab-pane fade" id="step3">
-                    <div class="row">
-                        <div class="panel panel-default credit-card-box">
-                            <div class="panel-heading display-table">
-                                <div class="row display-tr">
-                                    <h3 class="panel-title display-td">Payment Details</h3>
+                    <h3>3. Bukti Pendaftaran:</h3><br>
+                    <div class="well">
+                        <div class="text-center">
+                            <div class="panel">
+                                <div class="panel-body text-center">
+                                    <?php if (isset($_COOKIE['data_pendaftar'])) {
+                                        $data = unserialize($_COOKIE['data_pendaftar']); ?>
+                                        <p>
+                                            Selamat Pendaftaran Nikah anda telah berhasil. <br>
+                                            Silahkan mencetak bukti Pendaftaran Nikah Anda di bawah.
+                                        </p>
+                                        <div class="row">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4 bg-success" style="padding: 20px; background-color: #5cb85c; border: 2px solid #333333; border-radius: 15px;">
+                                                <h4>Nomor Pendaftaran Anda</h4>
+                                                <h2><?= $data['no_pendaftarn'] ?></h2>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <p>
+                                            Bukti Pendaftaran ini harus di bawah dan di tunjukkan ke <br>
+                                            petugas KUA untuk melanjutkan pendaftaran di kantor KUA. <br>
+                                            Tetima Kasih
+                                        </p>
+                                    <?php } else { ?>
+                                        <h4><i>Tidak Ada Data Pendaftaran</i></h4>
+                                    <?php } ?>
                                 </div>
                             </div>
-                            <div class="panel-body">
+                            <div class="row">
                                 <div class="btn-group btn-group-justified" role="group" aria-label="">
                                     <div class="btn-group btn-group-lg" role="group" aria-label="">
-                                        <a href="index.php" class="btn btn-default" role="button"><i class="fa fa-home"></i>&nbsp; Beranda</a>
+                                        <a href="#" id="goto-home" class="btn btn-default" role="button"><i class="fa fa-home"></i>&nbsp; Beranda</a>
+                                    </div>
+                                    <div class="btn-group btn-group-lg" role="group" aria-label="">
+                                        <button class="btn btn-primary btn-lg btn-success print" type="button">Cetak Bukti Pendaftaran &nbsp;<i class="fa fa-print"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="tab-pane fade" id="step3">
+                    <div class="row">
+                        <div class="panel panel-default credit-card-box">
+                            <div class="panel-body">
+                                <h3>1. Pilih KUA tempat dimana akan dilaksanakannya Akad Nikah :</h3><br>
+                                <div class="well">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-12">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-group btn-group-justified" role="group" aria-label="">
+                                    <div class="btn-group btn-group-lg" role="group" aria-label="">
+                                        <a href="#" id="goto-home" class="btn btn-default" role="button"><i class="fa fa-home"></i>&nbsp; Beranda</a>
                                     </div>
                                     <div class="btn-group btn-group-lg" role="group" aria-label="">
                                         <button class="btn btn-primary btn-lg btn-success next" type="button">Cetak Bukti Pendaftaran &nbsp;<i class="fa fa-print"></i></button>
@@ -633,7 +681,7 @@ require('layout/header.php');
                             </div>
                         </div>                   
                     </div>
-                </div>
+                </div> -->
                 <!-- end step 3 -->
             </div>
         </form>
@@ -649,6 +697,45 @@ require('layout/header.php');
             <b>Sedang Diprose... </b>
         </center>
     </div>
+</div>
+
+<div class="cetak-pendaftaran" hidden="">
+    <?php if (isset($_COOKIE['data_pendaftar'])){ 
+        $data = unserialize($_COOKIE['data_pendaftar']) ?>
+        <div style="background-color: #fff; padding: 30px;">
+            <h2 style="margin-bottom: 20px;">Bukti Pendaftaran Nikah</h2>
+            <p>Tanggal Pendaftaran: <?= date('d F Y', strtotime($data['tanggal_daftar'])) ?></p>
+            <p>Nomor Pendaftaran: <?= $data['no_pendaftarn'] ?></p>
+
+            <p><b>Detail Calon Pengantin</b></p>
+            <p>Nama Calon Pengantin Pria: <?= $data['nama_suami'] ?></p>
+            <p>NIK Calon Pengantin Pria: <?= $data['nik_suami'] ?></p>
+            <p>Nama Calon Pengantin Wanita: <?= $data['nama_istri'] ?></p>
+            <p>NIK Calon Pengantin Wanita: <?= $data['nik_istri'] ?></p>
+
+            <p><b>Rencana Pelaksanaan Akad Nikah</b></p>
+            <p>Diluar Atau Di KUA: <?= $data['tempat_nikah'] ?></p>
+            <p>Tanggal Akad :</p>
+            <div style="padding-left: 50px;">
+                <p>Tanggal: <?= date('d F Y', strtotime($data['tggl_akad'])) ?></p>
+                <p>Jam: <?= $data['waktu_akad'] ?></p>
+            </div>
+            <p>Alamat Lokasi Akad Nikah: <?= $data['lokasi_nikah'] ?></p>
+            
+            <p><b>Dokumen Yang Perlu Dipersiapkan:</b></p>
+            <p>1. Surat pengantar nikah dari lurah</p>
+            <p>2. Persetujuan calon mempelai</p>
+            <p>3. Fotokopi akte kelahiran</p>
+            <p>4. Fotokopi KTP</p>
+            <p>5. Fotokopi kartu keluarga</p>
+            <p>6. Paspoto 2x3 4 lembar</p>
+            <p>7. Paspoto 4x6 2 lembar</p>
+            <p>8. Akta cerai/surat keterangan kematian jika duda/janda</p>
+            <p>9. Surat izin komandan jika TNI/POLRI</p>
+            <p>10. Surat izin kedutaan jika WNA</p>
+            <p>11. Fotokopi paspor jika WNA</p>
+        </div>       
+    <?php } ?>
 </div>
 
 <?php
@@ -714,6 +801,25 @@ require('layout/footer.php');
         $('.show-on-scroll').find('li').click(function(event) {
             var winscroll = $(window).scrollTop();
             if (winscroll >= 420) $(window).scrollTop(364);
+        });
+
+        $('#goto-home').click(function(event) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Kembali Ke Beranda?',
+                text: 'Pastikan anda telah mencedak atau mendownload bukti pendaftaran sebelum kembali ke beranda!',
+                showCancelButton: true,
+                confirmButtonText: 'Ke Beranda',
+                cancelButtonText: 'Batal',
+                preConfirm: () => {
+                    location.href = 'daftar.php?clear_session=true';
+                }
+            })
+        });
+
+        $('.print').click(function(e) {
+            e.preventDefault();
+            $('.cetak-pendaftaran').printArea();
         });
     })
 </script>                      

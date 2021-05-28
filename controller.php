@@ -40,7 +40,7 @@ if (isset($_POST['submit_daftar'])) {
 	$agama_istri = $_POST['agama_istri'];
 	$pekerjaan_istri = $_POST['pekerjaan_istri'];
 	$pas_foto_is = set_foto($_FILES['pas_foto_is'], 'istri');
-	mysqli_query($conn, "INSERT INTO tb_data_suami VALUES(NULL, '$pendaftar_id', '$warga_negara_is', '$nik_istri', '$nama_istri', '$tempat_lahir_is', '$tggl_lahir_is', '$umur_istri', '$alamat_istri', '$status_istri', '$agama_istri', '$pekerjaan_istri', '$pas_foto_is')");
+	mysqli_query($conn, "INSERT INTO tb_data_istri VALUES(NULL, '$pendaftar_id', '$warga_negara_is', '$nik_istri', '$nama_istri', '$tempat_lahir_is', '$tggl_lahir_is', '$umur_istri', '$alamat_istri', '$status_istri', '$agama_istri', '$pekerjaan_istri', '$pas_foto_is')");
 
 	// data wali
 	$nik_wali = $_POST['nik_wali'];
@@ -56,7 +56,7 @@ if (isset($_POST['submit_daftar'])) {
 	$no_telepon = $_POST['no_telepon'];
 	$pekerjaan_wali = $_POST['pekerjaan_wali'];
 	$bin = $_POST['bin'];
-	mysqli_query($conn, "INSERT INTO tb_data_suami VALUES(NULL, '$pendaftar_id', '$nik_wali', '$no_kk', '$nama_wali', '$status_wali', '$agama_wali', '$hubungan_wali', '$tempat_lahir_wl', '$tggl_lahir_wl', '$umur_wali', '$alamat_wali', '$no_telepon', '$pekerjaan_wali', '$bin')");
+	mysqli_query($conn, "INSERT INTO tb_data_wali VALUES(NULL, '$pendaftar_id', '$nik_wali', '$no_kk', '$nama_wali', '$status_wali', '$agama_wali', '$hubungan_wali', '$tempat_lahir_wl', '$tggl_lahir_wl', '$umur_wali', '$alamat_wali', '$no_telepon', '$pekerjaan_wali', '$bin')");
 
 	if (isset($_POST['front_input'])) {
 		$data_cookie = ['tanggal_daftar' => $tanggal_daftar, 'no_pendaftarn' => $no_pendaftarn, 'nama_suami' => $nama_suami, 'nik_suami' => $nik_suami, 'nama_istri' => $nama_istri, 'nik_istri' => $nik_istri, 'tempat_nikah' => $tempat_nikah, 'tggl_akad' => $tggl_akad, 'waktu_akad' => $waktu_akad, 'lokasi_nikah' => $lokasi_nikah];
@@ -77,6 +77,7 @@ function set_foto($data, $target) {
 function nomor_pendaftarn()  {
 	global $conn;
 	$get_data = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
-	return sprintf("%04d", 0).date('-dm-Y');
+	$count = mysqli_num_rows($get_data);
+	return sprintf("%04d", $count).'-'.rand(0, 9).date('dm-Y');
 }
 ?>

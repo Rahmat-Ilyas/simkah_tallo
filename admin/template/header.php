@@ -1,3 +1,10 @@
+<?php 
+require('../config.php');
+
+if (!isset($_SESSION['login_admin'])) {
+  header("location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -164,7 +171,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="logout.php" class="nav-link">
               <i class="nav-icon fa fa-sign-out-alt"></i>
               <p>
                 Logout

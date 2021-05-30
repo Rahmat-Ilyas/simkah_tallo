@@ -1,12 +1,42 @@
+<!-- MODAL EDIT AKUN -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-edt-akun">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Kelola Akun Masuk</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST">
+        <div class="modal-body px-5" style="margin-bottom: -20px;">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" name="username" required autocomplete="off" placeholder="Username" value="<?=$adm['username'] ?>">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="text" class="form-control" name="password" autocomplete="off" placeholder="Password">
+            <span class="text-info text-sm">Note: Masukkan password baru untuk mengganti password!</span>
+          </div>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="submit" class="btn btn-primary" name="update_akun">Update</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <footer class="main-footer">
-    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Direktorat Jenderal Bimbingan Masyarakat Islam | All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://www.instagram.com/auliaulfiana/?hl=id" target="_blank">VIVI</a>
-  </footer>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> Direktorat Jenderal Bimbingan Masyarakat Islam | All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://www.instagram.com/auliaulfiana/?hl=id" target="_blank">VIVI</a>
+</footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -58,22 +88,54 @@
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- Page specific script -->
+
+<script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
+  // $(function () {
+  //   $("#example1").DataTable({
+  //     "responsive": true, "lengthChange": false, "autoWidth": false,
+  //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+  //   }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  //   $('#example2').DataTable({
+  //     "paging": true,
+  //     "lengthChange": false,
+  //     "searching": false,
+  //     "ordering": true,
+  //     "info": true,
+  //     "autoWidth": false,
+  //     "responsive": true,
+  //   });
+  // });
+  $(document).ready(function() {
+    $('#dataTable').DataTable();
   });
 </script>
 </body>
 </html>
+
+<?php 
+// Update Akun
+if (isset($_POST['update_akun'])) {
+  $id = $adm['id'];
+  $username = $_POST['username'];
+  $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+  if ($_POST['password'] != '') 
+    $query_updt = "UPDATE tb_admin SET username='$username', password='$password' WHERE id='$id'";
+  else
+    $query_updt = "UPDATE tb_admin SET username='$username' WHERE id='$id'";
+
+  $updt = mysqli_query($conn, $query_updt);
+  if ($updt) { ?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Update Berhasil',
+        text: 'Akun Login berhasil di update',
+        preConfirm: () => {
+          window.location.href=window.location.href;
+        }
+      })
+    </script>
+  <?php }
+}
+?>

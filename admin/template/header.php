@@ -4,6 +4,9 @@ require('../config.php');
 if (!isset($_SESSION['login_admin'])) {
   header("location: login.php");
 }
+
+$admin = mysqli_query($conn, "SELECT * FROM tb_admin");
+$adm = mysqli_fetch_assoc($admin);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,13 +147,13 @@ if (!isset($_SESSION['login_admin'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item pl-3">
-                <a href="data-pendaftar.php" class="nav-link">
+                <a href="data-penghulu.php" class="nav-link">
                   <p>Data Penghulu</p>
                 </a>
               </li>
               <li class="nav-item pl-3">
-                <a href="data-penghulu.php" class="nav-link">
-                  <p>Kelurahan/Desa</p>
+                <a href="data-desa.php" class="nav-link">
+                  <p>Data Kelurahan/Desa</p>
                 </a>
               </li>
             </ul>
@@ -163,7 +166,7 @@ if (!isset($_SESSION['login_admin'])) {
           </li>
           <li class="nav-header">MANAGE ACCOUNT</li>
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-edt-akun">
               <i class="nav-icon far fa-user"></i>
               <p>
                 Account

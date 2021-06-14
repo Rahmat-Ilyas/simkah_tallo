@@ -354,9 +354,9 @@ require('template/footer.php');
 
 <script>
 	$(document).ready(function() {
-		$('#data-pendaftar').addClass('active');
-		$('#input-data-pendaftar').addClass('active');
-		$('#input-data-pendaftar').parent('.nav-item').addClass('menu-open');
+		$('#arsip-pendaftaran').addClass('active');
+		$('#master-data').addClass('active');
+		$('#master-data').parent('.nav-item').addClass('menu-open');
 		<?php if ($response == 'success_delete') { ?>
 			Swal.fire({
 				icon: 'success',

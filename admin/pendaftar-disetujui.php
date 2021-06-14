@@ -13,6 +13,7 @@ if (isset($_GET['proses'])) {
 }
 
 $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar WHERE status='acc'");
+$penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 ?>
 
 <div class="content-wrapper">
@@ -327,19 +328,110 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar WHERE status='acc'"
 						</ul>
 
 						<div class="tab-content">
-							<div id="home" class="tab-pane fade in active show">
-								<h4 class="mt-2">Ayah Kandung</h4>
-								<p>Some content.</p>
+							<div id="home" class="tab-pane fade in active show pt-3">
+								<div class="form-group row">
+									<label class="col-sm-3">NIK Ayah</label>
+									<div class="col-sm-6">
+										<input type="number" class="form-control" name="nik_a" required autocomplete="off" placeholder="NIK Ayah" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Nama Ayah</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="nama_a" required autocomplete="off" placeholder="Nama Ayah" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Agama</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="agama_a" required autocomplete="off" placeholder="Agama" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Pekerjaan</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="pekerjaan_a" required autocomplete="off" placeholder="Pekerjaan" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Alamat</label>
+									<div class="col-sm-6">
+										<textarea type="text" class="form-control" name="alamat_a" required placeholder="Alamat"></textarea>
+									</div>
+								</div>
 							</div>
 							<div id="menu1" class="tab-pane fade">
-								<h4 class="mt-2">Ibu Kandung</h4>
-								<p>Some content in menu 1.</p>
+								<div class="form-group row">
+									<label class="col-sm-3">NIK Ibu</label>
+									<div class="col-sm-6">
+										<input type="number" class="form-control" name="nik_i" required autocomplete="off" placeholder="NIK Ibu" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Nama Ibu</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="nama_i" required autocomplete="off" placeholder="Nama Ibu" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Agama</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="agama_i" required autocomplete="off" placeholder="Agama" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Pekerjaan</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="pekerjaan_i" required autocomplete="off" placeholder="Pekerjaan" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Alamat</label>
+									<div class="col-sm-6">
+										<textarea type="text" class="form-control" name="alamat_i" required placeholder="Alamat"></textarea>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="modal-footer bg-whitesmoke br">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-						<a href="?proses=acc_pendaftar&id=<?= $dta['id'] ?>" role="button" class="btn btn-success">Simpan Data</a>
+						<hr>
+						<h4>Data Mas Kawin</h4>
+						<div class="form-group row">
+							<label class="col-sm-3">Jenis Mas Kawin</label>
+							<div class="col-sm-6">
+								<input type="number" class="form-control" name="jenis_mk" required autocomplete="off" placeholder="Jenis Mas Kawin" value="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-3">Jumlah Mas Kawin</label>
+							<div class="col-sm-6">
+								<input type="number" class="form-control" name="jumlah_mk" required autocomplete="off" placeholder="Jumlah Mas Kawin" value="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-3">Pembayaran</label>
+							<div class="col-sm-6">
+								<select class="form-control" name="pembayaran_mk" required>
+									<option value="Tunai">Tunai</option>
+									<option value="Cicil">Cicil</option>
+								</select>
+							</div>
+						</div>
+						<hr>
+						<h4>PPN/Penghulu Yang Memeriksa Akad Nikah</h4>
+						<div class="form-group row">
+							<label class="col-sm-3">Penghulu</label>
+							<div class="col-sm-6">
+								<select class="form-control" name="pembayaran_mk" required>
+									<option value="">--Penghulu--</option>
+									<?php foreach ($penghulu as $pngh) { ?>
+										<option value="<?= $pngh['id'] ?>"><?= $pngh['nama'] ?></option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<hr>
+						<button type="submit" name="set_pemeriksaan" class="btn btn-success mb-2">Simpan & Lanjutkan Pemeriksaan</button>
+						<button type="button" class="btn btn-secondary mb-2" data-dismiss="modal">Tutup</button>
 					</div>
 				</form>
 			</div>

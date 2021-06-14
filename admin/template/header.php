@@ -119,26 +119,26 @@ $adm = mysqli_fetch_assoc($admin);
                 </a>
               </li>
               <li class="nav-item pl-3">
-                <a href="data-penghulu.php" class="nav-link">
+                <a href="tambah-data-nikah.php" class="nav-link" id="tambah-data-nikah">
                   <p>Tambah Daftar Nikah</p>
                 </a>
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <a href="akta-nikah.php" class="nav-link">
+            <a href="akta-nikah.php" class="nav-link" id="akta-nikah">
               <i class="nav-icon fas fa-file"></i>
               <p>Akta Nikah</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="akta-nikah.php" class="nav-link">
+            <a href="duplikat-buku-nikah.php" class="nav-link" id="duplikat-buku-nikah">
               <i class="nav-icon fas fa-copy"></i>
               <p>Duplikat Buku Nikah</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" id="master-data">
               <i class="nav-icon fas fa-database"></i>
               <p>
                 Master Data
@@ -147,24 +147,24 @@ $adm = mysqli_fetch_assoc($admin);
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item pl-3">
-                <a href="data-penghulu.php" class="nav-link">
+                <a href="data-penghulu.php" class="nav-link" id="data-penghulu">
                   <p>Data Penghulu</p>
                 </a>
               </li>
               <li class="nav-item pl-3">
-                <a href="data-desa.php" class="nav-link">
+                <a href="data-desa.php" class="nav-link" id="data-desa">
                   <p>Data Kelurahan/Desa</p>
                 </a>
               </li>
               <li class="nav-item pl-3">
-                <a href="data-desa.php" class="nav-link">
+                <a href="arsip-pendaftaran.php" class="nav-link" id="arsip-pendaftaran">
                   <p>Arsip Data Pendaftar</p>
                 </a>
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <a href="akta-nikah.php" class="nav-link">
+            <a href="laporan.php" class="nav-link" id="laporan">
               <i class="nav-icon fas fa-file-pdf"></i>
               <p>Laporan</p>
             </a>

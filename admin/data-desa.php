@@ -177,6 +177,9 @@ require('template/footer.php');
 
 <script>
 	$(document).ready(function() {
+		$('#data-desa').addClass('active');
+		$('#master-data').addClass('active');
+		$('#master-data').parent('.nav-item').addClass('menu-open');
 		<?php if ($response == 'success_add') { ?>
 			Swal.fire({
 				icon: 'success',

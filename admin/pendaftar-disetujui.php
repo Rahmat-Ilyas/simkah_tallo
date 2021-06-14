@@ -26,7 +26,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar WHERE status='acc'"
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="index.php">Admin</a></li>
 						<li class="breadcrumb-item active">Input & Data Pendaftar</li>
-						<li class="breadcrumb-item active">Data Pendaftar</li>
+						<li class="breadcrumb-item active">Pendaftar Disetujui</li>
 					</ol>
 				</div><!-- /.col -->
 			</div><!-- /.row -->
@@ -42,7 +42,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar WHERE status='acc'"
 					<div class="col-12">
 						<div class="card">
 							<div class="card-header">
-								<h3>Data Pendaftar Baru</h3>
+								<h3>Data Pendaftar Disetujui</h3>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
@@ -75,8 +75,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar WHERE status='acc'"
 												<td><?= date('d/m/Y', strtotime($dta['tggl_akad'])).' '.$dta['waktu_akad'] ?></td>
 												<td class="text-center">
 													<a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-detail<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Detail Pendaftar"><i class="fa fa-list"></i></a>
-													<a href="#" class="btn btn-sm btn-secondary print-surat" data-id="<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Cetak Surat"><i class="fa fa-print"></i></a>
-													<a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-acc<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Proses Pendaftaran"><i class="fa fa-check"></i></a>
+													<a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-next<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Lanjutkan Pemeriksaan"><i class="fa fa-check"></i></a>
 												</td>
 											</tr>
 											<?php $no=$no+1; 
@@ -306,82 +305,47 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar WHERE status='acc'"
 	</div>
 
 	<!-- MODAL ACCEPT -->
-	<div class="modal fade" tabindex="-1" role="dialog" id="modal-acc<?= $dta['id'] ?>">
-		<div class="modal-dialog" role="document">
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-next<?= $dta['id'] ?>">
+		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Proses Pendaftaran</h5>
+					<h5 class="modal-title">Lanjutkan Pemeriksaan</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<form method="POST">
-					<div class="modal-body">
-						Silahkan pilih proses berikut!
+					<div class="modal-body px-5">
+						<h4>Data Orang Tua</h4>
+						<ul class="nav nav-tabs tabs">
+							<li class="nav-item">
+								<a class="nav-link active" data-toggle="tab" href="#home">Ayah Kandung</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#menu1">Ibu Kandung</a>
+							</li>
+						</ul>
+
+						<div class="tab-content">
+							<div id="home" class="tab-pane fade in active show">
+								<h4 class="mt-2">Ayah Kandung</h4>
+								<p>Some content.</p>
+							</div>
+							<div id="menu1" class="tab-pane fade">
+								<h4 class="mt-2">Ibu Kandung</h4>
+								<p>Some content in menu 1.</p>
+							</div>
+						</div>
 					</div>
 					<div class="modal-footer bg-whitesmoke br">
-						<a href="?proses=refuse_pendaftar&id=<?= $dta['id'] ?>" role="button" class="btn btn-danger">Tolak Pendaftar</a>
-						<a href="?proses=acc_pendaftar&id=<?= $dta['id'] ?>" role="button" class="btn btn-success">Terima &Lanjutkan</a>
-						<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button> -->
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+						<a href="?proses=acc_pendaftar&id=<?= $dta['id'] ?>" role="button" class="btn btn-success">Simpan Data</a>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-
-	<!-- PRINT SURAT -->
-	<div id="print-surat<?= $dta['id'] ?>" class="p-5" style="font-size: 20px;" hidden="">
-		<div class="row">
-			<span class="col-sm-6" style="width: 70%">Prihal : Permohonan kehendak Nikah</span>
-			<span class="col-sm-4" style="width: 30%; text-align: right;"><?= date('d F Y') ?></span>
-		</div>
-		Kepada yth,<br>
-		Kepala KUA Kecamatan TALLO <br>
-		di tempt <br><br><br>
-
-		Assalamualaikum wr. wb. <br>
-		&emsp;&emsp;&emsp; Dengan hormat, kami mengajukan permohonan kehendak nikah untuk
-		Bersama ini kami sampaikan surat-surat yang diperlukan untuk atas nama kami calon suami : <u><?= $dsm['nama'] ?></u> dengan calon istri : <u><?= $dis['nama'] ?></u> pada hari <u>Rabu</u> tanggal <u><?= date('d F Y', strtotime($dta['tggl_akad'])) ?></u> jam <u><?= $dta['waktu_akad'] ?></u> bertempat di <u><?= $dta['lokasi_nikah'] ?></u><br><br>
-		&emsp;&emsp;&emsp; Bersama ini kami sampaikan surat-surat yang diperlukan untuk diperiksa sebagai berikut: <br>
-		1. Surat pengantar nikah dari Lurah<br>
-		2. Persetujuan calon mempelai<br>
-		3. Fotokopi akte kelahiran<br>
-		4. Fotokopi KTP<br>
-		5. Fotokopi kartu keluarga<br>
-		6. Paspoto 2x3 4 lembar<br>
-		8. Akta cerai/surat keterangan kematian jika duda/janda<br>
-		10. Surat izin kedutaan jika WNA<br>
-		7. Paspoto 4x6 2 lembar<br>
-		9. Surat izin komandan jika TNI/POLRI<br>
-		11. Fotokopi paspor jika WNA<br><br>
-		&emsp;&emsp;&emsp; Demikian permohonan ini kami sampaikan, kiranya dapat diperiksa
-		dihadiri dengan dicatat sesuai dengan ketentuan peraturan perundang-undangan. <br><br>
-
-		<div class="row">
-			<div class="col-sm-7" style="width: 70%;">
-				Diterima tanggal ........................<br>
-				Yang menerima,<br>
-				Kepala KUA/Penghulu <br>
-				<br>
-				<br>
-				<br>
-				<br>
-				.............................................
-			</div>
-			<div class="col-sm-5 text-center" style="width: 30%;">
-				Wassalam,<br>
-				Pemohon <br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<?= $dsm['nama'] ?>
-			</div>
-		</div>
-	</div>
-<?php } ?>
-
-<?php  
+<?php } 
 require('template/footer.php');
 ?>
 

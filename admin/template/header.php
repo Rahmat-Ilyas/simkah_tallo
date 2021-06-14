@@ -119,7 +119,7 @@ $adm = mysqli_fetch_assoc($admin);
                 </a>
               </li>
               <li class="nav-item pl-3">
-                <a href="tambah-data-nikah.php" class="nav-link" id="tambah-data-nikah">
+                <a href="tambah-daftar-nikah.php" class="nav-link" id="tambah-data-nikah">
                   <p>Tambah Daftar Nikah</p>
                 </a>
               </li>

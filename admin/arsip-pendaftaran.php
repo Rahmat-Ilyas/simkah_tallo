@@ -2,32 +2,19 @@
 require('template/header.php');
 $response = null;
 // Update Status
-if (isset($_POST['set_pemeriksaan'])) {
-	$pendaftar_id = $_POST['pendaftar_id'];
-	$nik_a = $_POST['nik_a'];
-	$nama_a = $_POST['nama_a'];
-	$agama_a = $_POST['agama_a'];
-	$pekerjaan_a = $_POST['pekerjaan_a'];
-	$alamat_a = $_POST['alamat_a'];
-	$nik_i = $_POST['nik_i'];
-	$nama_i = $_POST['nama_i'];
-	$agama_i = $_POST['agama_i'];
-	$pekerjaan_i = $_POST['pekerjaan_i'];
-	$alamat_i = $_POST['alamat_i'];
-	$jenis_mk = $_POST['jenis_mk'];
-	$jumlah_mk = $_POST['jumlah_mk'];
-	$pembayaran_mk = $_POST['pembayaran_mk'];
-	$penghulu_id = $_POST['penghulu_id'];
+if (isset($_GET['delete'])) {
+	$id = $_GET['id'];
 
-	$add = mysqli_query($conn, "INSERT INTO tb_pemeriksaan VALUES (NULL, '$pendaftar_id', '$nik_a', '$nama_a', '$agama_a', '$pekerjaan_a', '$alamat_a', '$nik_i', '$nama_i', '$agama_i', '$pekerjaan_i', '$alamat_i', '$jenis_mk', '$jumlah_mk', '$pembayaran_mk')");
-	$updt = mysqli_query($conn, "UPDATE tb_pendaftar SET penghulu_id='$penghulu_id', status='finish' WHERE id='$pendaftar_id'");
-
-	if ($add && $updt) $response = 'success_accept';
+	$del1 = mysqli_query($conn, "DELETE FROM tb_pendaftar WHERE id='$id'");
+	$del2 = mysqli_query($conn, "DELETE FROM tb_data_istri WHERE pendaftar_id='$id'");
+	$del3 = mysqli_query($conn, "DELETE FROM tb_data_suami WHERE pendaftar_id='$id'");
+	$del4 = mysqli_query($conn, "DELETE FROM tb_data_wali WHERE pendaftar_id='$id'");
+	$del5 = mysqli_query($conn, "DELETE FROM tb_pemeriksaan WHERE pendaftar_id='$id'");
+	if ($del1 && $del2 && $del3 && $del4 && $del5) $response = 'success_delete';
 	else $response = 'error';
 }
 
-$pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar WHERE status='acc'");
-$penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
+$pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar ORDER BY id DESC");
 ?>
 
 <div class="content-wrapper">
@@ -40,8 +27,8 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="index.php">Admin</a></li>
-						<li class="breadcrumb-item active">Input & Data Pendaftar</li>
-						<li class="breadcrumb-item active">Pendaftar Disetujui</li>
+						<li class="breadcrumb-item active">Master Data</li>
+						<li class="breadcrumb-item active">Arsip Data Pendaftar</li>
 					</ol>
 				</div><!-- /.col -->
 			</div><!-- /.row -->
@@ -57,7 +44,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 					<div class="col-12">
 						<div class="card">
 							<div class="card-header">
-								<h3>Data Pendaftar Disetujui</h3>
+								<h3>Arsip Data Pendaftar</h3>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
@@ -70,6 +57,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 											<th>Nama Suami</th>
 											<th>Nama Istri</th>
 											<th>Tggl Akad</th>
+											<th>Status</th>
 											<th width="120">Aksi</th>
 										</tr>
 									</thead>
@@ -80,6 +68,20 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 											$data_is = mysqli_query($conn, "SELECT * FROM tb_data_istri WHERE pendaftar_id='$pendaftar_id'");
 											$dsm = mysqli_fetch_assoc($data_sm);
 											$dis = mysqli_fetch_assoc($data_is);
+
+											if ($dta['status'] == 'new') {
+												$status = 'Baru';
+												$warna = 'info';
+											} else if ($dta['status'] == 'acc') {
+												$status = 'Proses';
+												$warna = 'primary';
+											} else if ($dta['status'] == 'finish') {
+												$status = 'Selesai';
+												$warna = 'success';
+											} else if ($dta['status'] == 'refuse') {
+												$status = 'Ditolak';
+												$warna = 'danger';
+											}
 											?>
 											<tr>
 												<td><?= $no ?></td>
@@ -88,9 +90,12 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 												<td><?= $dsm['nama'] ?></td>
 												<td><?= $dis['nama'] ?></td>
 												<td><?= date('d/m/Y', strtotime($dta['tggl_akad'])).' '.$dta['waktu_akad'] ?></td>
+												<td>
+													<span class="badge badge-pill badge-<?= $warna ?>"><?= $status ?></span>
+												</td>
 												<td class="text-center">
 													<a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-detail<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Detail Pendaftar"><i class="fa fa-list"></i></a>
-													<a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-next<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Lanjutkan Pemeriksaan"><i class="fa fa-check"></i></a>
+													<a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-hapus<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Hapus Data"><i class="fa fa-trash"></i></a>
 												</td>
 											</tr>
 											<?php $no=$no+1; 
@@ -319,153 +324,44 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 		</div>
 	</div>
 
-	<!-- MODAL ACCEPT -->
-	<div class="modal fade" tabindex="-1" role="dialog" id="modal-next<?= $dta['id'] ?>">
-		<div class="modal-dialog modal-lg" role="document">
+	<!-- MODAL HAPUS -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-hapus<?= $dta['id'] ?>">
+		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Lanjutkan Pemeriksaan</h5>
+					<h5 class="modal-title">Hapus Data?</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<form method="POST">
-					<div class="modal-body px-5">
-						<h4>Data Orang Tua</h4>
-						<ul class="nav nav-tabs tabs">
-							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#home">Ayah Kandung</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#menu1">Ibu Kandung</a>
-							</li>
-						</ul>
-
-						<div class="tab-content">
-							<div id="home" class="tab-pane fade in active show pt-3">
-								<div class="form-group row">
-									<label class="col-sm-3">NIK Ayah</label>
-									<div class="col-sm-6">
-										<input type="number" class="form-control" name="nik_a" required autocomplete="off" placeholder="NIK Ayah" value="">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-3">Nama Ayah</label>
-									<div class="col-sm-6">
-										<input type="text" class="form-control" name="nama_a" required autocomplete="off" placeholder="Nama Ayah" value="">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-3">Agama</label>
-									<div class="col-sm-6">
-										<input type="text" class="form-control" name="agama_a" required autocomplete="off" placeholder="Agama" value="">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-3">Pekerjaan</label>
-									<div class="col-sm-6">
-										<input type="text" class="form-control" name="pekerjaan_a" required autocomplete="off" placeholder="Pekerjaan" value="">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-3">Alamat</label>
-									<div class="col-sm-6">
-										<textarea type="text" class="form-control" name="alamat_a" required placeholder="Alamat"></textarea>
-									</div>
-								</div>
-							</div>
-							<div id="menu1" class="tab-pane fade pt-3">
-								<div class="form-group row">
-									<label class="col-sm-3">NIK Ibu</label>
-									<div class="col-sm-6">
-										<input type="number" class="form-control" name="nik_i" required autocomplete="off" placeholder="NIK Ibu" value="">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-3">Nama Ibu</label>
-									<div class="col-sm-6">
-										<input type="text" class="form-control" name="nama_i" required autocomplete="off" placeholder="Nama Ibu" value="">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-3">Agama</label>
-									<div class="col-sm-6">
-										<input type="text" class="form-control" name="agama_i" required autocomplete="off" placeholder="Agama" value="">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-3">Pekerjaan</label>
-									<div class="col-sm-6">
-										<input type="text" class="form-control" name="pekerjaan_i" required autocomplete="off" placeholder="Pekerjaan" value="">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-sm-3">Alamat</label>
-									<div class="col-sm-6">
-										<textarea type="text" class="form-control" name="alamat_i" required placeholder="Alamat"></textarea>
-									</div>
-								</div>
-							</div>
-						</div>
-						<hr>
-						<h4>Data Mas Kawin</h4>
-						<div class="form-group row">
-							<label class="col-sm-3">Jenis Mas Kawin</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control" name="jenis_mk" required autocomplete="off" placeholder="Jenis Mas Kawin" value="">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-3">Jumlah Mas Kawin</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control" name="jumlah_mk" required autocomplete="off" placeholder="Jumlah Mas Kawin" value="">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-3">Pembayaran</label>
-							<div class="col-sm-6">
-								<select class="form-control" name="pembayaran_mk" required>
-									<option value="Tunai">Tunai</option>
-									<option value="Cicil">Cicil</option>
-								</select>
-							</div>
-						</div>
-						<hr>
-						<h4>PPN/Penghulu Yang Memeriksa Akad Nikah</h4>
-						<div class="form-group row">
-							<label class="col-sm-3">Penghulu</label>
-							<div class="col-sm-6">
-								<select class="form-control" name="penghulu_id" required>
-									<option value="">--Penghulu--</option>
-									<?php foreach ($penghulu as $pngh) { ?>
-										<option value="<?= $pngh['id'] ?>"><?= $pngh['nama'] ?></option>
-									<?php } ?>
-								</select>
-							</div>
-						</div>
-						<hr>
-						<input type="hidden" name="pendaftar_id" value="<?= $pendaftar_id ?>">
-						<button type="submit" name="set_pemeriksaan" class="btn btn-success mb-2">Simpan & Lanjutkan Pemeriksaan</button>
-						<button type="button" class="btn btn-secondary mb-2" data-dismiss="modal">Tutup</button>
+					<div class="modal-body">
+						Yakin ingin menghapus data ini?
+					</div>
+					<div class="modal-footer bg-whitesmoke br">
+						<a href="?delete=true&id=<?= $dta['id'] ?>" role="button" class="btn btn-danger">Hapus</a>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-<?php } 
+<?php } ?>
+
+<?php  
 require('template/footer.php');
 ?>
 
 <script>
 	$(document).ready(function() {
-		$('#data-disetujui').addClass('active');
+		$('#data-pendaftar').addClass('active');
 		$('#input-data-pendaftar').addClass('active');
 		$('#input-data-pendaftar').parent('.nav-item').addClass('menu-open');
-		<?php if ($response == 'success_accept') { ?>
+		<?php if ($response == 'success_delete') { ?>
 			Swal.fire({
 				icon: 'success',
-				title: 'Proses Berhasil',
-				text: 'Pemeriksaan telah selesai dan telah selesai di proses',
+				title: 'Berhasil Dihapus',
+				text: 'Data telah berhasil dihapus',
 				preConfirm: () => {
 					window.location.href=window.location.href.split('?')[0];
 				}
@@ -476,15 +372,9 @@ require('template/footer.php');
 				title: 'Terjadi Kesalahan',
 				text: 'Terjadi kesalahan. Gagal memproses data',
 				preConfirm: () => {
-					window.location.href=window.location.href;
+					window.location.href=window.location.href.split('?')[0];
 				}
 			});
 		<?php } ?>
-
-		$('.print-surat').click(function(e) {
-			e.preventDefault();
-			var id = $(this).attr('data-id');
-			$('#print-surat'+id).printArea();
-		});
 	});
 </script>

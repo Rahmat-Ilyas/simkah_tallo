@@ -2,9 +2,12 @@
 require('template/header.php');
 $response = null;
 // Update Status
-if (isset($_GET['acc_pendaftar'])) {
+if (isset($_GET['proses'])) {
 	$id = $_GET['id'];
-	$res = mysqli_query($conn, "UPDATE tb_pendaftar SET status='acc' WHERE id='$id'");
+	if ($_GET['proses'] == 'acc_pendaftar') $status = 'acc';
+	else if ($_GET['proses'] == 'refuse_pendaftar') $status = 'refuse';
+
+	$res = mysqli_query($conn, "UPDATE tb_pendaftar SET status='$status' WHERE id='$id'");
 	if ($res) $response = 'success_accept';
 	else $response = 'error';
 }
@@ -73,7 +76,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar WHERE status='new'"
 												<td class="text-center">
 													<a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-detail<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Detail Pendaftar"><i class="fa fa-list"></i></a>
 													<a href="#" class="btn btn-sm btn-secondary print-surat" data-id="<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Cetak Surat"><i class="fa fa-print"></i></a>
-													<a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-acc<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Lanjutkan Pendaftaran"><i class="fa fa-check"></i></a>
+													<a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-acc<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Proses Pendaftaran"><i class="fa fa-check"></i></a>
 												</td>
 											</tr>
 											<?php $no=$no+1; 
@@ -307,18 +310,19 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar WHERE status='new'"
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Lanjutkan Pendaftaran</h5>
+					<h5 class="modal-title">Proses Pendaftaran</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<form method="POST">
 					<div class="modal-body">
-						Setujui dan Lanjutkan Pendaftaran ini?
+						Silahkan pilih proses berikut!
 					</div>
 					<div class="modal-footer bg-whitesmoke br">
-						<a href="?acc_pendaftar=true&id=<?= $dta['id'] ?>" role="button" class="btn btn-success" name="edit_data">Lanjutkan</a>
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+						<a href="?proses=refuse_pendaftar&id=<?= $dta['id'] ?>" role="button" class="btn btn-danger">Tolak Pendaftar</a>
+						<a href="?proses=acc_pendaftar&id=<?= $dta['id'] ?>" role="button" class="btn btn-success">Terima &Lanjutkan</a>
+						<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button> -->
 					</div>
 				</form>
 			</div>
@@ -383,11 +387,14 @@ require('template/footer.php');
 
 <script>
 	$(document).ready(function() {
+		$('#data-pendaftar').addClass('active');
+		$('#input-data-pendaftar').addClass('active');
+		$('#input-data-pendaftar').parent('.nav-item').addClass('menu-open');
 		<?php if ($response == 'success_accept') { ?>
 			Swal.fire({
 				icon: 'success',
 				title: 'Proses Berhasil',
-				text: 'Data pendaftar berhasil disetujui',
+				text: 'Data pendaftar berhasil diproses',
 				preConfirm: () => {
 					window.location.href=window.location.href.split('?')[0];
 				}
@@ -404,9 +411,9 @@ require('template/footer.php');
 		<?php } ?>
 
 		$('.print-surat').click(function(e) {
-            e.preventDefault();
-            var id = $(this).attr('data-id');
-            $('#print-surat'+id).printArea();
-        });
+			e.preventDefault();
+			var id = $(this).attr('data-id');
+			$('#print-surat'+id).printArea();
+		});
 	});
 </script>

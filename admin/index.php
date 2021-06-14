@@ -100,3 +100,9 @@ require('template/header.php');
 <?php  
 require('template/footer.php');
 ?>
+
+<script>
+  $(document).ready(function() {
+    $('#dashboard').addClass(' active');
+  });
+</script>

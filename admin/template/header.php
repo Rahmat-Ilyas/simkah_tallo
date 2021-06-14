@@ -88,7 +88,7 @@ $adm = mysqli_fetch_assoc($admin);
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="index.php" class="nav-link">
+            <a href="index.php" class="nav-link" id="dashboard">
               <i class="nav-icon fas fa-home"></i>
               <p>Dashboard</p>
             </a>
@@ -100,7 +100,7 @@ $adm = mysqli_fetch_assoc($admin);
             </a>
           </li> -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" id="input-data-pendaftar">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Input & Data Pendaftar
@@ -109,12 +109,12 @@ $adm = mysqli_fetch_assoc($admin);
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item pl-3">
-                <a href="data-pendaftar.php" class="nav-link">
+                <a href="data-pendaftar.php" class="nav-link" id="data-pendaftar">
                   <p>Data Pendaftar</p>
                 </a>
               </li>
               <li class="nav-item pl-3">
-                <a href="data-penghulu.php" class="nav-link">
+                <a href="pendaftar-disetujui.php" class="nav-link" id="data-disetujui">
                   <p>Pendaftar Disetujui</p>
                 </a>
               </li>

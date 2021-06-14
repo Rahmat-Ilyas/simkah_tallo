@@ -87,6 +87,7 @@
 <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="../js/jquery.PrintArea.js"></script>
 <!-- Page specific script -->
 
 <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
@@ -107,6 +108,7 @@
   //   });
   // });
   $(document).ready(function() {
+    $(document).tooltip({ selector: '[data-toggle1="tooltip"]' });
     $('#dataTable').DataTable();
   });
 </script>
@@ -134,7 +136,7 @@ if (isset($_POST['update_akun'])) {
         preConfirm: () => {
           window.location.href=window.location.href;
         }
-      })
+      });
     </script>
   <?php }
 }

@@ -156,6 +156,11 @@ $adm = mysqli_fetch_assoc($admin);
                   <p>Data Kelurahan/Desa</p>
                 </a>
               </li>
+              <li class="nav-item pl-3">
+                <a href="data-desa.php" class="nav-link">
+                  <p>Arsip Data Pendaftar</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">

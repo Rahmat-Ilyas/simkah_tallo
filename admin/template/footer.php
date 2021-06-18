@@ -92,21 +92,21 @@
 
 <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <script>
-  // $(function () {
-  //   $("#example1").DataTable({
-  //     "responsive": true, "lengthChange": false, "autoWidth": false,
-  //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-  //   }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  //   $('#example2').DataTable({
-  //     "paging": true,
-  //     "lengthChange": false,
-  //     "searching": false,
-  //     "ordering": true,
-  //     "info": true,
-  //     "autoWidth": false,
-  //     "responsive": true,
-  //   });
-  // });
+  $(function () {
+    $("#dataTablelaporan").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["excel", "pdf", "print", ]
+    }).buttons().container().appendTo('#dataTablelaporan_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
   $(document).ready(function() {
     $(document).tooltip({ selector: '[data-toggle1="tooltip"]' });
     $('#dataTable').DataTable();

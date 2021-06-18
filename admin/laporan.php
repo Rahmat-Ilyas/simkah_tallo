@@ -1,18 +1,5 @@
 <?php  
 require('template/header.php');
-$response = null;
-// Update Status
-if (isset($_GET['delete'])) {
-	$id = $_GET['id'];
-
-	$del1 = mysqli_query($conn, "DELETE FROM tb_pendaftar WHERE id='$id'");
-	$del2 = mysqli_query($conn, "DELETE FROM tb_data_istri WHERE pendaftar_id='$id'");
-	$del3 = mysqli_query($conn, "DELETE FROM tb_data_suami WHERE pendaftar_id='$id'");
-	$del4 = mysqli_query($conn, "DELETE FROM tb_data_wali WHERE pendaftar_id='$id'");
-	$del5 = mysqli_query($conn, "DELETE FROM tb_pemeriksaan WHERE pendaftar_id='$id'");
-	if ($del1 && $del2 && $del3 && $del4 && $del5) $response = 'success_delete';
-	else $response = 'error';
-}
 
 $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar ORDER BY id DESC");
 ?>
@@ -27,8 +14,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar ORDER BY id DESC");
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="index.php">Admin</a></li>
-						<li class="breadcrumb-item active">Master Data</li>
-						<li class="breadcrumb-item active">Arsip Data Pendaftar</li>
+						<li class="breadcrumb-item active">Laporan</li>
 					</ol>
 				</div><!-- /.col -->
 			</div><!-- /.row -->
@@ -44,7 +30,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar ORDER BY id DESC");
 					<div class="col-12">
 						<div class="card">
 							<div class="card-header">
-								<h3>Arsip Data Pendaftar</h3>
+								<h3>Arsip Data Lapoaran Pendaftar</h3>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">

@@ -349,10 +349,10 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar WHERE status='new'"
 		4. Fotokopi KTP<br>
 		5. Fotokopi kartu keluarga<br>
 		6. Paspoto 2x3 4 lembar<br>
-		8. Akta cerai/surat keterangan kematian jika duda/janda<br>
-		10. Surat izin kedutaan jika WNA<br>
 		7. Paspoto 4x6 2 lembar<br>
+		8. Akta cerai/surat keterangan kematian jika duda/janda<br>
 		9. Surat izin komandan jika TNI/POLRI<br>
+		10. Surat izin kedutaan jika WNA<br>
 		11. Fotokopi paspor jika WNA<br><br>
 		&emsp;&emsp;&emsp; Demikian permohonan ini kami sampaikan, kiranya dapat diperiksa
 		dihadiri dengan dicatat sesuai dengan ketentuan peraturan perundang-undangan. <br><br>

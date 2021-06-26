@@ -4,22 +4,35 @@ $response = null;
 // Update Status
 if (isset($_POST['set_pemeriksaan'])) {
 	$pendaftar_id = $_POST['pendaftar_id'];
-	$nik_a = $_POST['nik_a'];
-	$nama_a = $_POST['nama_a'];
-	$agama_a = $_POST['agama_a'];
-	$pekerjaan_a = $_POST['pekerjaan_a'];
-	$alamat_a = $_POST['alamat_a'];
-	$nik_i = $_POST['nik_i'];
-	$nama_i = $_POST['nama_i'];
-	$agama_i = $_POST['agama_i'];
-	$pekerjaan_i = $_POST['pekerjaan_i'];
-	$alamat_i = $_POST['alamat_i'];
+
+	$nik_as = $_POST['nik_as'];
+	$nama_as = $_POST['nama_as'];
+	$agama_as = $_POST['agama_as'];
+	$pekerjaan_as = $_POST['pekerjaan_as'];
+	$alamat_as = $_POST['alamat_as'];
+	$nik_is = $_POST['nik_is'];
+	$nama_is = $_POST['nama_is'];
+	$agama_is = $_POST['agama_is'];
+	$pekerjaan_is = $_POST['pekerjaan_is'];
+	$alamat_is = $_POST['alamat_is'];
+
+	$nik_ai = $_POST['nik_ai'];
+	$nama_ai = $_POST['nama_ai'];
+	$agama_ai = $_POST['agama_ai'];
+	$pekerjaan_ai = $_POST['pekerjaan_ai'];
+	$alamat_ai = $_POST['alamat_ai'];
+	$nik_ii = $_POST['nik_ii'];
+	$nama_ii = $_POST['nama_ii'];
+	$agama_ii = $_POST['agama_ii'];
+	$pekerjaan_ii = $_POST['pekerjaan_ii'];
+	$alamat_ii = $_POST['alamat_ii'];
+
 	$jenis_mk = $_POST['jenis_mk'];
 	$jumlah_mk = $_POST['jumlah_mk'];
 	$pembayaran_mk = $_POST['pembayaran_mk'];
 	$penghulu_id = $_POST['penghulu_id'];
 
-	$add = mysqli_query($conn, "INSERT INTO tb_pemeriksaan VALUES (NULL, '$pendaftar_id', '$nik_a', '$nama_a', '$agama_a', '$pekerjaan_a', '$alamat_a', '$nik_i', '$nama_i', '$agama_i', '$pekerjaan_i', '$alamat_i', '$jenis_mk', '$jumlah_mk', '$pembayaran_mk')");
+	$add = mysqli_query($conn, "INSERT INTO tb_pemeriksaan VALUES (NULL, '$pendaftar_id', '$nik_as', '$nama_as', '$agama_as', '$pekerjaan_as', '$alamat_as', '$nik_is', '$nama_is', '$agama_is', '$pekerjaan_is', '$alamat_is', '$nik_ai', '$nama_ai', '$agama_ai', '$pekerjaan_ai', '$alamat_ai', '$nik_ii', '$nama_ii', '$agama_ii', '$pekerjaan_ii', '$alamat_ii','$jenis_mk', '$jumlah_mk', '$pembayaran_mk')");
 	$updt = mysqli_query($conn, "UPDATE tb_pendaftar SET penghulu_id='$penghulu_id', status='finish' WHERE id='$pendaftar_id'");
 
 	if ($add && $updt) $response = 'success_accept';
@@ -334,75 +347,147 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 						<h4>Data Orang Tua</h4>
 						<ul class="nav nav-tabs tabs">
 							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#home">Ayah Kandung</a>
+								<a class="nav-link active" data-toggle="tab" href="#home">Ayah Kandung Suami</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#menu1">Ibu Kandung</a>
+								<a class="nav-link" data-toggle="tab" href="#menu1">Ibu Kandung Suami</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#home1">Ayah Kandung Istri</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#menu11">Ibu Kandung Istri</a>
 							</li>
 						</ul>
 
 						<div class="tab-content">
+							<!-- SUAMI -->
 							<div id="home" class="tab-pane fade in active show pt-3">
 								<div class="form-group row">
-									<label class="col-sm-3">NIK Ayah</label>
+									<label class="col-sm-3">NIK Ayah Suami</label>
 									<div class="col-sm-6">
-										<input type="number" class="form-control" name="nik_a" required autocomplete="off" placeholder="NIK Ayah" value="">
+										<input type="number" class="form-control" name="nik_as" required autocomplete="off" placeholder="NIK Ayah Suami" value="">
 									</div>
 								</div>
 								<div class="form-group row">
-									<label class="col-sm-3">Nama Ayah</label>
+									<label class="col-sm-3">Nama Ayah Suami</label>
 									<div class="col-sm-6">
-										<input type="text" class="form-control" name="nama_a" required autocomplete="off" placeholder="Nama Ayah" value="">
+										<input type="text" class="form-control" name="nama_as" required autocomplete="off" placeholder="Nama Ayah Suami" value="">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-sm-3">Agama</label>
 									<div class="col-sm-6">
-										<input type="text" class="form-control" name="agama_a" required autocomplete="off" placeholder="Agama" value="">
+										<input type="text" class="form-control" name="agama_as" required autocomplete="off" placeholder="Agama" value="">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-sm-3">Pekerjaan</label>
 									<div class="col-sm-6">
-										<input type="text" class="form-control" name="pekerjaan_a" required autocomplete="off" placeholder="Pekerjaan" value="">
+										<input type="text" class="form-control" name="pekerjaan_as" required autocomplete="off" placeholder="Pekerjaan" value="">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-sm-3">Alamat</label>
 									<div class="col-sm-6">
-										<textarea type="text" class="form-control" name="alamat_a" required placeholder="Alamat"></textarea>
+										<textarea type="text" class="form-control" name="alamat_as" required placeholder="Alamat"></textarea>
 									</div>
 								</div>
 							</div>
 							<div id="menu1" class="tab-pane fade pt-3">
 								<div class="form-group row">
-									<label class="col-sm-3">NIK Ibu</label>
+									<label class="col-sm-3">NIK Ibu Suami</label>
 									<div class="col-sm-6">
-										<input type="number" class="form-control" name="nik_i" required autocomplete="off" placeholder="NIK Ibu" value="">
+										<input type="number" class="form-control" name="nik_is" required autocomplete="off" placeholder="NIK Ibu Suami" value="">
 									</div>
 								</div>
 								<div class="form-group row">
-									<label class="col-sm-3">Nama Ibu</label>
+									<label class="col-sm-3">Nama Ibu Suami</label>
 									<div class="col-sm-6">
-										<input type="text" class="form-control" name="nama_i" required autocomplete="off" placeholder="Nama Ibu" value="">
+										<input type="text" class="form-control" name="nama_is" required autocomplete="off" placeholder="Nama Ibu Suami" value="">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-sm-3">Agama</label>
 									<div class="col-sm-6">
-										<input type="text" class="form-control" name="agama_i" required autocomplete="off" placeholder="Agama" value="">
+										<input type="text" class="form-control" name="agama_is" required autocomplete="off" placeholder="Agama" value="">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-sm-3">Pekerjaan</label>
 									<div class="col-sm-6">
-										<input type="text" class="form-control" name="pekerjaan_i" required autocomplete="off" placeholder="Pekerjaan" value="">
+										<input type="text" class="form-control" name="pekerjaan_is" required autocomplete="off" placeholder="Pekerjaan" value="">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-sm-3">Alamat</label>
 									<div class="col-sm-6">
-										<textarea type="text" class="form-control" name="alamat_i" required placeholder="Alamat"></textarea>
+										<textarea type="text" class="form-control" name="alamat_is" required placeholder="Alamat"></textarea>
+									</div>
+								</div>
+							</div>
+							<!-- ISTRI -->
+							<div id="home1" class="tab-pane fade pt-3">
+								<div class="form-group row">
+									<label class="col-sm-3">NIK Ayah Istri</label>
+									<div class="col-sm-6">
+										<input type="number" class="form-control" name="nik_ai" required autocomplete="off" placeholder="NIK Ayah Istri" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Nama Ayah Istri</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="nama_ai" required autocomplete="off" placeholder="Nama Ayah Istri" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Agama</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="agama_ai" required autocomplete="off" placeholder="Agama" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Pekerjaan</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="pekerjaan_ai" required autocomplete="off" placeholder="Pekerjaan" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Alamat</label>
+									<div class="col-sm-6">
+										<textarea type="text" class="form-control" name="alamat_ai" required placeholder="Alamat"></textarea>
+									</div>
+								</div>
+							</div>
+							<div id="menu11" class="tab-pane fade pt-3">
+								<div class="form-group row">
+									<label class="col-sm-3">NIK Ibu Istri</label>
+									<div class="col-sm-6">
+										<input type="number" class="form-control" name="nik_ii" required autocomplete="off" placeholder="NIK Ibu Istri" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Nama Ibu Istri</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="nama_ii" required autocomplete="off" placeholder="Nama Ibu Istri" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Agama</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="agama_ii" required autocomplete="off" placeholder="Agama" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Pekerjaan</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" name="pekerjaan_ii" required autocomplete="off" placeholder="Pekerjaan" value="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3">Alamat</label>
+									<div class="col-sm-6">
+										<textarea type="text" class="form-control" name="alamat_ii" required placeholder="Alamat"></textarea>
 									</div>
 								</div>
 							</div>

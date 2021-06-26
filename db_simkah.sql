@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Jun 2021 pada 21.52
--- Versi server: 10.4.18-MariaDB
--- Versi PHP: 8.0.3
+-- Waktu pembuatan: 26 Jun 2021 pada 13.05
+-- Versi server: 10.4.19-MariaDB
+-- Versi PHP: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -161,20 +161,37 @@ INSERT INTO `tb_desa` (`id`, `nama_desa`) VALUES
 CREATE TABLE `tb_pemeriksaan` (
   `id` int(11) NOT NULL,
   `pendaftar_id` int(11) NOT NULL,
-  `nik_a` varchar(255) NOT NULL,
-  `nama_a` varchar(255) NOT NULL,
-  `agama_a` varchar(255) NOT NULL,
-  `pekerjaan_a` varchar(255) NOT NULL,
-  `alamat_a` varchar(255) NOT NULL,
-  `nik_i` varchar(255) NOT NULL,
-  `nama_i` varchar(255) NOT NULL,
-  `agama_i` varchar(255) NOT NULL,
-  `pekerjaan_i` varchar(255) NOT NULL,
-  `alamat_i` varchar(255) NOT NULL,
+  `nik_as` varchar(255) NOT NULL,
+  `nama_as` varchar(255) NOT NULL,
+  `agama_as` varchar(255) NOT NULL,
+  `pekerjaan_as` varchar(255) NOT NULL,
+  `alamat_as` varchar(255) NOT NULL,
+  `nik_is` varchar(255) NOT NULL,
+  `nama_is` varchar(255) NOT NULL,
+  `agama_is` varchar(255) NOT NULL,
+  `pekerjaan_is` varchar(255) NOT NULL,
+  `alamat_is` varchar(255) NOT NULL,
+  `nik_ai` varchar(255) NOT NULL,
+  `nama_ai` varchar(255) NOT NULL,
+  `agama_ai` varchar(255) NOT NULL,
+  `pekerjaan_ai` varchar(255) NOT NULL,
+  `alamat_ai` varchar(255) NOT NULL,
+  `nik_ii` varchar(255) NOT NULL,
+  `nama_ii` varchar(255) NOT NULL,
+  `agama_ii` varchar(255) NOT NULL,
+  `pekerjaan_ii` varchar(255) NOT NULL,
+  `alamat_ii` varchar(255) NOT NULL,
   `jenis_mk` varchar(255) NOT NULL,
-  `jumlah_mk` int(11) NOT NULL,
+  `jumlah_mk` varchar(11) NOT NULL,
   `pembayaran_mk` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_pemeriksaan`
+--
+
+INSERT INTO `tb_pemeriksaan` (`id`, `pendaftar_id`, `nik_as`, `nama_as`, `agama_as`, `pekerjaan_as`, `alamat_as`, `nik_is`, `nama_is`, `agama_is`, `pekerjaan_is`, `alamat_is`, `nik_ai`, `nama_ai`, `agama_ai`, `pekerjaan_ai`, `alamat_ai`, `nik_ii`, `nama_ii`, `agama_ii`, `pekerjaan_ii`, `alamat_ii`, `jenis_mk`, `jumlah_mk`, `pembayaran_mk`) VALUES
+(2, 2, '74667373', 'Mahmur', 'Islam', 'Petani', 'Karangpuang', '3636663333', 'Maemunah', 'Islam', 'IRT', 'Karangpuang', '998576445', 'Takdir', 'Islam', 'Web Developer', 'Macconggi', '995885774', 'Raini', 'Islam', 'Desain Grafis', 'Macconggi', 'Emas', '2 Kg', 'Cicil');
 
 -- --------------------------------------------------------
 
@@ -201,8 +218,8 @@ CREATE TABLE `tb_pendaftar` (
 --
 
 INSERT INTO `tb_pendaftar` (`id`, `no_pendaftarn`, `desa_id`, `tempat_nikah`, `tggl_akad`, `waktu_akad`, `lokasi_nikah`, `email_pendaftar`, `penghulu_id`, `status`, `tanggal_daftar`) VALUES
-(1, '0000-22905-2021', 1, 'Di KUA', '2021-05-31', '12:00', 'Jl. Jenral Sudirman, No 12. Jakarta', NULL, NULL, 'acc', '2021-05-29 00:00:00'),
-(2, '0001-20906-2021', 1, 'Di KUA', '2021-06-19', '20:00', 'Jl. Jenral Sudirman, No 12. Jakarta', NULL, NULL, 'new', '2021-06-09 00:00:00');
+(1, '0000-22905-2021', 1, 'Di KUA', '2021-05-31', '12:00', 'Jl. Jenral Sudirman, No 12. Jakarta', NULL, NULL, 'new', '2021-05-29 00:00:00'),
+(2, '0001-20906-2021', 1, 'Di KUA', '2021-06-19', '20:00', 'Jl. Jenral Sudirman, No 12. Jakarta', NULL, 1, 'finish', '2021-06-09 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -318,7 +335,7 @@ ALTER TABLE `tb_desa`
 -- AUTO_INCREMENT untuk tabel `tb_pemeriksaan`
 --
 ALTER TABLE `tb_pemeriksaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_pendaftar`

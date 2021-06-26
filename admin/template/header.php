@@ -40,6 +40,7 @@ $adm = mysqli_fetch_assoc($admin);
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/printjs/print.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -118,11 +119,11 @@ $adm = mysqli_fetch_assoc($admin);
                   <p>Pendaftar Disetujui</p>
                 </a>
               </li>
-              <li class="nav-item pl-3">
+              <!-- <li class="nav-item pl-3">
                 <a href="tambah-daftar-nikah.php" class="nav-link" id="tambah-data-nikah">
                   <p>Tambah Daftar Nikah</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
           <li class="nav-item">

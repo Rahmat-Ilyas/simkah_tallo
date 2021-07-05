@@ -71,7 +71,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 												<td><?= date('d/m/Y', strtotime($dta['tggl_akad'])).' '.$dta['waktu_akad'] ?></td>
 												<td class="text-center">
 													<a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-detail<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Detail Pendaftar"><i class="fa fa-list"></i></a>
-													<a href="#" class="btn btn-sm btn-secondary print-surat" data-id="<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Cetak Akta Nikah"><i class="fa fa-print"></i></a>
+													<a href="privew-print.php?pendaftar_id=<?= $pendaftar_id ?>" class="btn btn-sm btn-secondary " target="_blank" data-toggle1="tooltip" data-original-title="Cetak Akta Nikah"><i class="fa fa-print"></i></a>
 												</td>
 											</tr>
 											<?php $no=$no+1; 
@@ -297,111 +297,6 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 				</div>
 				<div class="modal-footer bg-whitesmoke br">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- PRINT SURAT -->
-	<div id="print-surat<?= $dta['id'] ?>" class="p-5" style="font-size: 13px;" hidden="">
-		<div class="" style="100%">
-			<div class="p-3" style="width: 31%; border-radius: 20px; margin-right: 15px; border: 5px solid; display: inline-block;">
-				<div class="">
-					<h3 class="text-center"><b><u>DUPLIKAT KUTIPAN AKTAX NIKAH</u><br>NOMOR : B-57/Kua.<?= date('d.m.Y') ?>/DN/XI/<?= date('Y') ?></b></h3><br>
-				</div>
-				<div class="row">
-					<div style="width: 55%;">
-						<div class=""><b>I. Akta nikah nomor</b></div>
-						<div class="">Pada hari, tanggal, bulan, tahun</div>
-					</div>
-					<div style="width: 45%;">
-						<div class="">: <?= $dta['no_pendaftarn'] ?></div>
-						<div class="">: <?= date('d m Y') ?></div>
-						<br>
-					</div>
-				</div>
-				<div class="row">
-					<div style="width: 55%;">
-						<div class=""><b>I. Akta nikah nomor</b></div>
-						<div class="">Pada hari, tanggal, bulan, tahun</div>
-					</div>
-					<div style="width: 45%;">
-						<div class="">: <?= $dta['no_pendaftarn'] ?></div>
-						<div class="">: <?= date('d m Y') ?></div>
-						<br>
-					</div>
-				</div>
-				<div class="row">
-					<div style="width: 55%;">
-						<div class=""><b>I. Akta nikah nomor</b></div>
-						<div class="">Pada hari, tanggal, bulan, tahun</div>
-					</div>
-					<div style="width: 45%;">
-						<div class="">: <?= $dta['no_pendaftarn'] ?></div>
-						<div class="">: <?= date('d m Y') ?></div>
-						<br>
-					</div>
-				</div>
-				<div class="row">
-					<div style="width: 55%;">
-						<div class=""><b>I. Akta nikah nomor</b></div>
-						<div class="">Pada hari, tanggal, bulan, tahun</div>
-					</div>
-					<div style="width: 45%;">
-						<div class="">: <?= $dta['no_pendaftarn'] ?></div>
-						<div class="">: <?= date('d m Y') ?></div>
-						<br>
-					</div>
-				</div>
-			</div>
-
-			<div class="p-3 " style="width: 31%; border-radius: 20px; border: 5px solid; display: inline-block;">
-				<div class="">
-					<h3 class="text-center"><b><u>DUPLIKAT KUTIPAN AKTAX NIKAH</u><br>NOMOR : B-57/Kua.<?= date('d.m.Y') ?>/DN/XI/<?= date('Y') ?></b></h3><br>
-				</div>
-				<div class="row">
-					<div style="width: 55%;">
-						<div class=""><b>I. Akta nikah nomor</b></div>
-						<div class="">Pada hari, tanggal, bulan, tahun</div>
-					</div>
-					<div style="width: 45%;">
-						<div class="">: <?= $dta['no_pendaftarn'] ?></div>
-						<div class="">: <?= date('d m Y') ?></div>
-						<br>
-					</div>
-				</div>
-				<div class="row">
-					<div style="width: 55%;">
-						<div class=""><b>I. Akta nikah nomor</b></div>
-						<div class="">Pada hari, tanggal, bulan, tahun</div>
-					</div>
-					<div style="width: 45%;">
-						<div class="">: <?= $dta['no_pendaftarn'] ?></div>
-						<div class="">: <?= date('d m Y') ?></div>
-						<br>
-					</div>
-				</div>
-				<div class="row">
-					<div style="width: 55%;">
-						<div class=""><b>I. Akta nikah nomor</b></div>
-						<div class="">Pada hari, tanggal, bulan, tahun</div>
-					</div>
-					<div style="width: 45%;">
-						<div class="">: <?= $dta['no_pendaftarn'] ?></div>
-						<div class="">: <?= date('d m Y') ?></div>
-						<br>
-					</div>
-				</div>
-				<div class="row">
-					<div style="width: 55%;">
-						<div class=""><b>I. Akta nikah nomor</b></div>
-						<div class="">Pada hari, tanggal, bulan, tahun</div>
-					</div>
-					<div style="width: 45%;">
-						<div class="">: <?= $dta['no_pendaftarn'] ?></div>
-						<div class="">: <?= date('d m Y') ?></div>
-						<br>
-					</div>
 				</div>
 			</div>
 		</div>

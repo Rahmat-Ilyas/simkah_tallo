@@ -26,7 +26,7 @@ require('layout/header.php');
 				<h4>Alur Pendaftaran</h4>
 			</div>
 			<div class="panel-body text-center">
-				<img src="img/alur.png">
+				<img src="img/alur.png" style="height: 1000px;">
 			</div>
 		</div>
 

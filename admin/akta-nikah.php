@@ -42,16 +42,18 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
-								<table id="dataTable" class="table table-bordered table-striped">
+								<table id="dataTable" class="table table-bordered table-striped" style="font-size: 13px;">
 									<thead>
 										<tr>
 											<th width="1">No</th>
-											<th width="120">No Pendaftarn</th>
+											<th width="100">No Pendaftarn</th>
 											<th>Tggl Pendaftaran</th>
+											<th>NIK Suami</th>
 											<th>Nama Suami</th>
+											<th>NIK Istri</th>
 											<th>Nama Istri</th>
 											<th>Tggl Akad</th>
-											<th width="120">Aksi</th>
+											<th width="60">Aksi</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -66,7 +68,9 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 												<td><?= $no ?></td>
 												<td><?= $dta['no_pendaftarn'] ?></td>
 												<td><?= date('d/m/Y', strtotime($dta['tanggal_daftar'])) ?></td>
+												<td><?= $dsm['nik'] ?></td>
 												<td><?= $dsm['nama'] ?></td>
+												<td><?= $dis['nik'] ?></td>
 												<td><?= $dis['nama'] ?></td>
 												<td><?= date('d/m/Y', strtotime($dta['tggl_akad'])).' '.$dta['waktu_akad'] ?></td>
 												<td class="text-center">

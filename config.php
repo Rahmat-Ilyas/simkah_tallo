@@ -1,4 +1,4 @@
 <?php 
 	session_start();
-	$conn = mysqli_connect('localhost', 'root', '', 'db_simkah');
+	$conn = mysqli_connect('localhost', 'rahmat_ryu', '', 'db_simkah');
 ?>

@@ -300,7 +300,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 	</div>
 
 	<!-- PRINT SURAT -->
-	<div id="print-surat<?= $dta['id'] ?>" class="p-5" style="font-size: 20px; border: 1px solid;" hidden="">
+	<div id="print-surat<?= $dta['id'] ?>" class="p-5" style="font-size: 14px; border: 1px solid;" hidden="">
 		<div class="">
 			<h3 class="text-center"><b><u>DUPLIKAT KUTIPAN AKTA NIKAH</u><br>NOMOR : B-57/Kua.<?= date('d.m.Y') ?>/DN/XI/<?= date('Y') ?></b></h3><br>
 		</div>

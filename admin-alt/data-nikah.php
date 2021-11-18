@@ -1,14 +1,16 @@
 <?php  
 require('template/header.php');
 $response = null;
-// Update Status
-if (isset($_GET['proses'])) {
+// Hapu data
+if (isset($_GET['delete'])) {
 	$id = $_GET['id'];
-	if ($_GET['proses'] == 'acc_pendaftar') $status = 'acc';
-	else if ($_GET['proses'] == 'refuse_pendaftar') $status = 'refuse';
 
-	$res = mysqli_query($conn, "UPDATE tb_pendaftar SET status='$status' WHERE id='$id'");
-	if ($res) $response = 'success_accept';
+	$del1 = mysqli_query($conn, "DELETE FROM tb_pendaftar WHERE id='$id'");
+	$del2 = mysqli_query($conn, "DELETE FROM tb_data_istri WHERE pendaftar_id='$id'");
+	$del3 = mysqli_query($conn, "DELETE FROM tb_data_suami WHERE pendaftar_id='$id'");
+	$del4 = mysqli_query($conn, "DELETE FROM tb_data_wali WHERE pendaftar_id='$id'");
+	$del5 = mysqli_query($conn, "DELETE FROM tb_pemeriksaan WHERE pendaftar_id='$id'");
+	if ($del1 && $del2 && $del3 && $del4 && $del5) $response = 'success_delete';
 	else $response = 'error';
 }
 
@@ -25,8 +27,8 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="index.php">Admin</a></li>
-						<li class="breadcrumb-item active">Input & Data Pendaftar</li>
-						<li class="breadcrumb-item active">Data Pendaftar</li>
+						<li class="breadcrumb-item active">Input & Data Nikah</li>
+						<li class="breadcrumb-item active">Data Nikah</li>
 					</ol>
 				</div><!-- /.col -->
 			</div><!-- /.row -->
@@ -56,7 +58,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 											<th>NIK Istri</th>
 											<th>Nama Istri</th>
 											<th>Tanggal Akad</th>
-											<th width="80">Aksi</th>
+											<th width="100">Aksi</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -79,8 +81,9 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 												<td><?= $dis['nama'] ?></td>
 												<td><?= date('d/m/Y', strtotime($dta['tggl_akad'])) ?></td>
 												<td class="text-center">
-													<a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-detail<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Detail Pendaftar"><i class="fa fa-list"></i> Detail</a>
-													<!-- <a href="#" class="btn btn-sm btn-secondary print-surat" data-id="<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Cetak Surat"><i class="fa fa-print"></i></a> -->
+													<a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-detail<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Detail Data Nikah"><i class="fa fa-list"></i></a>
+													<a href="edit-data-nikah.php?data_id=<?= $dta['id'] ?>" class="btn btn-sm btn-success" data-toggle1="tooltip" data-original-title="Edit Data Nikah"><i class="fa fa-edit"></i></a>
+													<a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-hapus<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Hapus Data Nikah"><i class="fa fa-trash"></i></a>
 												</td>
 											</tr>
 											<?php $no=$no+1; 
@@ -105,10 +108,12 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 	$data_sm = mysqli_query($conn, "SELECT * FROM tb_data_suami WHERE pendaftar_id='$pendaftar_id'");
 	$data_is = mysqli_query($conn, "SELECT * FROM tb_data_istri WHERE pendaftar_id='$pendaftar_id'");
 	$data_wl = mysqli_query($conn, "SELECT * FROM tb_data_wali WHERE pendaftar_id='$pendaftar_id'");
+	$pmriksn = mysqli_query($conn, "SELECT * FROM tb_pemeriksaan WHERE pendaftar_id='$pendaftar_id'");
 	$data_desa = mysqli_query($conn, "SELECT * FROM tb_desa WHERE id='$desa_id'");
 	$dsm = mysqli_fetch_assoc($data_sm);
 	$dis = mysqli_fetch_assoc($data_is);
 	$dwl = mysqli_fetch_assoc($data_wl);
+	$pmr = mysqli_fetch_assoc($pmriksn);
 	$des = mysqli_fetch_assoc($data_desa);
 	?>
 	<!-- MODAL DETAIL -->
@@ -192,11 +197,19 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 						<span class="col-sm-8">: <?= $dsm['pekerjaan'] ?></span>
 					</div>
 					<div class="row">
+						<b class="col-sm-4">Nama Ayah</b>
+						<span class="col-sm-8">: <?= $pmr['nama_as'] ?></span>
+					</div>
+					<div class="row">
+						<b class="col-sm-4">Nama Ibu</b>
+						<span class="col-sm-8">: <?= $pmr['nama_is'] ?></span>
+					</div>
+					<!-- <div class="row">
 						<b class="col-sm-12">Foto</b>
 						<div class="col-sm-12">
 							<img src="../img/pasfoto/suami/<?= $dsm['pas_foto'] ?>" height="100">
 						</div>
-					</div>
+					</div> -->
 					<hr>
 					<!-- Data Calon Istri -->
 					<h6 class="mt-4"><b><u>Data Calon Istri:</u></b></h6>
@@ -241,11 +254,19 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 						<span class="col-sm-8">: <?= $dis['pekerjaan'] ?></span>
 					</div>
 					<div class="row">
+						<b class="col-sm-4">Nama Ayah</b>
+						<span class="col-sm-8">: <?= $pmr['nama_ai'] ?></span>
+					</div>
+					<div class="row">
+						<b class="col-sm-4">Nama Ibu</b>
+						<span class="col-sm-8">: <?= $pmr['nama_ii'] ?></span>
+					</div>
+					<!-- <div class="row">
 						<b class="col-sm-12">Foto</b>
 						<div class="col-sm-12">
 							<img src="../img/pasfoto/istri/<?= $dis['pas_foto'] ?>" height="100">
 						</div>
-					</div>
+					</div> -->
 					<hr>
 					<!-- Data Wali -->
 					<h6 class="mt-4"><b><u>Data Wali:</u></b></h6>
@@ -301,6 +322,30 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 						<b class="col-sm-4">BIN</b>
 						<span class="col-sm-8">: <?= $dwl['bin'] ?></span>
 					</div>
+					<hr>
+					<!-- Penghulu & Data Mas Kawim Penghulu -->
+					<h6 class="mt-4"><b><u>Penghulu & Data Mas Kawim:</u></b></h6>
+					<div class="row">
+						<b class="col-sm-4">Nama Penghulu</b>
+						<?php
+						$penghulu_id = $dta['penghulu_id'];
+						$penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu WHERE id='$penghulu_id'");
+						$phl = mysqli_fetch_assoc($penghulu); 
+						?>
+						<span class="col-sm-8">: <?= $phl['nama'] ?></span>
+					</div>
+					<div class="row">
+						<b class="col-sm-4">Jenis Mas Kawin</b>
+						<span class="col-sm-8">: <?= $pmr['jenis_mk'] ?></span>
+					</div>
+					<div class="row">
+						<b class="col-sm-4">Jumlah Mas Kawin</b>
+						<span class="col-sm-8">: <?= $pmr['jumlah_mk'] ?></span>
+					</div>
+					<div class="row">
+						<b class="col-sm-4">Pembayaran</b>
+						<span class="col-sm-8">: <?= $pmr['pembayaran_mk'] ?></span>
+					</div>
 				</div>
 				<div class="modal-footer bg-whitesmoke br">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -309,77 +354,25 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 		</div>
 	</div>
 
-	<!-- MODAL ACCEPT -->
-	<div class="modal fade" tabindex="-1" role="dialog" id="modal-acc<?= $dta['id'] ?>">
+	<!-- MODAL HAPUS -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-hapus<?= $dta['id'] ?>">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Proses Pendaftaran</h5>
+					<h5 class="modal-title">Hapus Data?</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<form method="POST">
 					<div class="modal-body">
-						Silahkan pilih proses berikut!
+						Yakin ingin menghapus data ini?
 					</div>
 					<div class="modal-footer bg-whitesmoke br">
-						<a href="?proses=refuse_pendaftar&id=<?= $dta['id'] ?>" role="button" class="btn btn-danger">Tolak Pendaftar</a>
-						<a href="?proses=acc_pendaftar&id=<?= $dta['id'] ?>" role="button" class="btn btn-success">Terima &Lanjutkan</a>
-						<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button> -->
+						<a href="?delete=true&id=<?= $dta['id'] ?>" role="button" class="btn btn-danger">Hapus</a>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
 					</div>
 				</form>
-			</div>
-		</div>
-	</div>
-
-	<!-- PRINT SURAT -->
-	<div id="print-surat<?= $dta['id'] ?>" class="p-5" style="font-size: 20px;" hidden="">
-		<div class="row">
-			<span class="col-sm-6" style="width: 70%">Prihal : Permohonan kehendak Nikah</span>
-			<span class="col-sm-4" style="width: 30%; text-align: right;"><?= date('d F Y') ?></span>
-		</div>
-		Kepada yth,<br>
-		Kepala KUA Kecamatan TALLO <br>
-		di tempt <br><br><br>
-
-		Assalamualaikum wr. wb. <br>
-		&emsp;&emsp;&emsp; Dengan hormat, kami mengajukan permohonan kehendak nikah untuk
-		Bersama ini kami sampaikan surat-surat yang diperlukan untuk atas nama kami calon suami : <u><?= $dsm['nama'] ?></u> dengan calon istri : <u><?= $dis['nama'] ?></u> pada hari <u>Rabu</u> tanggal <u><?= date('d F Y', strtotime($dta['tggl_akad'])) ?></u> jam <u><?= $dta['waktu_akad'] ?></u> bertempat di <u><?= $dta['lokasi_nikah'] ?></u><br><br>
-		&emsp;&emsp;&emsp; Bersama ini kami sampaikan surat-surat yang diperlukan untuk diperiksa sebagai berikut: <br>
-		1. Surat pengantar nikah dari Lurah<br>
-		2. Persetujuan calon mempelai<br>
-		3. Fotokopi akte kelahiran<br>
-		4. Fotokopi KTP<br>
-		5. Fotokopi kartu keluarga<br>
-		6. Paspoto 2x3 4 lembar<br>
-		7. Paspoto 4x6 2 lembar<br>
-		8. Akta cerai/surat keterangan kematian jika duda/janda<br>
-		9. Surat izin komandan jika TNI/POLRI<br>
-		10. Surat izin kedutaan jika WNA<br>
-		11. Fotokopi paspor jika WNA<br><br>
-		&emsp;&emsp;&emsp; Demikian permohonan ini kami sampaikan, kiranya dapat diperiksa
-		dihadiri dengan dicatat sesuai dengan ketentuan peraturan perundang-undangan. <br><br>
-
-		<div class="row">
-			<div class="col-sm-7" style="width: 70%;">
-				Diterima tanggal ........................<br>
-				Yang menerima,<br>
-				Kepala KUA/Penghulu <br>
-				<br>
-				<br>
-				<br>
-				<br>
-				.............................................
-			</div>
-			<div class="col-sm-5 text-center" style="width: 30%;">
-				Wassalam,<br>
-				Pemohon <br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<?= $dsm['nama'] ?>
 			</div>
 		</div>
 	</div>
@@ -394,11 +387,11 @@ require('template/footer.php');
 		$('#data-pendaftar').addClass('active');
 		$('#input-data-pendaftar').addClass('active');
 		$('#input-data-pendaftar').parent('.nav-item').addClass('menu-open');
-		<?php if ($response == 'success_accept') { ?>
+		<?php if ($response == 'success_delete') { ?>
 			Swal.fire({
 				icon: 'success',
-				title: 'Proses Berhasil',
-				text: 'Data pendaftar berhasil diproses',
+				title: 'Berhasil Dihapus',
+				text: 'Data telah berhasil dihapus',
 				preConfirm: () => {
 					window.location.href=window.location.href.split('?')[0];
 				}
@@ -413,11 +406,5 @@ require('template/footer.php');
 				}
 			});
 		<?php } ?>
-
-		$('.print-surat').click(function(e) {
-			e.preventDefault();
-			var id = $(this).attr('data-id');
-			$('#print-surat'+id).printArea();
-		});
 	});
 </script>

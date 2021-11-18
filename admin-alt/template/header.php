@@ -157,19 +157,19 @@ $adm = mysqli_fetch_assoc($admin);
                   <p>Data Kelurahan/Desa</p>
                 </a>
               </li>
-              <li class="nav-item pl-3">
+              <!-- <li class="nav-item pl-3">
                 <a href="arsip-pendaftaran.php" class="nav-link" id="arsip-pendaftaran">
                   <p>Arsip Data Nikah</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="laporan.php" class="nav-link" id="laporan">
               <i class="nav-icon fas fa-file-pdf"></i>
               <p>Laporan</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-header">MANAGE ACCOUNT</li>
           <li class="nav-item">
             <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-edt-akun">

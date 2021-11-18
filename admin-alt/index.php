@@ -26,31 +26,19 @@ require('template/header.php');
     <div class="container-fluid">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
               <h3>150</h3>
 
-              <p>Pendaftaran Masuk</p>
+              <p>Data Nikah</p>
             </div>
             <a href="daftar-nikah-oleh-admin.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-success">
-            <div class="inner">
-              <h3>53</h3>
-
-              <p>Pendaftaran Disetujui</p>
-            </div>
-            <a href="data-pendaftar.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
@@ -62,7 +50,7 @@ require('template/header.php');
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">

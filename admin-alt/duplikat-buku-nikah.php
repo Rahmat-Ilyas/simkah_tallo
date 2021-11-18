@@ -182,11 +182,19 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 						<span class="col-sm-8">: <?= $dsm['pekerjaan'] ?></span>
 					</div>
 					<div class="row">
+						<b class="col-sm-4">Nama Ayah</b>
+						<span class="col-sm-8">: <?= $pmr['nama_as'] ?></span>
+					</div>
+					<div class="row">
+						<b class="col-sm-4">Nama Ibu</b>
+						<span class="col-sm-8">: <?= $pmr['nama_is'] ?></span>
+					</div>
+					<!-- <div class="row">
 						<b class="col-sm-12">Foto</b>
 						<div class="col-sm-12">
 							<img src="../img/pasfoto/suami/<?= $dsm['pas_foto'] ?>" height="100">
 						</div>
-					</div>
+					</div> -->
 					<hr>
 					<!-- Data Calon Istri -->
 					<h6 class="mt-4"><b><u>Data Calon Istri:</u></b></h6>
@@ -231,11 +239,19 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 						<span class="col-sm-8">: <?= $dis['pekerjaan'] ?></span>
 					</div>
 					<div class="row">
+						<b class="col-sm-4">Nama Ayah</b>
+						<span class="col-sm-8">: <?= $pmr['nama_ai'] ?></span>
+					</div>
+					<div class="row">
+						<b class="col-sm-4">Nama Ibu</b>
+						<span class="col-sm-8">: <?= $pmr['nama_ii'] ?></span>
+					</div>
+					<!-- <div class="row">
 						<b class="col-sm-12">Foto</b>
 						<div class="col-sm-12">
 							<img src="../img/pasfoto/istri/<?= $dis['pas_foto'] ?>" height="100">
 						</div>
-					</div>
+					</div> -->
 					<hr>
 					<!-- Data Wali -->
 					<h6 class="mt-4"><b><u>Data Wali:</u></b></h6>
@@ -290,6 +306,30 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 					<div class="row">
 						<b class="col-sm-4">BIN</b>
 						<span class="col-sm-8">: <?= $dwl['bin'] ?></span>
+					</div>
+					<hr>
+					<!-- Penghulu & Data Mas Kawim Penghulu -->
+					<h6 class="mt-4"><b><u>Penghulu & Data Mas Kawim:</u></b></h6>
+					<div class="row">
+						<b class="col-sm-4">Nama Penghulu</b>
+						<?php
+						$penghulu_id = $dta['penghulu_id'];
+						$penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu WHERE id='$penghulu_id'");
+						$phl = mysqli_fetch_assoc($penghulu); 
+						?>
+						<span class="col-sm-8">: <?= $phl['nama'] ?></span>
+					</div>
+					<div class="row">
+						<b class="col-sm-4">Jenis Mas Kawin</b>
+						<span class="col-sm-8">: <?= $pmr['jenis_mk'] ?></span>
+					</div>
+					<div class="row">
+						<b class="col-sm-4">Jumlah Mas Kawin</b>
+						<span class="col-sm-8">: <?= $pmr['jumlah_mk'] ?></span>
+					</div>
+					<div class="row">
+						<b class="col-sm-4">Pembayaran</b>
+						<span class="col-sm-8">: <?= $pmr['pembayaran_mk'] ?></span>
 					</div>
 				</div>
 				<div class="modal-footer bg-whitesmoke br">

@@ -153,7 +153,7 @@ if (isset($_POST['store_data'])) {
 													<label>Nikah di</label>
 													<select class="form-control" id="tempat_nikah" name="tempat_nikah">
 														<option value="Di KUA">Di KUA</option>
-														<option value="Di KUA">Di Luar KUA</option>
+														<option value="Di Luar KUA">Di Luar KUA</option>
 													</select>
 												</div>
 												<div class="form-group">

@@ -121,14 +121,14 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Detail Data Pendaftar</h5>
+					<h5 class="modal-title">Detail Data Nikah</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body px-5">
 					<!-- Data Pendaftar -->
-					<h6><b><u>Data Pendaftaran</u></b></h6>
+					<h6><b><u>Data Nikah</u></b></h6>
 					<!-- <div class="row">
 						<b class="col-sm-4">Nomor Pendaftaran</b>
 						<span class="col-sm-8">: <?= $dta['no_pendaftarn'] ?></span>

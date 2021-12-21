@@ -351,7 +351,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 			</div>
 			<div style="width: 45%;">
 				<div class="">: <?= $dta['no_pendaftarn'] ?></div>
-				<div class="">: <?= date('d m Y') ?></div>
+				<div class="">: <?= date('d m Y', strtotime($dta['tggl_akad'])) ?></div>
 				<br>
 			</div>
 		</div>
@@ -468,8 +468,8 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 			<dt><b>III. Jika perjanjian nikah berdasarkan putusan pengadilan, sebutkan</b></dt>
 			<div class="row">
 				<ol style="width: 50%;">
-					<li>Berupa apa dan berapa)</li>
-					<li>Pembayaran (Tunai/Hutang)</li>
+					<li>Pengadilan yang memutuskan</li>
+					<li>Nomor dan tanggal putusan</li>
 				</ol>
 				<ul style="width: 50%;" type="none">
 					<li>: -</li>

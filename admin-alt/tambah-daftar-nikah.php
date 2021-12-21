@@ -329,7 +329,7 @@ if (isset($_POST['store_data'])) {
 													<label>Status Wali</label>
 													<select name="status_wali" class="form-control validate-select required-entry" id="status_wali">
 														<option value="" style="display: none;">Pilih Satatus</option>
-														<option value="Nasabah">Nasabah</option>
+														<option value="Nasab">Nasab</option>
 														<option value="Hakim">Hakim</option>
 													</select>
 												</div>

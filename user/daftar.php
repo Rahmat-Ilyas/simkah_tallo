@@ -34,13 +34,13 @@
             <div class="page-wrapper pt-5">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="card">
+                        <div class="card" style="min-height: 600px;">
                             <div class="card-header">
                                 <h2 class="text-center">Form Pengajuan Permintaan Duplikat Buku
                                     Nikah</h2>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form method="post">
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
@@ -53,10 +53,16 @@
                                             <div class="form-group">
                                                 <label class="floating-label"></label>
                                                 <div class="mt-2">
-                                                    <button class="btn btn-primary">Cek NIK</button>
+                                                    <button type="button" class="btn btn-primary" id="cek-nik">Cek
+                                                        NIK</button>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <hr>
+                                    <div class="text-center mt-4">
+                                        <h4><i>Silahkan periksa NIK anda terlebih dahulu</i></h4>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -68,10 +74,21 @@
 </body>
 
 <!-- Required Js -->
+<script src="assets/js/plugins/jquery.min.js"></script>
 <script src="assets/js/vendor-all.min.js"></script>
 <script src="assets/js/plugins/bootstrap.min.js"></script>
 
 <script src="assets/js/pcoded.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#cek-nik').click(function(e) {
+        e.preventDefault();
+
+
+    });
+});
+</script>
 
 </body>
 

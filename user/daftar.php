@@ -30,8 +30,8 @@
                                     <div class="row">
                                         <div class="col-sm-5">
                                             <div class="form-group">
-                                                <label class="floating-label"><b>Periksa NIK anda</b></label>
-                                                <input type="number" name="nik" id="nik" class="form-control" placeholder="Masukkan NIK anda">
+                                                <label class="floating-label"><b>Periksa NIK anda (NIK Suami/Istri)</b></label>
+                                                <input type="number" name="nik" id="nik" class="form-control" placeholder="Masukkan NIK anda" require="">
                                             </div>
                                         </div>
                                         <div class="col-sm-7">

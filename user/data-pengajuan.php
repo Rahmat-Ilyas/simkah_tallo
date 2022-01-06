@@ -13,12 +13,12 @@ require('template/header.php');
                                 <div class="row align-items-center">
                                     <div class="col-md-12">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">Dashboard</h5>
+                                            <h5 class="m-b-10">Data Pengajuan</h5>
                                         </div>
                                         <ul class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
+                                            <li class="breadcrumb-item"><a href="#"><i class="feather icon-align-justify"></i></a></li>
                                             <li class="breadcrumb-item"><a href="#!">Panel</a></li>
-                                            <li class="breadcrumb-item"><a href="#!">Dashboard</a></li>
+                                            <li class="breadcrumb-item"><a href="#!">Data Pengajuan</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -28,7 +28,7 @@ require('template/header.php');
                             <div class="col-sm-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>Selamat Datang</h5>
+                                        <h5>Data Pengajuan</h5>
                                         <div class="card-header-right">
                                             <div class="btn-group card-option">
                                                 <button type="button" class="btn dropdown-toggle btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -48,11 +48,31 @@ require('template/header.php');
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div class="alert alert-success" role="alert">
-                                            <h4 class="alert-heading">Selamat Datang di Panel User!</h4>
-                                            <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-                                            <hr>
-                                            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tggl Pengajuan</th>
+                                                        <th>Nama Suami</th>
+                                                        <th>Nama Istri</th>
+                                                        <th width="80">Status</th>
+                                                        <th width="80">Download</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>14/02/2022</td>
+                                                        <td>Rahmat Ilyas</td>
+                                                        <td>Mewwwwwww</td>
+                                                        <td>
+                                                            <span class="badge badge-danger">Ditinjau</span>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-success"><i class="fa fa-download"></i> Download</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>

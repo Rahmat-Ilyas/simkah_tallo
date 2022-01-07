@@ -1,5 +1,45 @@
 <?php
 require('template/header.php');
+$user_id = $usr['id'];
+$cek_data = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE user_id='$user_id' AND status='ditolak'");
+$cek = mysqli_fetch_assoc($cek_data);
+if (!$cek) {
+    echo "<script>
+        alert('Anda sebelumnya telah melakukan pengajuan. Silahkan periksa status pengajuan Anda!');
+        location.href='data-pengajuan.php';
+        </script>";
+    exit();
+}
+
+$pendaftar_id = $cek['pendaftar_id'];
+$get_data = mysqli_query($conn, "SELECT * FROM tb_data_suami WHERE pendaftar_id='$pendaftar_id'");
+$dta = mysqli_fetch_assoc($get_data);
+
+if (isset($_POST['kirim'])) {
+    $pengajuan_id = $cek['id'];
+    $tggl_pengajuan = date('Y-m-d');
+    $ket_hilang = set_foto($_FILES['ket_hilang'], 'ket_hilang-' . $pendaftar_id);
+    $scan_kk = set_foto($_FILES['scan_kk'], 'scan_kk-' . $pendaftar_id);
+    $scan_ktp = set_foto($_FILES['scan_ktp'], 'scan_ktp-' . $pendaftar_id);
+    $swafoto_suami = set_foto($_FILES['swafoto_suami'], 'swafoto_suami-' . $pendaftar_id);
+    $swafoto_istri = set_foto($_FILES['swafoto_istri'], 'swafoto_istri-' . $pendaftar_id);
+
+    mysqli_query($conn, "UPDATE tb_pengajuan SET tggl_pengajuan='$tggl_pengajuan', status='ditinjau', keterangan=NULL WHERE id='$pengajuan_id'");
+
+    echo "<script>
+        alert('Pengajuan baru selesai dibuat, Silahkan lihat status pengajuan Anda!');
+        location.href='data-pengajuan.php';
+        </script>";
+}
+
+// Upload Foto
+function set_foto($data, $file)
+{
+    $ext = pathinfo($data['name'], PATHINFO_EXTENSION);
+    $file_name = $file . "." . $ext;
+    move_uploaded_file($data['tmp_name'], '../img/dokumen/' . $file_name);
+    return $file_name;
+}
 ?>
 <!-- [ Main Content ] start -->
 <div class="pcoded-main-container">
@@ -51,29 +91,7 @@ require('template/header.php');
                                         <div class="alert alert-info mb-3" role="alert">
                                             <p class="mb-0">Note: Silahkan lakukan pengajuan baru apabila pengajuan sebelumnya di tolak.</p>
                                         </div>
-                                        <form method="post">
-                                            <div class="row">
-                                                <div class="col-sm-5">
-                                                    <div class="form-group">
-                                                        <label class="floating-label"><b>Periksa NIK anda (NIK Suami/Istri)</b></label>
-                                                        <input type="number" name="nik" id="nik" class="form-control" placeholder="Masukkan NIK" require="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-7">
-                                                    <div class="form-group">
-                                                        <label class="floating-label"></label>
-                                                        <div class="mt-2">
-                                                            <button type="button" class="btn btn-primary" id="cek-nik">Cek
-                                                                NIK</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12 mb-3" id="not-found" style="margin-top: -10px;" hidden="">
-                                                    <span class="text-danger"><i>NIK tidak ditemukan, periksa kembali NIK
-                                                            anda</i></span>
-                                                </div>
-                                            </div>
-
+                                        <form method="post" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-sm-5">
                                                     <table class="table table-striped">
@@ -130,46 +148,44 @@ require('template/header.php');
                                                         untuk melanjutkan pengajuan permintaan
                                                         duplikat buku nikah!</span>
                                                     <hr>
-                                                    <form>
-                                                        <h4>Berkas Pengajuan</h4>
-                                                        <div class="form-group row">
-                                                            <label class="col-3">Surat Keterangan Hilang</label>
-                                                            <div class="col-9">
-                                                                <input type="file" class="form-control" require="" name="ket_hilang">
-                                                            </div>
+                                                    <h5 class="text-center mb-3"><b><u>Berkas Pengajuan</u></b></h5>
+                                                    <div class="form-group row">
+                                                        <label class="col-3">Surat Keterangan Hilang</label>
+                                                        <div class="col-9">
+                                                            <input type="file" class="form-control" required="" name="ket_hilang">
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-3">Scan Kartu Keluarga</label>
-                                                            <div class="col-9">
-                                                                <input type="file" class="form-control" require="" name="scan_kk">
-                                                            </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-3">Scan Kartu Keluarga</label>
+                                                        <div class="col-9">
+                                                            <input type="file" class="form-control" required="" name="scan_kk">
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-3">Scan KTP</label>
-                                                            <div class="col-9">
-                                                                <input type="file" class="form-control" require="" name="scan_ktp">
-                                                            </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-3">Scan KTP</label>
+                                                        <div class="col-9">
+                                                            <input type="file" class="form-control" required="" name="scan_ktp">
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-3">Swafoto Suami</label>
-                                                            <div class="col-9">
-                                                                <input type="file" class="form-control" require="" name="swafoto_suami">
-                                                            </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-3">Swafoto Suami</label>
+                                                        <div class="col-9">
+                                                            <input type="file" class="form-control" required="" name="swafoto_suami">
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-3">Swafoto Istri</label>
-                                                            <div class="col-9">
-                                                                <input type="file" class="form-control" require="" name="swafoto_istri">
-                                                            </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-3">Swafoto Istri</label>
+                                                        <div class="col-9">
+                                                            <input type="file" class="form-control" required="" name="swafoto_istri">
                                                         </div>
+                                                    </div>
 
-                                                        <div class="row">
-                                                            <div class="col-3"></div>
-                                                            <div class="col-9">
-                                                                <button type="submit" name="kirim" class="btn  btn-primary">Kirim Pengajuan Baru</button>
-                                                            </div>
+                                                    <div class="row">
+                                                        <div class="col-3"></div>
+                                                        <div class="col-9">
+                                                            <button type="submit" name="kirim" class="btn  btn-primary">Kirim Pengajuan Baru</button>
                                                         </div>
-                                                    </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -190,29 +206,25 @@ require('template/footer.php');
 
 <script>
     $(document).ready(function() {
-        $('#cek-nik').click(function(e) {
-            e.preventDefault();
-
-            $('.dtl').text('-')
-            var nik = $('#nik').val();
-            $.ajax({
-                type: "POST",
-                url: "controller.php",
-                dataType: 'json',
-                data: {
-                    req: 'cek_nik',
-                    nik: nik,
-                },
-                success: function(data) {
-                    if (!data.desa) {
-                        $('#not-found').removeAttr('hidden');
-                        $('#nik').val('');
-                    } else $('#not-found').attr('hidden', '');
-                    $.each(data, function(key, val) {
-                        $('#' + key).text(val);
-                    });
-                }
-            });
+        $('.dtl').text('-')
+        var nik = "<?= $dta['nik'] ?>";
+        $.ajax({
+            type: "POST",
+            url: "controller.php",
+            dataType: 'json',
+            data: {
+                req: 'cek_nik',
+                nik: nik,
+            },
+            success: function(data) {
+                if (!data.desa) {
+                    $('#not-found').removeAttr('hidden');
+                    $('#nik').val('');
+                } else $('#not-found').attr('hidden', '');
+                $.each(data, function(key, val) {
+                    $('#' + key).text(val);
+                });
+            }
         });
     });
 </script>

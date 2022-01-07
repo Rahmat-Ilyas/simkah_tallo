@@ -43,7 +43,7 @@ if (isset($_POST['kirim'])) {
     $swafoto_suami = set_foto($_FILES['swafoto_suami'], 'swafoto_suami-' . $pendaftar_id);
     $swafoto_istri = set_foto($_FILES['swafoto_istri'], 'swafoto_istri-' . $pendaftar_id);
 
-    mysqli_query($conn, "INSERT INTO tb_pengajuan VALUES(NULL, '$pendaftar_id', '$user_id', '$tggl_pengajuan', '$ket_hilang', '$scan_kk', '$scan_ktp', '$swafoto_suami', '$swafoto_istri', 'ditinjau')");
+    mysqli_query($conn, "INSERT INTO tb_pengajuan VALUES(NULL, '$pendaftar_id', '$user_id', '$tggl_pengajuan', '$ket_hilang', '$scan_kk', '$scan_ktp', '$swafoto_suami', '$swafoto_istri', 'ditinjau', NULL)");
 
     echo "<script>
         alert('Pengajuan selesai, Silahkan login untuk melihat status pengajuan Anda!');

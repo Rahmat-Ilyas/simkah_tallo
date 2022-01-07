@@ -1,5 +1,8 @@
 <?php
 require('template/header.php');
+
+$user_id = $usr['id'];
+$get_data = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE user_id='$user_id'");
 ?>
 <!-- [ Main Content ] start -->
 <div class="pcoded-main-container">
@@ -55,22 +58,45 @@ require('template/header.php');
                                                         <th>Tggl Pengajuan</th>
                                                         <th>Nama Suami</th>
                                                         <th>Nama Istri</th>
-                                                        <th width="80">Status</th>
-                                                        <th width="80">Download</th>
+                                                        <th width="100">Status</th>
+                                                        <th width="150">Download</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>14/02/2022</td>
-                                                        <td>Rahmat Ilyas</td>
-                                                        <td>Mewwwwwww</td>
-                                                        <td>
-                                                            <span class="badge badge-danger">Ditinjau</span>
-                                                        </td>
-                                                        <td>
-                                                            <button class="btn btn-sm btn-success"><i class="fa fa-download"></i> Download</button>
-                                                        </td>
-                                                    </tr>
+                                                    <?php foreach ($get_data as $dta) {
+                                                        $pendaftar_id = $dta['pendaftar_id'];
+                                                        $data_suami = mysqli_query($conn, "SELECT * FROM tb_data_suami WHERE pendaftar_id='$pendaftar_id'");
+                                                        $dsm = mysqli_fetch_assoc($data_suami);
+                                                        $data_istri = mysqli_query($conn, "SELECT * FROM tb_data_istri WHERE pendaftar_id='$pendaftar_id'");
+                                                        $dis = mysqli_fetch_assoc($data_istri);
+
+                                                        $btn = '';
+                                                        if ($dta['status'] == 'ditinjau') {
+                                                            $warna = 'info';
+                                                            $btn = 'disabled';
+                                                        } else if ($dta['status'] == 'disetujui') {
+                                                            $warna = 'success';
+                                                        } else if ($dta['status'] == 'ditolak') {
+                                                            $warna = 'danger';
+                                                            $tolak = true;
+                                                        }
+                                                    ?>
+                                                        <tr>
+                                                            <td><?= date('d/m/Y', strtotime($dta['tggl_pengajuan'])) ?></td>
+                                                            <td><?= $dsm['nama'] ?></td>
+                                                            <td><?= $dis['nama'] ?></td>
+                                                            <td>
+                                                                <span class="badge badge-<?= $warna ?>"><?= strtoupper($dta['status']) ?></span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <?php if (isset($tolak)) { ?>
+                                                                    <button class="btn btn-sm btn-info" <?= $btn ?>><i class="fa fa-info-circle"></i> Keterangan</button>
+                                                                <?php } else { ?>
+                                                                    <button class="btn btn-sm btn-success" <?= $btn ?>><i class="fa fa-download"></i> Download</button>
+                                                                <?php } ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>

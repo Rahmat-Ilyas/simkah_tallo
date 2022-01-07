@@ -1,15 +1,19 @@
+<?php
+require('../config.php');
+
+if (!isset($_SESSION['login_user'])) {
+    header("location: login.php");
+}
+
+$user = mysqli_query($conn, "SELECT * FROM tb_user");
+$usr = mysqli_fetch_assoc($user);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>Panel User - Simkah Tallo</title>
-    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 11]>
-    	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    	<![endif]-->
-    <!-- Meta -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,7 +21,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="Phoenixcoded" />
     <!-- Favicon icon -->
-    <link rel="icon" href="../img/logo2.png" type="image/x-icon">
+    <link rel="icon" href="../img/logo.png" type="image/x-icon">
 
     <!-- prism css -->
     <link rel="stylesheet" href="assets/css/plugins/prism-coy.css">
@@ -66,7 +70,7 @@
                 <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
                 <a href="#!" class="b-brand">
                     <!-- ========   change your logo hear   ============ -->
-                    <img src="../img/logo2.png" height="40" alt="" class="logo">
+                    <img src="../img/logo.png" height="50" alt="" class="logo">
                     <b class="ml-2" style="font-size: 18px;">SIMKAH TALLO</b>
                 </a>
                 <a href="#!" class="mob-toggler">
@@ -78,12 +82,12 @@
                     <li>
                         <div class="dropdown drp-user">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Rahmat Ilyas <i class="feather icon-user"></i>
+                                <?= $usr['nama'] ?> <i class="feather icon-user"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right profile-notification">
                                 <div class="pro-head">
                                     <img src="../img/avatar.png" class="img-radius" alt="User-Profile-Image">
-                                    <span>Rahmat Ilyas</span>
+                                    <span><?= $usr['nama'] ?></span>
                                 </div>
                                 <ul class="pro-body">
                                     <li><a href="logout.php" class="dropdown-item"><i class="feather icon-log-out"></i> Log Out</a></li>

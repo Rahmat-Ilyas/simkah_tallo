@@ -1,3 +1,65 @@
+<?php
+require('../config.php');
+
+if (isset($_POST['kirim'])) {
+    $nik = $_POST['nik'];
+    $nama = $_POST['nama'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $cek_emial = mysqli_query($conn, "SELECT * FROM tb_user WHERE email='$email'");
+    $cek = mysqli_fetch_assoc($cek_emial);
+    if ($cek) {
+        echo "<script>
+        alert('Email sudah terdaftar. Silahkan login!');
+        location.href='login.php';
+        </script>";
+        exit();
+    }
+
+    $user = mysqli_query($conn, "INSERT INTO tb_user VALUES(NULL, '$nama', '$email', '$password')");
+    $user_id = mysqli_insert_id($conn);
+
+    $data_sm = mysqli_query($conn, "SELECT * FROM tb_data_suami WHERE nik='$nik'");
+    $dsm = mysqli_fetch_assoc($data_sm);
+    $data_is = mysqli_query($conn, "SELECT * FROM tb_data_istri WHERE nik='$nik'");
+    $dis = mysqli_fetch_assoc($data_is);
+
+    if ($dsm) {
+        $pendaftar_id = $dsm['pendaftar_id'];
+    } else if ($dis) {
+        $pendaftar_id = $dis['pendaftar_id'];
+    } else {
+        echo "<script>
+        alert('NIK tidak sesuai!');
+        location.href='daftar.php';
+        </script>";
+        exit();
+    }
+
+    $tggl_pengajuan = date('Y-m-d');
+    $ket_hilang = set_foto($_FILES['ket_hilang'], 'ket_hilang-' . $pendaftar_id);
+    $scan_kk = set_foto($_FILES['scan_kk'], 'scan_kk-' . $pendaftar_id);
+    $scan_ktp = set_foto($_FILES['scan_ktp'], 'scan_ktp-' . $pendaftar_id);
+    $swafoto_suami = set_foto($_FILES['swafoto_suami'], 'swafoto_suami-' . $pendaftar_id);
+    $swafoto_istri = set_foto($_FILES['swafoto_istri'], 'swafoto_istri-' . $pendaftar_id);
+
+    mysqli_query($conn, "INSERT INTO tb_pengajuan VALUES(NULL, '$pendaftar_id', '$user_id', '$tggl_pengajuan', '$ket_hilang', '$scan_kk', '$scan_ktp', '$swafoto_suami', '$swafoto_istri', 'ditinjau')");
+
+    echo "<script>
+        alert('Pengajuan selesai, Silahkan login untuk melihat status pengajuan Anda!');
+        location.href='login.php';
+        </script>";
+}
+
+// Upload Foto
+function set_foto($data, $file)
+{
+    $ext = pathinfo($data['name'], PATHINFO_EXTENSION);
+    $file_name = $file . "." . $ext;
+    move_uploaded_file($data['tmp_name'], '../img/dokumen/' . $file_name);
+    return $file_name;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +73,8 @@
     <meta name="keywords" content="">
     <meta name="author" content="Phoenixcoded" />
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Favicon icon -->
+    <link rel="icon" href="../img/logo.png" type="image/x-icon">
 
 </head>
 
@@ -26,12 +90,12 @@
                                     Nikah</h2>
                             </div>
                             <div class="card-body">
-                                <form method="post">
+                                <form method="post" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-sm-5">
                                             <div class="form-group">
                                                 <label class="floating-label"><b>Periksa NIK anda (NIK Suami/Istri)</b></label>
-                                                <input type="number" name="nik" id="nik" class="form-control" placeholder="Masukkan NIK anda" require="">
+                                                <input type="number" name="nik" id="nik" class="form-control" placeholder="Masukkan NIK anda" required="">
                                             </div>
                                         </div>
                                         <div class="col-sm-7">
@@ -105,66 +169,65 @@
                                                 untuk melanjutkan pengajuan permintaan
                                                 duplikat buku nikah!</span>
                                             <hr>
-                                            <form>
-                                                <h4>Data Pemohon</h4>
-                                                <div class="form-group row">
-                                                    <label class="col-3">Nama Pemohon</label>
-                                                    <div class="col-9">
-                                                        <input type="text" class="form-control" name="nama" placeholder="Nama Pemohon..." require="">
-                                                    </div>
+                                            <h5 class="text-center mb-3"><b><u>Data Pemohon</u></b></h5>
+                                            <div class="form-group row">
+                                                <label class="col-3">Nama Pemohon</label>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control" name="nama" placeholder="Nama Pemohon..." required="">
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-3">Email</label>
-                                                    <div class="col-9">
-                                                        <input type="email" class="form-control" name="email" placeholder="Email..." require="">
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-3">Email</label>
+                                                <div class="col-9">
+                                                    <input type="email" class="form-control" name="email" placeholder="Email..." required="">
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-3">Password</label>
-                                                    <div class="col-9">
-                                                        <input type="password" class="form-control" name="password" placeholder="Password..." require="">
-                                                        <span class="text-info">Note: Silahkan gunakan email dan password untuk login ke panel user untuk mendownload duplikat buku nikah anda</span>
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-3">Password</label>
+                                                <div class="col-9">
+                                                    <input type="password" class="form-control" name="password" placeholder="Password..." required="">
+                                                    <span class="text-info">Note: Silahkan gunakan email dan password untuk login ke panel user untuk mendownload duplikat buku nikah anda</span>
                                                 </div>
-                                                <h4>Berkas Pengajuan</h4>
-                                                <div class="form-group row">
-                                                    <label class="col-3">Surat Keterangan Hilang</label>
-                                                    <div class="col-9">
-                                                        <input type="file" class="form-control" require="" name="ket_hilang">
-                                                    </div>
+                                            </div>
+                                            <hr>
+                                            <h5 class="text-center mb-3"><b><u>Berkas Pengajuan</u></b></h5>
+                                            <div class="form-group row">
+                                                <label class="col-3">Surat Keterangan Hilang</label>
+                                                <div class="col-9">
+                                                    <input type="file" class="form-control" required="" name="ket_hilang">
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-3">Scan Kartu Keluarga</label>
-                                                    <div class="col-9">
-                                                        <input type="file" class="form-control" require="" name="scan_kk">
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-3">Scan Kartu Keluarga</label>
+                                                <div class="col-9">
+                                                    <input type="file" class="form-control" required="" name="scan_kk">
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-3">Scan KTP</label>
-                                                    <div class="col-9">
-                                                        <input type="file" class="form-control" require="" name="scan_ktp">
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-3">Scan KTP</label>
+                                                <div class="col-9">
+                                                    <input type="file" class="form-control" required="" name="scan_ktp">
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-3">Swafoto Suami</label>
-                                                    <div class="col-9">
-                                                        <input type="file" class="form-control" require="" name="swafoto_suami">
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-3">Swafoto Suami</label>
+                                                <div class="col-9">
+                                                    <input type="file" class="form-control" required="" name="swafoto_suami">
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-3">Swafoto Istri</label>
-                                                    <div class="col-9">
-                                                        <input type="file" class="form-control" require="" name="swafoto_istri">
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-3">Swafoto Istri</label>
+                                                <div class="col-9">
+                                                    <input type="file" class="form-control" required="" name="swafoto_istri">
                                                 </div>
+                                            </div>
 
-                                                <div class="row">
-                                                    <div class="col-3"></div>
-                                                    <div class="col-9">
-                                                        <button type="submit" name="kirim" class="btn  btn-primary">Kirim Pengajuan</button>
-                                                    </div>
+                                            <div class="row">
+                                                <div class="col-3"></div>
+                                                <div class="col-9">
+                                                    <button type="submit" name="kirim" class="btn  btn-primary">Kirim Pengajuan</button>
                                                 </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -201,8 +264,10 @@
                     nik: nik,
                 },
                 success: function(data) {
-                    if (!data.desa) $('#not-found').removeAttr('hidden');
-                    else $('#not-found').attr('hidden', '');
+                    if (!data.desa) {
+                        $('#not-found').removeAttr('hidden');
+                        $('#nik').val('');
+                    } else $('#not-found').attr('hidden', '');
                     $.each(data, function(key, val) {
                         $('#' + key).text(val);
                     });

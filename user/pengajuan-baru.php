@@ -16,7 +16,7 @@ require('template/header.php');
                                             <h5 class="m-b-10">Pengajuan Baru</h5>
                                         </div>
                                         <ul class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
+                                            <li class="breadcrumb-item"><a href="#"><i class="feather icon-file-text"></i></a></li>
                                             <li class="breadcrumb-item"><a href="#!">Panel</a></li>
                                             <li class="breadcrumb-item"><a href="#!">Pengajuan Baru</a></li>
                                         </ul>
@@ -56,7 +56,7 @@ require('template/header.php');
                                                 <div class="col-sm-5">
                                                     <div class="form-group">
                                                         <label class="floating-label"><b>Periksa NIK anda (NIK Suami/Istri)</b></label>
-                                                        <input type="number" name="nik" id="nik" class="form-control" placeholder="Masukkan NIK anda" require="">
+                                                        <input type="number" name="nik" id="nik" class="form-control" placeholder="Masukkan NIK" require="">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-7">
@@ -204,8 +204,10 @@ require('template/footer.php');
                     nik: nik,
                 },
                 success: function(data) {
-                    if (!data.desa) $('#not-found').removeAttr('hidden');
-                    else $('#not-found').attr('hidden', '');
+                    if (!data.desa) {
+                        $('#not-found').removeAttr('hidden');
+                        $('#nik').val('');
+                    } else $('#not-found').attr('hidden', '');
                     $.each(data, function(key, val) {
                         $('#' + key).text(val);
                     });

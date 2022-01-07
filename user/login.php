@@ -1,3 +1,31 @@
+<?php
+require('../config.php');
+
+if (isset($_SESSION['login_user'])) header("location: index.php");
+
+$email = null;
+$err_email = false;
+$err_pass = false;
+
+if (isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE email = '$email'");
+    $get = mysqli_fetch_assoc($result);
+
+    if ($get) {
+        $get_password = $get['password'];
+
+        if (password_verify($password, $get_password)) {
+            $_SESSION['login_user'] = $get_password;
+            header("location: index.php");
+            exit();
+        } else $err_pass = true;
+    } else $err_email = true;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,14 +45,11 @@
     <meta name="description" content="" />
     <meta name="keywords" content="">
     <meta name="author" content="Phoenixcoded" />
-    <!-- Favicon icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 
     <!-- vendor css -->
     <link rel="stylesheet" href="assets/css/style.css">
-
-
-
+    <!-- Favicon icon -->
+    <link rel="icon" href="../img/logo.png" type="image/x-icon">
 
 </head>
 
@@ -32,24 +57,37 @@
 <div class="auth-wrapper" style="background: url('../img/green.jpg');">
     <div class="auth-content text-center">
         <!-- <img src="assets/images/logo.png" alt="" class="img-fluid mb-4"> -->
-        <img src="../img/logo2.png" height="50" alt="" class="mb-3">
+        <img src="../img/logo.png" height="60" alt="" class="mb-3">
         <b class="ml-2 mb-5 text-white" style="font-size: 18px;">SIMKAH TALLO</b>
         <div class="card borderless">
             <div class="row align-items-center ">
-                <div class="col-md-12">
-                    <div class="card-body">
-                        <h4 class="mb-3 f-w-400">Login Panel User</h4>
-                        <hr>
-                        <div class="form-group mb-3">
-                            <input type="text" class="form-control" id="Email" placeholder="Email...">
+                <form method="post">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <h4 class="mb-3 f-w-400">Login Panel User</h4>
+                            <hr>
+                            <div class="form-group mb-3">
+                                <input type="email" class="form-control" name="email" placeholder="Email...">
+                                <?php if ($err_email == true) { ?>
+                                    <div class="text-danger text-left">
+                                        Email tidak ditemukan
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <div class="form-group mb-4">
+                                <input type="password" class="form-control" name="password" placeholder="Password...">
+                                <?php if ($err_pass == true) { ?>
+                                    <div class="text-danger text-left">
+                                        Password tidak sesuai
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <button type="submit" name="login" class="btn btn-block btn-primary mb-4">Login</button>
+                            <hr>
+                            <p class="mb-0 text-muted">Belum punya akun? <a href="daftar.php" class="f-w-400">Lakukan pengajuan disini</a></p>
                         </div>
-                        <div class="form-group mb-4">
-                            <input type="password" class="form-control" id="Password" placeholder="Password...">
-                        </div>
-                        <button class="btn btn-block btn-primary mb-4">Login</button>
-                        <hr>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

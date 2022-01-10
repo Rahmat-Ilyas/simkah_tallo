@@ -1,6 +1,23 @@
 <?php
 require('template/header.php');
 $response = null;
+// Terima Permintaan
+if (isset($_GET['accept'])) {
+    $id = $_GET['id'];
+    $accept = mysqli_query($conn, "UPDATE tb_pengajuan SET status='disetujui' WHERE id='$id'");
+
+    if ($accept) $response = 'success_accept';
+    else $response = 'error';
+}
+
+if (isset($_POST['refuse'])) {
+    $id = $_POST['id'];
+    $keterangan = $_POST['keterangan'];
+    $accept = mysqli_query($conn, "UPDATE tb_pengajuan SET keterangan='$keterangan', status='ditolak' WHERE id='$id'");
+
+    if ($accept) $response = 'success_refuse';
+    else $response = 'error';
+}
 
 $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status='ditinjau'");
 ?>
@@ -75,7 +92,7 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status='ditin
                                                 </td>
                                                 <td class="text-center">
                                                     <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-detail<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Detail Data Nikah"><i class="fa fa-list"></i></a>
-                                                    <a href="#" class="btn btn-sm btn-success" data-toggle1="tooltip" data-original-title="Proses Permintaan"><i class="fa fa-user-clock"></i></a>
+                                                    <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-proses<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Proses Permintaan"><i class="fa fa-user-clock"></i></a>
                                                 </td>
                                             </tr>
                                         <?php $no = $no + 1;
@@ -354,7 +371,7 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status='ditin
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Berkas Syarat Pengajuan Duplikat Buku Nikah?</h5>
+                    <h5 class="modal-title">Berkas Syarat Pengajuan Duplikat Buku Nikah</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -389,6 +406,47 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status='ditin
             </div>
         </div>
     </div>
+
+    <!-- MODAL PROSES -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-proses<?= $dta['id'] ?>">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Proses Permintaan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST">
+                    <div class="modal-body">
+                        <div id="proccess-content" class="text-center">
+                            <div class="mb-2 text-justify">
+                                Silahkan klik "Terima Permintaan" untuk menyetujui permintaan pengajuan duplikat buku nikah atau klik "Tolak Permintaan" Untuk menolak permintaan ini!
+                            </div>
+                            <hr>
+                            <a href="?accept=true&id=<?= $dta['id'] ?>" role="button" class="btn btn-success"><i class="fas fa-check-circle"></i> Terima Permintaan</a>
+                            <a href="#" role="button" class="btn btn-danger" id="act-refuse"><i class="fas fa-times-circle"></i> Tolak Permintaan</a>
+                        </div>
+                        <div id="refuse-content" hidden>
+                            <div class="text-center">
+                                <b>Tolak Permintaan Duplikat Buku Nikah</b>
+                            </div>
+                            <hr>
+                            <form method="post">
+                                <label>Keteranagn:</label>
+                                <textarea name="keterangan" class="form-control" rows="4" placeholder="Input keterangan / alasan penolakan.." required=""></textarea>
+                                <div class="text-right mt-2">
+                                    <input type="hidden" name="id" value="<?= $dta['id'] ?>">
+                                    <a href="#" role="button" class="btn btn-secondary" id="act-cancel"> Batalkan</a>
+                                    <button type="submit" class="btn btn-primary" name="refuse"> Lanjutkan Penolakan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 <?php } ?>
 
 <?php
@@ -400,35 +458,38 @@ require('template/footer.php');
         $('#permintaan-baru').addClass('active');
         $('#permintaan-duplikat').addClass('active');
         $('#permintaan-duplikat').parent('.nav-item').addClass('menu-open');
-        <?php if ($response == 'success_add') { ?>
-            Swal.fire({
+
+        $('#act-refuse').click(function(e) {
+            e.preventDefault();
+
+            $('#proccess-content').attr('hidden', '');
+            $('#refuse-content').removeAttr('hidden');
+        });
+
+        $('#act-cancel').click(function(e) {
+            e.preventDefault();
+
+            $('#refuse-content').attr('hidden', '');
+            $('#proccess-content').removeAttr('hidden');
+        });
+
+        <?php if ($response == 'success_accept') { ?> Swal.fire({
                 icon: 'success',
-                title: 'Berhasil Tambah Data',
-                text: 'Data baru berhasil ditambahkan',
-                preConfirm: () => {
-                    window.location.href = window.location.href;
-                }
-            });
-        <?php } else if ($response == 'success_edit') { ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil Mengupdate Data',
-                text: 'Data telah berhasil di update',
-                preConfirm: () => {
-                    window.location.href = window.location.href;
-                }
-            });
-        <?php } else if ($response == 'success_delete') { ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil Menghapus Data',
-                text: 'Data telah berhasil di hapus',
+                title: 'Berhasil Diproses',
+                text: 'Data permintaan berhasil disetujui',
                 preConfirm: () => {
                     window.location.href = window.location.href.split('?')[0];
                 }
             });
-        <?php } else if ($response == 'error') { ?>
-            Swal.fire({
+        <?php } else if ($response == 'success_refuse') { ?> Swal.fire({
+                icon: 'success',
+                title: 'Berhasil Diproses',
+                text: 'Data permintaan berhasil ditolak',
+                preConfirm: () => {
+                    window.location.href = window.location.href;
+                }
+            });
+        <?php } else if ($response == 'error') { ?> Swal.fire({
                 icon: 'error',
                 title: 'Terjadi Kesalahan',
                 text: 'Terjadi kesalahan. Gagal memproses data',

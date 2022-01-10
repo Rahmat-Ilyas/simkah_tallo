@@ -1,6 +1,5 @@
 <?php
 require('template/header.php');
-$response = null;
 
 $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status!='ditinjau'");
 ?>
@@ -357,7 +356,7 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status!='diti
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Berkas Syarat Pengajuan Duplikat Buku Nikah?</h5>
+                    <h5 class="modal-title">Berkas Syarat Pengajuan Duplikat Buku Nikah</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

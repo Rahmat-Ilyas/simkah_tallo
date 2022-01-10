@@ -1,4 +1,4 @@
-<?php  
+<?php
 require('template/header.php');
 $response = null;
 // Hapu data
@@ -62,7 +62,8 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 										</tr>
 									</thead>
 									<tbody>
-										<?php $no=1; foreach ($pendaftar as $dta) { 
+										<?php $no = 1;
+										foreach ($pendaftar as $dta) {
 											$pendaftar_id = $dta['id'];
 											$desa_id = $dta['desa_id'];
 											$data_sm = mysqli_query($conn, "SELECT * FROM tb_data_suami WHERE pendaftar_id='$pendaftar_id'");
@@ -71,7 +72,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 											$dsm = mysqli_fetch_assoc($data_sm);
 											$dis = mysqli_fetch_assoc($data_is);
 											$des = mysqli_fetch_assoc($data_desa);
-											?>
+										?>
 											<tr>
 												<td><?= $no ?></td>
 												<td><?= $des['nama_desa'] ?></td>
@@ -86,7 +87,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 													<a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-hapus<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Hapus Data Nikah"><i class="fa fa-trash"></i></a>
 												</td>
 											</tr>
-											<?php $no=$no+1; 
+										<?php $no = $no + 1;
 										} ?>
 									</tbody>
 								</table>
@@ -101,7 +102,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 </div>
 
 
-<?php foreach ($pendaftar as $dta) { 
+<?php foreach ($pendaftar as $dta) {
 	$pendaftar_id = $dta['id'];
 	$desa_id = $dta['desa_id'];
 
@@ -115,7 +116,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 	$dwl = mysqli_fetch_assoc($data_wl);
 	$pmr = mysqli_fetch_assoc($pmriksn);
 	$des = mysqli_fetch_assoc($data_desa);
-	?>
+?>
 	<!-- MODAL DETAIL -->
 	<div class="modal fade" tabindex="-1" role="dialog" id="modal-detail<?= $dta['id'] ?>">
 		<div class="modal-dialog modal-lg" role="document">
@@ -147,7 +148,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 					</div>
 					<div class="row">
 						<b class="col-sm-4">Tanggal Akad</b>
-						<span class="col-sm-8">: <?= date('d/m/Y', strtotime($dta['tggl_akad'])).' '.$dta['waktu_akad'] ?></span>
+						<span class="col-sm-8">: <?= date('d/m/Y', strtotime($dta['tggl_akad'])) . ' ' . $dta['waktu_akad'] ?></span>
 					</div>
 					<div class="row">
 						<b class="col-sm-4">Lokasi Nikah</b>
@@ -330,7 +331,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 						<?php
 						$penghulu_id = $dta['penghulu_id'];
 						$penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu WHERE id='$penghulu_id'");
-						$phl = mysqli_fetch_assoc($penghulu); 
+						$phl = mysqli_fetch_assoc($penghulu);
 						?>
 						<span class="col-sm-8">: <?= $phl['nama'] ?></span>
 					</div>
@@ -378,7 +379,7 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
 	</div>
 <?php } ?>
 
-<?php  
+<?php
 require('template/footer.php');
 ?>
 
@@ -393,7 +394,7 @@ require('template/footer.php');
 				title: 'Berhasil Dihapus',
 				text: 'Data telah berhasil dihapus',
 				preConfirm: () => {
-					window.location.href=window.location.href.split('?')[0];
+					window.location.href = window.location.href.split('?')[0];
 				}
 			});
 		<?php } else if ($response == 'error') { ?>
@@ -402,7 +403,7 @@ require('template/footer.php');
 				title: 'Terjadi Kesalahan',
 				text: 'Terjadi kesalahan. Gagal memproses data',
 				preConfirm: () => {
-					window.location.href=window.location.href;
+					window.location.href = window.location.href;
 				}
 			});
 		<?php } ?>

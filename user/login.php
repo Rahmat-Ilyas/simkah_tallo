@@ -19,6 +19,7 @@ if (isset($_POST['login'])) {
 
         if (password_verify($password, $get_password)) {
             $_SESSION['login_user'] = $get_password;
+            $_SESSION['login_user_get_id'] = $get['id'];
             header("location: index.php");
             exit();
         } else $err_pass = true;

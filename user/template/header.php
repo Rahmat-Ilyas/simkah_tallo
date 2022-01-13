@@ -3,9 +3,9 @@ require('../config.php');
 
 if (!isset($_SESSION['login_user'])) {
     header("location: login.php");
-    $user_id = $_SESSION['login_user_get_id'];
 }
 
+$user_id = $_SESSION['login_user_get_id'];
 $user = mysqli_query($conn, "SELECT * FROM tb_user WHERE id='$user_id'");
 $usr = mysqli_fetch_assoc($user);
 ?>

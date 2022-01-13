@@ -35,55 +35,57 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status!='diti
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="dataTable" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th width="1">No</th>
-                                            <th>Tggl Pengajuan</th>
-                                            <th>Email</th>
-                                            <th>NIK Suami</th>
-                                            <th>Nama Suami</th>
-                                            <th>NIK Istri</th>
-                                            <th>Nama Istri</th>
-                                            <th>Status</th>
-                                            <th>Berkas Pengajuan</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php $no = 1;
-                                        foreach ($pengajuan as $dta) {
-                                            $pendaftar_id = $dta['pendaftar_id'];
-                                            $user_id = $dta['user_id'];
-                                            $data_sm = mysqli_query($conn, "SELECT * FROM tb_data_suami WHERE pendaftar_id='$pendaftar_id'");
-                                            $data_is = mysqli_query($conn, "SELECT * FROM tb_data_istri WHERE pendaftar_id='$pendaftar_id'");
-                                            $user = mysqli_query($conn, "SELECT * FROM tb_user WHERE id='$user_id'");
-                                            $dsm = mysqli_fetch_assoc($data_sm);
-                                            $dis = mysqli_fetch_assoc($data_is);
-                                            $usr = mysqli_fetch_assoc($user);
-                                        ?>
+                                <div class="table-responsive">
+                                    <table id="dataTable" class="table table-bordered table-striped">
+                                        <thead>
                                             <tr>
-                                                <td><?= $no ?></td>
-                                                <td><?= date('d/m/Y', strtotime($dta['tggl_pengajuan'])) ?></td>
-                                                <td><?= $usr['email'] ?></td>
-                                                <td><?= $dsm['nik'] ?></td>
-                                                <td><?= $dsm['nama'] ?></td>
-                                                <td><?= $dis['nik'] ?></td>
-                                                <td><?= $dis['nama'] ?></td>
-                                                <td>
-                                                    <span class="badge badge-<?= $dta['status'] == 'disetujui' ? 'success' : 'danger' ?>"><?= strtoupper($dta['status']) ?></span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="#" class="btn btn-sm btn-link" data-toggle="modal" data-target="#modal-berkas<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Lihat Berkas Persyaratan"><i class="fa fa-file-alt"></i> Lihat Berkas</a>
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-detail<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Detail Data Nikah"><i class="fa fa-list"></i></a>
-                                                </td>
+                                                <th width="1">No</th>
+                                                <th>Tggl Pengajuan</th>
+                                                <th>Email</th>
+                                                <th>NIK Suami</th>
+                                                <th>Nama Suami</th>
+                                                <th>NIK Istri</th>
+                                                <th>Nama Istri</th>
+                                                <th>Status</th>
+                                                <th>Berkas Pengajuan</th>
+                                                <th>Aksi</th>
                                             </tr>
-                                        <?php $no = $no + 1;
-                                        } ?>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            <?php $no = 1;
+                                            foreach ($pengajuan as $dta) {
+                                                $pendaftar_id = $dta['pendaftar_id'];
+                                                $user_id = $dta['user_id'];
+                                                $data_sm = mysqli_query($conn, "SELECT * FROM tb_data_suami WHERE pendaftar_id='$pendaftar_id'");
+                                                $data_is = mysqli_query($conn, "SELECT * FROM tb_data_istri WHERE pendaftar_id='$pendaftar_id'");
+                                                $user = mysqli_query($conn, "SELECT * FROM tb_user WHERE id='$user_id'");
+                                                $dsm = mysqli_fetch_assoc($data_sm);
+                                                $dis = mysqli_fetch_assoc($data_is);
+                                                $usr = mysqli_fetch_assoc($user);
+                                            ?>
+                                                <tr>
+                                                    <td><?= $no ?></td>
+                                                    <td><?= date('d/m/Y', strtotime($dta['tggl_pengajuan'])) ?></td>
+                                                    <td><?= $usr['email'] ?></td>
+                                                    <td><?= $dsm['nik'] ?></td>
+                                                    <td><?= $dsm['nama'] ?></td>
+                                                    <td><?= $dis['nik'] ?></td>
+                                                    <td><?= $dis['nama'] ?></td>
+                                                    <td>
+                                                        <span class="badge badge-<?= $dta['status'] == 'disetujui' ? 'success' : 'danger' ?>"><?= strtoupper($dta['status']) ?></span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="#" class="btn btn-sm btn-link" data-toggle="modal" data-target="#modal-berkas<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Lihat Berkas Persyaratan"><i class="fa fa-file-alt"></i> Lihat Berkas</a>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-detail<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Detail Data Nikah"><i class="fa fa-list"></i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php $no = $no + 1;
+                                            } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <!-- /.card-body -->
                         </div>

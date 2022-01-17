@@ -282,14 +282,14 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status='ditin
                     <hr>
                     <!-- Data Wali -->
                     <h6 class="mt-4"><b><u>Data Wali:</u></b></h6>
-                    <div class="row">
+                    <!-- <div class="row">
                         <b class="col-sm-4">NIK</b>
                         <span class="col-sm-8">: <?= $dwl['nik'] ?></span>
                     </div>
                     <div class="row">
                         <b class="col-sm-4">No KK</b>
                         <span class="col-sm-8">: <?= $dwl['no_kk'] ?></span>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <b class="col-sm-4">Nama</b>
                         <span class="col-sm-8">: <?= $dwl['nama'] ?></span>
@@ -390,12 +390,12 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status='ditin
                                 <img src="../img/dokumen/<?= $dta['scan_ktp'] ?>" style="width: 100%;">
                             </div>
                             <div class="col-5">
-                                <b>Swafoto Suami</b>
+                                <b>Swafoto</b>
                                 <img src="../img/dokumen/<?= $dta['swafoto_suami'] ?>" style="width: 100%;">
                                 <hr>
-                                <b>Swafoto Istri</b>
+                                <!-- <b>Swafoto Istri</b>
                                 <img src="../img/dokumen/<?= $dta['swafoto_istri'] ?>" style="width: 100%;">
-                                <hr>
+                                <hr> -->
                             </div>
                         </div>
                     </div>

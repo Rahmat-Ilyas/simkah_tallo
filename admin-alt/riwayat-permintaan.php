@@ -269,14 +269,14 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status!='diti
                     <hr>
                     <!-- Data Wali -->
                     <h6 class="mt-4"><b><u>Data Wali:</u></b></h6>
-                    <div class="row">
+                    <!-- <div class="row">
                         <b class="col-sm-4">NIK</b>
                         <span class="col-sm-8">: <?= $dwl['nik'] ?></span>
                     </div>
                     <div class="row">
                         <b class="col-sm-4">No KK</b>
                         <span class="col-sm-8">: <?= $dwl['no_kk'] ?></span>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <b class="col-sm-4">Nama</b>
                         <span class="col-sm-8">: <?= $dwl['nama'] ?></span>

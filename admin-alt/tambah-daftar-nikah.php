@@ -1,4 +1,4 @@
-<?php  
+<?php
 require('template/header.php');
 
 $response = null;
@@ -43,8 +43,8 @@ if (isset($_POST['store_data'])) {
 	mysqli_query($conn, "INSERT INTO tb_data_istri VALUES(NULL, '$pendaftar_id', '$warga_negara_is', '$nik_istri', '$nama_istri', '$tempat_lahir_is', '$tggl_lahir_is', '$umur_istri', '$alamat_istri', '$status_istri', '$agama_istri', '$pekerjaan_istri', '$pas_foto_is')");
 
 	// data wali
-	$nik_wali = $_POST['nik_wali'];
-	$no_kk = $_POST['no_kk'];
+	$nik_wali = NULL;
+	$no_kk = NULL;
 	$nama_wali = $_POST['nama_wali'];
 	$status_wali = $_POST['status_wali'];
 	$agama_wali = $_POST['agama_wali'];
@@ -142,7 +142,7 @@ if (isset($_POST['store_data'])) {
 													<label>Kelurahan/Desa</label>
 													<select class="form-control" id="desa_id" name="desa_id">
 														<option value="">--Pilih Desa/Kelurahan--</option>
-														<?php 
+														<?php
 														$desa = mysqli_query($conn, "SELECT * FROM tb_desa");
 														foreach ($desa as $dsa) { ?>
 															<option value="<?= $dsa['id'] ?>"><?= $dsa['nama_desa'] ?></option>
@@ -157,7 +157,7 @@ if (isset($_POST['store_data'])) {
 													</select>
 												</div>
 												<div class="form-group">
-													<label>Tanggal Akad Nikah</label>   
+													<label>Tanggal Akad Nikah</label>
 													<input class="form-control" type="date" id="tggl_akad" name="tggl_akad">
 												</div>
 												<div class="form-group">
@@ -312,7 +312,7 @@ if (isset($_POST['store_data'])) {
 											<!-- step 4 -->
 											<fieldset>
 												<h4>Data Wali</h4>
-												<div class="form-group">
+												<!-- <div class="form-group">
 													<label>Nik Wali</label>
 													<input class="form-control" type="text" placeholder="Nik Wali" name="nik_wali" id="nik_wali">
 												</div>
@@ -320,7 +320,7 @@ if (isset($_POST['store_data'])) {
 												<div class="form-group">
 													<label>Nomor Kartu Keluarga</label>
 													<input class="form-control" type="text" placeholder="Nomor Kartu Keluarga" name="no_kk" id="no_kk">
-												</div>
+												</div> -->
 												<div class="form-group">
 													<label>Nama Wali</label>
 													<input class="form-control" type="text" placeholder="Nama Wali" name="nama_wali" id="nama_wali">
@@ -383,7 +383,7 @@ if (isset($_POST['store_data'])) {
 													<label>Penghulu</label>
 													<select class="form-control" name="penghulu_id" required>
 														<option value="">--Penghulu--</option>
-														<?php 
+														<?php
 														$penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 														foreach ($penghulu as $pngh) { ?>
 															<option value="<?= $pngh['id'] ?>"><?= $pngh['nama'] ?></option>
@@ -423,7 +423,7 @@ if (isset($_POST['store_data'])) {
 	</section>
 </div>
 
-<?php  
+<?php
 require('template/footer.php');
 ?>
 <script src="dist/js/wizard.js"></script>
@@ -433,14 +433,14 @@ require('template/footer.php');
 		$('#input-data-pendaftar').addClass('active');
 		$('#input-data-pendaftar').parent('.nav-item').addClass('menu-open');
 
-		window.onload=function() {
+		window.onload = function() {
 			$('.umur').on('change', function() {
 				var dob = new Date(this.value);
 				var today = new Date();
-				var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-            // $('.result').val(age);
-            $(this).parents('.find-umur').find('.result').val(age);
-         });
+				var age = Math.floor((today - dob) / (365.25 * 24 * 60 * 60 * 1000));
+				// $('.result').val(age);
+				$(this).parents('.find-umur').find('.result').val(age);
+			});
 		}
 
 		$('#pas_foto_sm').change(function(e) {
@@ -495,7 +495,7 @@ require('template/footer.php');
 				title: 'Berhasil Tambah Data',
 				text: 'Data baru berhasil ditambahkan',
 				preConfirm: () => {
-					window.location.href=window.location.href;
+					window.location.href = window.location.href;
 				}
 			});
 		<?php } ?>

@@ -22,7 +22,7 @@ if (isset($_POST['kirim'])) {
     $scan_kk = set_foto($_FILES['scan_kk'], 'scan_kk-' . $pendaftar_id);
     $scan_ktp = set_foto($_FILES['scan_ktp'], 'scan_ktp-' . $pendaftar_id);
     $swafoto_suami = set_foto($_FILES['swafoto_suami'], 'swafoto_suami-' . $pendaftar_id);
-    $swafoto_istri = set_foto($_FILES['swafoto_istri'], 'swafoto_istri-' . $pendaftar_id);
+    $swafoto_istri = NULL;
 
     mysqli_query($conn, "UPDATE tb_pengajuan SET tggl_pengajuan='$tggl_pengajuan', status='ditinjau', keterangan=NULL WHERE id='$pengajuan_id'");
 
@@ -168,17 +168,17 @@ function set_foto($data, $file)
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label class="col-3">Swafoto Suami</label>
+                                                        <label class="col-3">Swafoto</label>
                                                         <div class="col-9">
                                                             <input type="file" class="form-control" required="" name="swafoto_suami">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group row">
+                                                    <!-- <div class="form-group row">
                                                         <label class="col-3">Swafoto Istri</label>
                                                         <div class="col-9">
                                                             <input type="file" class="form-control" required="" name="swafoto_istri">
                                                         </div>
-                                                    </div>
+                                                    </div> -->
 
                                                     <div class="row">
                                                         <div class="col-3"></div>

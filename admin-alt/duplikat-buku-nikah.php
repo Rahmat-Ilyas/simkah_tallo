@@ -1,4 +1,4 @@
-<?php  
+<?php
 require('template/header.php');
 
 $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar");
@@ -50,20 +50,21 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 										</tr>
 									</thead>
 									<tbody>
-										<?php $no=1; foreach ($pendaftar as $dta) { 
+										<?php $no = 1;
+										foreach ($pendaftar as $dta) {
 											$pendaftar_id = $dta['id'];
 											$data_sm = mysqli_query($conn, "SELECT * FROM tb_data_suami WHERE pendaftar_id='$pendaftar_id'");
 											$data_is = mysqli_query($conn, "SELECT * FROM tb_data_istri WHERE pendaftar_id='$pendaftar_id'");
 											$dsm = mysqli_fetch_assoc($data_sm);
 											$dis = mysqli_fetch_assoc($data_is);
-											?>
+										?>
 											<tr>
 												<td><?= $no ?></td>
 												<td><?= $dsm['nik'] ?></td>
 												<td><?= $dsm['nama'] ?></td>
 												<td><?= $dis['nik'] ?></td>
 												<td><?= $dis['nama'] ?></td>
-												<td><?= date('d/m/Y', strtotime($dta['tggl_akad'])).' '.$dta['waktu_akad'] ?></td>
+												<td><?= date('d/m/Y', strtotime($dta['tggl_akad'])) . ' ' . $dta['waktu_akad'] ?></td>
 												<td><?= $dta['tempat_nikah'] ?></td>
 												<td><?= $dta['lokasi_nikah'] ?></td>
 												<td class="text-center">
@@ -71,7 +72,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 													<a href="#" class="btn btn-sm btn-secondary print-surat" data-id="<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Cetak Duplikat Buku Nikah"><i class="fa fa-print"></i></a>
 												</td>
 											</tr>
-											<?php $no=$no+1; 
+										<?php $no = $no + 1;
 										} ?>
 									</tbody>
 								</table>
@@ -86,7 +87,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 </div>
 
 
-<?php foreach ($pendaftar as $dta) { 
+<?php foreach ($pendaftar as $dta) {
 	$pendaftar_id = $dta['id'];
 	$desa_id = $dta['desa_id'];
 
@@ -100,7 +101,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 	$dwl = mysqli_fetch_assoc($data_wl);
 	$pmr = mysqli_fetch_assoc($periksa);
 	$des = mysqli_fetch_assoc($data_desa);
-	?>
+?>
 	<!-- MODAL DETAIL -->
 	<div class="modal fade" tabindex="-1" role="dialog" id="modal-detail<?= $dta['id'] ?>">
 		<div class="modal-dialog modal-lg" role="document">
@@ -132,7 +133,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 					</div>
 					<div class="row">
 						<b class="col-sm-4">Tanggal Nikah</b>
-						<span class="col-sm-8">: <?= date('d/m/Y', strtotime($dta['tggl_akad'])).' '.$dta['waktu_akad'] ?></span>
+						<span class="col-sm-8">: <?= date('d/m/Y', strtotime($dta['tggl_akad'])) . ' ' . $dta['waktu_akad'] ?></span>
 					</div>
 					<div class="row">
 						<b class="col-sm-4">Lokasi Nikah</b>
@@ -255,14 +256,14 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 					<hr>
 					<!-- Data Wali -->
 					<h6 class="mt-4"><b><u>Data Wali:</u></b></h6>
-					<div class="row">
+					<!-- <div class="row">
 						<b class="col-sm-4">NIK</b>
 						<span class="col-sm-8">: <?= $dwl['nik'] ?></span>
 					</div>
 					<div class="row">
 						<b class="col-sm-4">No KK</b>
 						<span class="col-sm-8">: <?= $dwl['no_kk'] ?></span>
-					</div>
+					</div> -->
 					<div class="row">
 						<b class="col-sm-4">Nama</b>
 						<span class="col-sm-8">: <?= $dwl['nama'] ?></span>
@@ -315,7 +316,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 						<?php
 						$penghulu_id = $dta['penghulu_id'];
 						$penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu WHERE id='$penghulu_id'");
-						$phl = mysqli_fetch_assoc($penghulu); 
+						$phl = mysqli_fetch_assoc($penghulu);
 						?>
 						<span class="col-sm-8">: <?= $phl['nama'] ?></span>
 					</div>
@@ -356,7 +357,9 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 			</div>
 		</div>
 		<dl>
-			<dt><h4><b>SUAMI</b></h4></dt>
+			<dt>
+				<h4><b>SUAMI</b></h4>
+			</dt>
 			<div class="row">
 				<ol style="width: 50%;">
 					<li>Nama lengkap dan alias</li>
@@ -374,7 +377,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 				</ol>
 				<ul style="width: 50%;" type="none">
 					<li>: <?= $dsm['nama'] ?></li>
-					<li>: <?= $dsm['tempat_lahir'].', '.date('d F Y', strtotime($dis['tggl_lahir'])) ?></li>
+					<li>: <?= $dsm['tempat_lahir'] . ', ' . date('d F Y', strtotime($dis['tggl_lahir'])) ?></li>
 					<li>: <?= $dsm['warga_negara'] ?></li>
 					<li>: <?= $dsm['agama'] ?></li>
 					<li>: <?= $dsm['pekerjaan'] ?></li>
@@ -386,7 +389,9 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 			</div>
 		</dl>
 		<dl>
-			<dt><h4><b>ISTRI</b></h4></dt>
+			<dt>
+				<h4><b>ISTRI</b></h4>
+			</dt>
 			<div class="row">
 				<ol style="width: 50%;">
 					<li>Nama lengkap dan alias</li>
@@ -404,7 +409,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 				</ol>
 				<ul style="width: 50%;" type="none">
 					<li>: <?= $dis['nama'] ?></li>
-					<li>: <?= $dis['tempat_lahir'].', '.date('d F Y', strtotime($dis['tggl_lahir'])) ?></li>
+					<li>: <?= $dis['tempat_lahir'] . ', ' . date('d F Y', strtotime($dis['tggl_lahir'])) ?></li>
 					<li>: <?= $dis['warga_negara'] ?></li>
 					<li>: <?= $dis['agama'] ?></li>
 					<li>: <?= $dis['pekerjaan'] ?></li>
@@ -416,7 +421,9 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 			</div>
 		</dl>
 		<dl>
-			<dt><h4><b>WALI NIKAH</b></h4></dt>
+			<dt>
+				<h4><b>WALI NIKAH</b></h4>
+			</dt>
 			<div class="row">
 				<ol style="width: 50%;">
 					<li>Status wali (nasab/hakim)</li>
@@ -433,7 +440,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 					<li>: <?= $dwl['hubungan'] ?></li>
 					<li>: <?= $dwl['nama'] ?></li>
 					<li>: <?= $dwl['bin'] ?></li>
-					<li>: <?= $dwl['tempat_lahir'].', '.date('d F Y', strtotime($dwl['tggl_lahir'])) ?></li>
+					<li>: <?= $dwl['tempat_lahir'] . ', ' . date('d F Y', strtotime($dwl['tggl_lahir'])) ?></li>
 					<li>: <?= $dwl['agama'] ?></li>
 					<li>: <?= $dwl['pekerjaan'] ?></li>
 					<li>: <?= $dwl['alamat'] ?></li>
@@ -441,14 +448,16 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 			</div>
 		</dl>
 		<dl>
-			<dt><h4><b>MAS KAWIN</b></h4></dt>
+			<dt>
+				<h4><b>MAS KAWIN</b></h4>
+			</dt>
 			<div class="row">
 				<ol style="width: 50%;">
 					<li>Berupa apa dan berapa)</li>
 					<li>Pembayaran (Tunai/Hutang)</li>
 				</ol>
 				<ul style="width: 50%;" type="none">
-					<li>: <?= $pmr['jenis_mk'].' ('.$pmr['jumlah_mk'].')' ?></li>
+					<li>: <?= $pmr['jenis_mk'] . ' (' . $pmr['jumlah_mk'] . ')' ?></li>
 					<li>: <?= $pmr['pembayaran_mk'] ?></li>
 				</ul>
 			</div>
@@ -477,14 +486,14 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 				</ul>
 			</div>
 		</dl>
-		
-			<div class="text-center" style="width: 50%; text-align: left; float: right;">Makassar, <?= date('d M Y') ?></div><br>
-	        <div class="text-center" style="width: 50%; text-align: left; float: right;">Sebagai Duplikat sesuai dengan akta nikahnya</div><br>
-	        <div class="text-center" style="width: 50%; text-align: left; float: right;">Pegawai Pencatatan Nikah Kecamatan Tallo</div><br><br><br><br><br>
-	        <div class="text-center" style="width: 50%; text-align: left; float: right;">Arbrian Abdul Jamal</div>
-        
+
+		<div class="text-center" style="width: 50%; text-align: left; float: right;">Makassar, <?= date('d M Y') ?></div><br>
+		<div class="text-center" style="width: 50%; text-align: left; float: right;">Sebagai Duplikat sesuai dengan akta nikahnya</div><br>
+		<div class="text-center" style="width: 50%; text-align: left; float: right;">Pegawai Pencatatan Nikah Kecamatan Tallo</div><br><br><br><br><br>
+		<div class="text-center" style="width: 50%; text-align: left; float: right;">Arbrian Abdul Jamal</div>
+
 	</div>
-<?php } 
+<?php }
 require('template/footer.php');
 ?>
 
@@ -495,7 +504,7 @@ require('template/footer.php');
 		$('.print-surat').click(function(e) {
 			e.preventDefault();
 			var id = $(this).attr('data-id');
-			$('#print-surat'+id).printArea();
+			$('#print-surat' + id).printArea();
 		});
 	});
 </script>

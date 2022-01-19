@@ -408,42 +408,5 @@ require('template/footer.php');
         $('#riwayat-permintaan').addClass('active');
         $('#permintaan-duplikat').addClass('active');
         $('#permintaan-duplikat').parent('.nav-item').addClass('menu-open');
-        <?php if ($response == 'success_add') { ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil Tambah Data',
-                text: 'Data baru berhasil ditambahkan',
-                preConfirm: () => {
-                    window.location.href = window.location.href;
-                }
-            });
-        <?php } else if ($response == 'success_edit') { ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil Mengupdate Data',
-                text: 'Data telah berhasil di update',
-                preConfirm: () => {
-                    window.location.href = window.location.href;
-                }
-            });
-        <?php } else if ($response == 'success_delete') { ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil Menghapus Data',
-                text: 'Data telah berhasil di hapus',
-                preConfirm: () => {
-                    window.location.href = window.location.href.split('?')[0];
-                }
-            });
-        <?php } else if ($response == 'error') { ?>
-            Swal.fire({
-                icon: 'error',
-                title: 'Terjadi Kesalahan',
-                text: 'Terjadi kesalahan. Gagal memproses data',
-                preConfirm: () => {
-                    window.location.href = window.location.href;
-                }
-            });
-        <?php } ?>
     });
 </script>

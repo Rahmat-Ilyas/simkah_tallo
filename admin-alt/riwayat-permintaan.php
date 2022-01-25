@@ -1,6 +1,17 @@
 <?php
 require('template/header.php');
 
+$response = null;
+// Terima Permintaan
+if (isset($_POST['update_status'])) {
+    $id = $_POST['id'];
+    $status = $_POST['status'];
+    $update = mysqli_query($conn, "UPDATE tb_pengajuan SET status='$status' WHERE id='$id'");
+
+    if ($update) $response = 'success_update';
+    else $response = 'error';
+}
+
 $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status!='ditinjau'");
 ?>
 
@@ -48,7 +59,7 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status!='diti
                                                 <th>Nama Istri</th>
                                                 <th>Status</th>
                                                 <th>Berkas Pengajuan</th>
-                                                <th>Aksi</th>
+                                                <th width="80">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -80,6 +91,7 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status!='diti
                                                         </td>
                                                         <td class="text-center">
                                                             <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-detail<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Detail Data Nikah"><i class="fa fa-list"></i></a>
+                                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-status<?= $dta['id'] ?>" data-toggle1="tooltip" data-original-title="Update Status"><i class="fa fa-edit"></i></a>
                                                         </td>
                                                     </tr>
                                             <?php $no = $no + 1;
@@ -396,6 +408,39 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status!='diti
                 </div>
             </div>
         </div>
+
+        <!-- MODAL STATUS -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="modal-status<?= $dta['id'] ?>">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Status</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="hidden" name="id" value="<?= $dta['id'] ?>">
+                                <label>Status</label>
+                                <select name="status" class="form-control" id="status<?= $dta['id'] ?>">
+                                    <option value="disetujui">Disetujui</option>
+                                    <option value="ditolak">Ditolak</option>
+                                </select>
+                            </div>
+                            <script>
+                                document.getElementById('status<?= $dta['id'] ?>').value = "<?= $dta['status'] ?>";
+                            </script>
+                        </div>
+                        <div class="modal-footer bg-whitesmoke br">
+                            <button type="submit" class="btn btn-primary" name="update_status">Update</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 <?php }
 } ?>
 
@@ -408,5 +453,16 @@ require('template/footer.php');
         $('#riwayat-permintaan').addClass('active');
         $('#permintaan-duplikat').addClass('active');
         $('#permintaan-duplikat').parent('.nav-item').addClass('menu-open');
+
+        <?php if ($response == 'success_update') { ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil Diproses',
+                text: 'Status permintaan berhasil diupdate',
+                preConfirm: () => {
+                    window.location.href = window.location.href.split('?')[0];
+                }
+            });
+        <?php } ?>
     });
 </script>

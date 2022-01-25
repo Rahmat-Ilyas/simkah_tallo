@@ -478,7 +478,8 @@ require('template/footer.php');
             $('#proccess-content').removeAttr('hidden');
         });
 
-        <?php if ($response == 'success_accept') { ?> Swal.fire({
+        <?php if ($response == 'success_accept') { ?>
+            Swal.fire({
                 icon: 'success',
                 title: 'Berhasil Diproses',
                 text: 'Data permintaan berhasil disetujui',
@@ -486,7 +487,8 @@ require('template/footer.php');
                     window.location.href = window.location.href.split('?')[0];
                 }
             });
-        <?php } else if ($response == 'success_refuse') { ?> Swal.fire({
+        <?php } else if ($response == 'success_refuse') { ?>
+            Swal.fire({
                 icon: 'success',
                 title: 'Berhasil Diproses',
                 text: 'Data permintaan berhasil ditolak',
@@ -494,7 +496,8 @@ require('template/footer.php');
                     window.location.href = window.location.href;
                 }
             });
-        <?php } else if ($response == 'error') { ?> Swal.fire({
+        <?php } else if ($response == 'error') { ?>
+            Swal.fire({
                 icon: 'error',
                 title: 'Terjadi Kesalahan',
                 text: 'Terjadi kesalahan. Gagal memproses data',

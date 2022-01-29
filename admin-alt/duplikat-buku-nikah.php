@@ -490,7 +490,7 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 		<div class="text-center" style="width: 50%; text-align: left; float: right;">Makassar, <?= date('d M Y') ?></div><br>
 		<div class="text-center" style="width: 50%; text-align: left; float: right;">Sebagai Duplikat sesuai dengan akta nikahnya</div><br>
 		<div class="text-center" style="width: 50%; text-align: left; float: right;">Pegawai Pencatatan Nikah Kecamatan Tallo</div><br><br><br><br><br>
-		<div class="text-center" style="width: 50%; text-align: left; float: right;">Arbrian Abdul Jamal</div>
+		<div class="text-center" style="width: 50%; text-align: left; float: right;"><u>SIRAJUDDIN, S.Ag., MA</u><br>NIP.19720421 200501 1 003</div>
 
 	</div>
 <?php }

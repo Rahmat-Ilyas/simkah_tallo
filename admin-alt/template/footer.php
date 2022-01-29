@@ -12,7 +12,7 @@
         <div class="modal-body px-5" style="margin-bottom: -20px;">
           <div class="form-group">
             <label>Username</label>
-            <input type="text" class="form-control" name="username" required autocomplete="off" placeholder="Username" value="<?=$adm['username'] ?>">
+            <input type="text" class="form-control" name="username" required autocomplete="off" placeholder="Username" value="<?= $adm['username'] ?>">
           </div>
           <div class="form-group">
             <label>Password</label>
@@ -29,7 +29,9 @@
   </div>
 </div>
 <footer class="main-footer">
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> Direktorat Jenderal Bimbingan Masyarakat Islam | All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://www.instagram.com/auliaulfiana/?hl=id" target="_blank">VIVI</a>
+  Copyright &copy;<script>
+    document.write(new Date().getFullYear());
+  </script> Direktorat Jenderal Bimbingan Masyarakat Islam | All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://www.instagram.com/auliaulfiana/?hl=id" target="_blank">VIVI</a>
 </footer>
 
 <!-- Control Sidebar -->
@@ -55,11 +57,11 @@
 <script src="plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
 <script src="plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+JQVMap
+<!-- <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
 <!-- jQuery Knob Chart -->
-<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- <script src="plugins/jquery-knob/jquery.knob.min.js"></script> -->
 <!-- daterangepicker -->
 <script src="plugins/moment/moment.min.js"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
@@ -74,7 +76,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
+<!-- <script src="dist/js/pages/dashboard.js"></script> -->
 <!-- DataTables  & Plugins -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -94,9 +96,11 @@
 
 <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <script>
-  $(function () {
+  $(function() {
     $("#dataTablelaporan").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "responsive": true,
+      "lengthChange": false,
+      "autoWidth": false,
       "buttons": ["excel", "pdf", "print", ]
     }).buttons().container().appendTo('#dataTablelaporan_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
@@ -110,20 +114,23 @@
     });
   });
   $(document).ready(function() {
-    $(document).tooltip({ selector: '[data-toggle1="tooltip"]' });
+    $(document).tooltip({
+      selector: '[data-toggle1="tooltip"]'
+    });
     $('#dataTable').DataTable();
   });
 </script>
 </body>
+
 </html>
 
-<?php 
+<?php
 // Update Akun
 if (isset($_POST['update_akun'])) {
   $id = $adm['id'];
   $username = $_POST['username'];
   $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-  if ($_POST['password'] != '') 
+  if ($_POST['password'] != '')
     $query_updt = "UPDATE tb_admin SET username='$username', password='$password' WHERE id='$id'";
   else
     $query_updt = "UPDATE tb_admin SET username='$username' WHERE id='$id'";
@@ -136,10 +143,10 @@ if (isset($_POST['update_akun'])) {
         title: 'Update Berhasil',
         text: 'Akun Login berhasil di update',
         preConfirm: () => {
-          window.location.href=window.location.href;
+          window.location.href = window.location.href;
         }
       });
     </script>
-  <?php }
+<?php }
 }
 ?>

@@ -1,17 +1,18 @@
-<?php 
+<?php
 require('config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="generator" content="Codeply">
 	<link rel="icon" href="img/logo.png" type="image/png">
 	<title>SIMKAH TALLO</title>
-	<base target="_self"> 
+	<base target="_self">
 
-	<link rel="stylesheet" href="css/normalize.min.css">  
+	<link rel="stylesheet" href="css/normalize.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 
@@ -36,14 +37,11 @@ require('config.php');
 				</ul>
 				<ul class="nav pull-right navbar-nav">
 					<li>
-						<a href="admin/login.php"><i class="fa fa-sign-in"></i> LOGIN</a>
+						<a href="user/login.php"><i class="fa fa-sign-in"></i> LOGIN</a>
 
 					</li>
 				</ul>
-			</div>		
+			</div>
 		</div>
 	</div>
 	<!-- akhir navbar -->
-
-
-	

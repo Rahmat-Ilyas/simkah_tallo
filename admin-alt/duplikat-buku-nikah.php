@@ -502,7 +502,7 @@ require('template/footer.php');
 	$(document).ready(function() {
 		$('#duplikat-buku-nikah').addClass('active');
 
-		$('.print-surat').click(function(e) {
+		$(document).on('click', '.print-surat', function(e) {
 			e.preventDefault();
 			var id = $(this).attr('data-id');
 			$('#print-surat' + id).printArea();

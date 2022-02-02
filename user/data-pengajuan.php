@@ -256,7 +256,7 @@ $get_data = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE user_id='$user
         </dt>
         <div class="row">
             <ol style="width: 50%;">
-                <li>Berupa apa dan berapa)</li>
+                <li>Berupa apa dan berapa</li>
                 <li>Pembayaran (Tunai/Hutang)</li>
             </ol>
             <ul style="width: 50%;" type="none">
@@ -270,7 +270,7 @@ $get_data = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE user_id='$user
         <dt><b>II. Perjanjian Perkawinan</b></dt>
         <div class="row">
             <ol style="width: 50%;" type="none">
-                <li>Jika ada perjanjian sebutkan)</li>
+                <li>Jika ada perjanjian sebutkan</li>
             </ol>
             <ul style="width: 50%;" type="none">
                 <li>: -</li>

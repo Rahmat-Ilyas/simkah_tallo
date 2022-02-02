@@ -1,7 +1,28 @@
-<?php  
+<?php
 require('template/header.php');
 
-$pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar ORDER BY id DESC");
+function get_data($bulan)
+{
+	global $conn;
+	$pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status!='ditinjau'");
+	$result = [];
+	foreach ($pengajuan as $res) {
+		$get_bulan = date('Y-m', strtotime($res['tggl_pengajuan']));
+		if ($get_bulan == $bulan) {
+			$result[] = $res;
+		}
+	}
+
+	return $result;
+}
+
+$get_data = get_data(date('Y-m'));
+
+if (isset($_GET['bulan'])) {
+	$bln = $_GET['bulan'];
+	$get_data = get_data($bln);
+}
+
 ?>
 
 <div class="content-wrapper">
@@ -30,60 +51,56 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar ORDER BY id DESC");
 					<div class="col-12">
 						<div class="card">
 							<div class="card-header">
-								<h3>Arsip Data Lapoaran Pendaftar</h3>
+								<h3>Arsip Data Lapoaran Pengajuan</h3>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body">
+								<div class="row mb-2">
+									<div class="col-3">
+										<label for="">Pilih Priode Laporan:</label>
+										<input type="month" id="priode" class="form-control" value="<?= date('Y-m') ?>">
+									</div>
+								</div>
 								<table id="dataTablelaporan" class="table table-bordered table-striped">
 									<thead>
 										<tr>
 											<th width="1">No</th>
-											<th width="120">No Pendaftarn</th>
-											<th>Tggl Pendaftaran</th>
+											<th>Tggl Pengajuan</th>
+											<th>Email</th>
+											<th>NIK Suami</th>
 											<th>Nama Suami</th>
+											<th>NIK Istri</th>
 											<th>Nama Istri</th>
-											<th>Nama Wali</th>
-											<th>Tggl Akad</th>
 											<th>Status</th>
 										</tr>
 									</thead>
 									<tbody>
-										<?php $no=1; foreach ($pendaftar as $dta) { 
-											$pendaftar_id = $dta['id'];
+										<?php $no = 1;
+										foreach ($get_data as $dta) {
+											$pendaftar_id = $dta['pendaftar_id'];
+											$user_id = $dta['user_id'];
 											$data_sm = mysqli_query($conn, "SELECT * FROM tb_data_suami WHERE pendaftar_id='$pendaftar_id'");
 											$data_is = mysqli_query($conn, "SELECT * FROM tb_data_istri WHERE pendaftar_id='$pendaftar_id'");
-											$data_wl = mysqli_query($conn, "SELECT * FROM tb_data_wali WHERE pendaftar_id='$pendaftar_id'");
+											$user = mysqli_query($conn, "SELECT * FROM tb_user WHERE id='$user_id'");
 											$dsm = mysqli_fetch_assoc($data_sm);
 											$dis = mysqli_fetch_assoc($data_is);
-											$dwl = mysqli_fetch_assoc($data_wl);
-
-											if ($dta['status'] == 'new') {
-												$status = 'Baru';
-												$warna = 'info';
-											} else if ($dta['status'] == 'acc') {
-												$status = 'Proses';
-												$warna = 'primary';
-											} else if ($dta['status'] == 'finish') {
-												$status = 'Selesai';
-												$warna = 'success';
-											} else if ($dta['status'] == 'refuse') {
-												$status = 'Ditolak';
-												$warna = 'danger';
+											$usr = mysqli_fetch_assoc($user);
+											if (isset($dsm['id']) && isset($dis['id'])) {
+										?>
+												<tr>
+													<td><?= $no ?></td>
+													<td><?= date('d/m/Y', strtotime($dta['tggl_pengajuan'])) ?></td>
+													<td><?= $usr['email'] ?></td>
+													<td><?= $dsm['nik'] ?></td>
+													<td><?= $dsm['nama'] ?></td>
+													<td><?= $dis['nik'] ?></td>
+													<td><?= $dis['nama'] ?></td>
+													<td>
+														<span class="badge badge-<?= $dta['status'] == 'disetujui' ? 'success' : 'danger' ?>"><?= strtoupper($dta['status']) ?></span>
+													</td>
+												</tr>
+										<?php $no = $no + 1;
 											}
-											?>
-											<tr>
-												<td><?= $no ?></td>
-												<td><?= $dta['no_pendaftarn'] ?></td>
-												<td><?= date('d/m/Y', strtotime($dta['tanggal_daftar'])) ?></td>
-												<td><?= $dsm['nama'] ?></td>
-												<td><?= $dis['nama'] ?></td>
-												<td><?= $dwl['nama'] ?></td>
-												<td><?= date('d/m/Y', strtotime($dta['tggl_akad'])).' '.$dta['waktu_akad'] ?></td>
-												<td>
-													<span class="badge badge-pill badge-<?= $warna ?>"><?= $status ?></span>
-												</td>
-											</tr>
-											<?php $no=$no+1; 
 										} ?>
 									</tbody>
 								</table>
@@ -98,12 +115,24 @@ $pendaftar = mysqli_query($conn, "SELECT * FROM tb_pendaftar ORDER BY id DESC");
 </div>
 
 
-<?php  
+<?php
 require('template/footer.php');
 ?>
 
 <script>
 	$(document).ready(function() {
 		$('#laporan').addClass('active');
+
+		$('#priode').change(function(e) {
+			e.preventDefault();
+
+			var bulan = $(this).val();
+			window.location.href = "laporan.php?bulan=" + bulan;
+		});
+
+		<?php if (isset($_GET['bulan'])) {
+			$bln = $_GET['bulan']; ?>
+			$('#priode').val("<?= $bln ?>");
+		<?php } ?>
 	});
 </script>

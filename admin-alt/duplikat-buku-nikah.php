@@ -457,7 +457,8 @@ $penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 					<li>Pembayaran (Tunai/Hutang)</li>
 				</ol>
 				<ul style="width: 50%;" type="none">
-					<li>: <?= $pmr['jenis_mk'] . ' (' . $pmr['jumlah_mk'] . ')' ?></li>
+					<li>: <?= $pmr['jenis_mk'] ?></li>
+					<!-- <li>: <?= $pmr['jenis_mk'] . ' (' . $pmr['jumlah_mk'] . ')' ?></li> -->
 					<li>: <?= $pmr['pembayaran_mk'] ?></li>
 				</ul>
 			</div>

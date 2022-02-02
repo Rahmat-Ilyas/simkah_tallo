@@ -1,4 +1,4 @@
-<?php  
+<?php
 require('template/header.php');
 
 if (!isset($_GET['data_id'])) {
@@ -23,13 +23,14 @@ $pmr = mysqli_fetch_assoc($pmriksn);
 $response = null;
 if (isset($_POST['edit_data'])) {
 	// data pendaftaran
+	$no_pendaftarn = $_POST['no_pendaftarn'];
 	$desa_id = $_POST['desa_id'];
 	$penghulu_id = $_POST['penghulu_id'];
 	$tempat_nikah = $_POST['tempat_nikah'];
 	$tggl_akad = $_POST['tggl_akad'];
 	$lokasi_nikah = $_POST['lokasi_nikah'];
 	$tanggal_daftar = date('Y-m-d');
-	mysqli_query($conn, "UPDATE tb_pendaftar SET desa_id='$desa_id', penghulu_id='$penghulu_id', tempat_nikah='$tempat_nikah', tggl_akad='$tggl_akad', lokasi_nikah='$lokasi_nikah' WHERE id='$pendaftar_id'");
+	mysqli_query($conn, "UPDATE tb_pendaftar SET no_pendaftarn='$no_pendaftarn', desa_id='$desa_id', penghulu_id='$penghulu_id', tempat_nikah='$tempat_nikah', tggl_akad='$tggl_akad', lokasi_nikah='$lokasi_nikah' WHERE id='$pendaftar_id'");
 
 	// data suami
 	$warga_negara_sm = $_POST['warga_negara_sm'];
@@ -125,11 +126,17 @@ if (isset($_POST['edit_data'])) {
 										<div class="modal-body px-5" style="margin-bottom: -20px;">
 											<h4>Data Nikah</h4>
 											<div class="mb-3 row">
+												<label class="col-sm-3 col-form-label">Nomor Akta Nikah</label>
+												<div class="col-sm-9">
+													<input class="form-control" id="no_pendaftarn" name="no_pendaftarn" type="text" placeholder="Nomor Akta Nikah" value="<?= $dta['no_pendaftarn'] ?>">
+												</div>
+											</div>
+											<div class="mb-3 row">
 												<label for="" class="col-sm-3 col-form-label">Kelurahan/Desa</label>
 												<div class="col-sm-9">
 													<select class="form-control" id="desa_id" name="desa_id">
 														<option value="">--Pilih Desa/Kelurahan--</option>
-														<?php 
+														<?php
 														$desa = mysqli_query($conn, "SELECT * FROM tb_desa");
 														foreach ($desa as $dsa) { ?>
 															<option value="<?= $dsa['id'] ?>"><?= $dsa['nama_desa'] ?></option>
@@ -137,7 +144,7 @@ if (isset($_POST['edit_data'])) {
 													</select>
 												</div>
 												<script>
-													document.getElementById('desa_id').value="<?= $dta['desa_id'] ?>";
+													document.getElementById('desa_id').value = "<?= $dta['desa_id'] ?>";
 												</script>
 											</div>
 											<div class="mb-3 row">
@@ -149,7 +156,7 @@ if (isset($_POST['edit_data'])) {
 													</select>
 												</div>
 												<script>
-													document.getElementById('tempat_nikah').value="<?= $dta['tempat_nikah'] ?>";
+													document.getElementById('tempat_nikah').value = "<?= $dta['tempat_nikah'] ?>";
 												</script>
 											</div>
 											<div class="mb-3 row">
@@ -180,7 +187,7 @@ if (isset($_POST['edit_data'])) {
 													</select>
 												</div>
 												<script>
-													document.getElementById('warga_negara_sm').value="<?= $dsm['warga_negara'] ?>";
+													document.getElementById('warga_negara_sm').value = "<?= $dsm['warga_negara'] ?>";
 												</script>
 											</div>
 											<div class="mb-3 row">
@@ -233,7 +240,7 @@ if (isset($_POST['edit_data'])) {
 													</select>
 												</div>
 												<script>
-													document.getElementById('status_suami').value="<?= $dsm['status'] ?>";
+													document.getElementById('status_suami').value = "<?= $dsm['status'] ?>";
 												</script>
 											</div>
 											<div class="mb-3 row">
@@ -275,7 +282,7 @@ if (isset($_POST['edit_data'])) {
 													</select>
 												</div>
 												<script>
-													document.getElementById('warga_negara_is').value="<?= $dis['warga_negara'] ?>";
+													document.getElementById('warga_negara_is').value = "<?= $dis['warga_negara'] ?>";
 												</script>
 											</div>
 											<div class="mb-3 row">
@@ -327,7 +334,7 @@ if (isset($_POST['edit_data'])) {
 													</select>
 												</div>
 												<script>
-													document.getElementById('status_istri').value="<?= $dis['status'] ?>";
+													document.getElementById('status_istri').value = "<?= $dis['status'] ?>";
 												</script>
 											</div>
 											<div class="mb-3 row">
@@ -387,7 +394,7 @@ if (isset($_POST['edit_data'])) {
 													</select>
 												</div>
 												<script>
-													document.getElementById('status_wali').value="<?= $dwl['status'] ?>";
+													document.getElementById('status_wali').value = "<?= $dwl['status'] ?>";
 												</script>
 											</div>
 											<div class="mb-3 row">
@@ -456,7 +463,7 @@ if (isset($_POST['edit_data'])) {
 												<div class="col-sm-9">
 													<select class="form-control" name="penghulu_id" id="penghuluId" required>
 														<option value="">--Penghulu--</option>
-														<?php 
+														<?php
 														$penghulu = mysqli_query($conn, "SELECT * FROM tb_penghulu");
 														foreach ($penghulu as $pngh) { ?>
 															<option value="<?= $pngh['id'] ?>"><?= $pngh['nama'] ?></option>
@@ -464,7 +471,7 @@ if (isset($_POST['edit_data'])) {
 													</select>
 												</div>
 												<script>
-													document.getElementById('penghuluId').value="<?= $dta['penghulu_id'] ?>";
+													document.getElementById('penghuluId').value = "<?= $dta['penghulu_id'] ?>";
 												</script>
 											</div>
 											<div class="mb-3 row">
@@ -488,7 +495,7 @@ if (isset($_POST['edit_data'])) {
 													</select>
 												</div>
 												<script>
-													document.getElementById('pembayaran_mk').value="<?= $pmr['pembayaran_mk'] ?>";
+													document.getElementById('pembayaran_mk').value = "<?= $pmr['pembayaran_mk'] ?>";
 												</script>
 											</div>
 										</div>
@@ -510,7 +517,7 @@ if (isset($_POST['edit_data'])) {
 </div>
 
 
-<?php  
+<?php
 require('template/footer.php');
 ?>
 
@@ -520,14 +527,14 @@ require('template/footer.php');
 		$('#input-data-pendaftar').addClass('active');
 		$('#input-data-pendaftar').parent('.nav-item').addClass('menu-open');
 
-		window.onload=function() {
+		window.onload = function() {
 			$('.umur').on('change', function() {
 				var dob = new Date(this.value);
 				var today = new Date();
-				var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-            // $('.result').val(age);
-            $(this).parents('.find-umur').find('.result').val(age);
-         });
+				var age = Math.floor((today - dob) / (365.25 * 24 * 60 * 60 * 1000));
+				// $('.result').val(age);
+				$(this).parents('.find-umur').find('.result').val(age);
+			});
 		}
 
 		<?php if ($response == 'success_edit') { ?>
@@ -536,7 +543,7 @@ require('template/footer.php');
 				title: 'Berhasil Edit Data',
 				text: 'Data Nikah berhasil diedit',
 				preConfirm: () => {
-					window.location.href='data-nikah.php';
+					window.location.href = 'data-nikah.php';
 				}
 			});
 		<?php } ?>

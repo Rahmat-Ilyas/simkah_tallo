@@ -4,7 +4,7 @@ require('template/header.php');
 $response = null;
 if (isset($_POST['store_data'])) {
 	// data pendaftaran
-	$no_pendaftarn = NULL;
+	$no_pendaftarn = $_POST['no_pendaftarn'];
 	$desa_id = $_POST['desa_id'];
 	$tempat_nikah = $_POST['tempat_nikah'];
 	$tggl_akad = $_POST['tggl_akad'];
@@ -64,7 +64,7 @@ if (isset($_POST['store_data'])) {
 	$nama_ai = $_POST['nama_ai'];
 	$nama_ii = $_POST['nama_ii'];
 	$jenis_mk = $_POST['jenis_mk'];
-	$jumlah_mk = $_POST['jumlah_mk'];
+	$jumlah_mk = NULL;
 	$pembayaran_mk = $_POST['pembayaran_mk'];
 	$penghulu_id = $_POST['penghulu_id'];
 
@@ -138,6 +138,10 @@ if (isset($_POST['store_data'])) {
 											<!-- step 1 -->
 											<fieldset>
 												<h4>Tempat Nikah</h4>
+												<div class="form-group">
+													<label>Nomor Akta Nikah</label>
+													<input class="form-control" id="no_pendaftarn" name="no_pendaftarn" type="text" placeholder="Nomor Akta Nikah">
+												</div>
 												<div class="form-group">
 													<label>Kelurahan/Desa</label>
 													<select class="form-control" id="desa_id" name="desa_id">
@@ -394,10 +398,10 @@ if (isset($_POST['store_data'])) {
 													<label>Jenis Mas Kawin</label>
 													<input type="text" class="form-control" name="jenis_mk" required autocomplete="off" placeholder="Jenis Mas Kawin" value="">
 												</div>
-												<div class="form-group">
+												<!-- <div class="form-group">
 													<label>Jumlah Mas Kawin</label>
 													<input type="text" class="form-control" name="jumlah_mk" required autocomplete="off" placeholder="Jumlah Mas Kawin" value="">
-												</div>
+												</div> -->
 												<div class="form-group">
 													<label>Pembayaran</label>
 													<select class="form-control" name="pembayaran_mk" required>

@@ -187,12 +187,12 @@ $adm = mysqli_fetch_assoc($admin);
               </li> -->
               </ul>
             </li>
-            <!-- <li class="nav-item">
-            <a href="laporan.php" class="nav-link" id="laporan">
-              <i class="nav-icon fas fa-file-pdf"></i>
-              <p>Laporan</p>
-            </a>
-          </li> -->
+            <li class="nav-item">
+              <a href="laporan.php" class="nav-link" id="laporan">
+                <i class="nav-icon fas fa-file-pdf"></i>
+                <p>Laporan</p>
+              </a>
+            </li>
             <li class="nav-header">MANAGE ACCOUNT</li>
             <li class="nav-item">
               <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-edt-akun">

@@ -37,7 +37,7 @@ if (isset($_POST['kirim'])) {
     }
 
     $tggl_pengajuan = date('Y-m-d');
-    $ket_hilang = NULL;
+    $ket_hilang = set_foto($_FILES['ket_hilang'], 'ket_hilang-' . $pendaftar_id);
     $scan_kk = set_foto($_FILES['scan_kk'], 'scan_kk-' . $pendaftar_id);
     $scan_ktp = set_foto($_FILES['scan_ktp'], 'scan_ktp-' . $pendaftar_id);
     $swafoto_suami = set_foto($_FILES['swafoto_suami'], 'swafoto_suami-' . $pendaftar_id);
@@ -191,12 +191,12 @@ function set_foto($data, $file)
                                             </div>
                                             <hr>
                                             <h5 class="text-center mb-3"><b><u>Berkas Pengajuan</u></b></h5>
-                                            <!-- <div class="form-group row">
+                                            <div class="form-group row">
                                                 <label class="col-3">Surat Keterangan Hilang</label>
                                                 <div class="col-9">
                                                     <input type="file" class="form-control" required="" name="ket_hilang">
                                                 </div>
-                                            </div> -->
+                                            </div>
                                             <div class="form-group row">
                                                 <label class="col-3">Scan Kartu Keluarga</label>
                                                 <div class="col-9">

@@ -7,13 +7,22 @@ require('layout/header.php');
         <div class="container">
             <div class="banner_content">
                 <p class="upper_text">SELAMAT DATANG</p>
-                <h2>DI SIMKAH</h2>
-                <p>
-                    DIREKTORAT JENDERAL BIMBINGAN MASYARAKAT ISLAM
-                    KEMENTERIAN AGAMA REPUBLIK INDONESIA
-                </p>
+                <h2 style="margin-bottom: -10px;">DI SIMKAH TALLO</h2>
+                <!-- <h3>Sistem Informasi Manajemen Nikah</h3> -->
+                <h3 class="mt-0" style="text-shadow: 2px 2px grey;">
+                    SISTEM INFORMASI MANAJEMEN NIKAH <br>
+                </h3>
+                <h3 class="mt-0 mb-5" style="text-shadow: 2px 2px grey; margin-bottom: 80px;">
+                    Jl. Teuku Umar 11 No.25, Kaluku Bodoa, Kec. Tallo, Kota Makassar
+                </h3>
+                <hr>
+                <div class="alert alert-info" role="alert">
+
+                    Sistem ini dapat digunakan oleh masyarakat yang kehilangan atau kerusakan buku nikah untuk mengajukan permintaan duplikat buku nikah. Silahkan <b>Klik tombol</b> dibawah ini untuk melanjutkan pengajuan permintaan duplikat buku nikah
+
+                </div>
                 <!-- <a class="primary_btn mr-20" href="#">Survei</a> -->
-                <a class="primary_btn yellow_btn text-white" href="user/daftar.php">Pengajuan Permintaan Duplikat Buku
+                <a href="user/daftar.php" class="primary_btn">Pengajuan Permintaan Duplikat Buku
                     Nikah</a>
             </div>
         </div>

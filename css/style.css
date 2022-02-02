@@ -83,8 +83,9 @@ html,body {
                     cursor: pointer;
                     transition: all 300ms linear 0s; }
                     .primary_btn:hover {
-                      background: transparent;
-                      color: #11772D; }
+                      background: #04AA6D;
+                      color: #FFF;
+                      text-decoration:none; }
                       .primary_btn.yellow_btn {
                         background: #fdbb00 !important;
                         border: 1px solid #fdbb00 !important;

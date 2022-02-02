@@ -383,9 +383,9 @@ $pengajuan = mysqli_query($conn, "SELECT * FROM tb_pengajuan WHERE status='ditin
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-7">
-                                    <!-- <b>Surat Keterangan Hilang</b>
+                                    <b>Surat Keterangan Hilang</b>
                                     <img src="../img/dokumen/<?= $dta['ket_hilang'] ?>" style="width: 100%;">
-                                    <hr> -->
+                                    <hr>
                                     <b>Scen Kartu Keluarga</b>
                                     <img src="../img/dokumen/<?= $dta['scan_kk'] ?>" style="width: 100%;">
                                     <hr>

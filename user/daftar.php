@@ -192,36 +192,30 @@ function set_foto($data, $file)
                                             <hr>
                                             <h5 class="text-center mb-3"><b><u>Berkas Pengajuan</u></b></h5>
                                             <div class="form-group row">
-                                                <label class="col-3">Surat Keterangan Hilang</label>
+                                                <label class="col-3"><b class="text-danger">*</b> Surat Keterangan Hilang</label>
                                                 <div class="col-9">
                                                     <input type="file" class="form-control" required="" name="ket_hilang">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-3">Scan Kartu Keluarga</label>
+                                                <label class="col-3"><b class="text-danger">*</b> Scan Kartu Keluarga</label>
                                                 <div class="col-9">
                                                     <input type="file" class="form-control" required="" name="scan_kk">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-3">Scan KTP</label>
+                                                <label class="col-3"><b class="text-danger">*</b> Scan KTP</label>
                                                 <div class="col-9">
                                                     <input type="file" class="form-control" required="" name="scan_ktp">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-3">Swafoto</label>
+                                                <label class="col-3"><b class="text-danger">*</b> Swafoto</label>
                                                 <div class="col-9">
                                                     <input type="file" class="form-control" required="" name="swafoto_suami">
+                                                    <span class="text-danger">* Dokumen persyaratan wajib dilampirkan</span>
                                                 </div>
                                             </div>
-                                            <!-- <div class="form-group row">
-                                                <label class="col-3">Swafoto Istri</label>
-                                                <div class="col-9">
-                                                    <input type="file" class="form-control" required="" name="swafoto_istri">
-                                                </div>
-                                            </div> -->
-
                                             <div class="row">
                                                 <div class="col-3"></div>
                                                 <div class="col-9">
